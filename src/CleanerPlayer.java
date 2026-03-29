@@ -36,7 +36,8 @@ public class CleanerPlayer extends Player {
     public void performCleaning(Snowplow plow) {
         Skeleton.instance.methodCall(this, "performCleaning", "plow", plow);
         if (plow != null) {
-            plow.work();
+            //CSAK TESZT
+            plow.work(new Road(new Intersection("a"), new Intersection("b")));
         }
         Skeleton.instance.methodReturn(this, "performCleaning");
     }

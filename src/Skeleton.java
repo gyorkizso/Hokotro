@@ -1,11 +1,12 @@
 import java.io.Console;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Skeleton {
     public static Skeleton instance;
-    public Map<Object, String> names;
+    public Map<Object, String> names = new HashMap<>();
     Scanner scanner;
 
     Skeleton(){
@@ -47,7 +48,7 @@ public class Skeleton {
 
     int getListSelectionFromUser(List<String> options){
         for (int i = 0; i < options.size(); i++){
-            System.out.printf("%i. %s%n", i, options.get(i));
+            System.out.printf("%d. %s%n", i, options.get(i));
         }
         System.out.print("Kérem válasszon a fentiek közül:");
         return Integer.parseInt(scanner.nextLine());
@@ -65,7 +66,7 @@ public class Skeleton {
         System.out.printf("%s típusú objektum létrehozva %s névvel", type, name);
         if (args.length != 0){
             System.out.print(", ezekkel a konstruktor paraméterekkel: ");
-            for (int j = 0; j < args.length; j++) {
+            for (int j = 0; j < args.length; j+=2) {
                 Object paramName = args[j];
                 Object value = args[Math.min(j+1, args.length-1)];
                 System.out.printf("%s=%s, ", paramName, names.containsKey(value) ? names.get(value) : value);
