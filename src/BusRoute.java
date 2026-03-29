@@ -94,4 +94,13 @@ public class BusRoute {
         int finalReward = baseReward + collectedBonus;
         finalReward = finalReward;
     }
+
+    /**
+    * Visszaadja a járat teljesítéséért járó jutalom összegét.
+    *
+    * @return a járat teljesítéséért járó jutalom összege
+    */
+    public int getReward() {
+        return baseReward + collectedBonus;
+    }
 }

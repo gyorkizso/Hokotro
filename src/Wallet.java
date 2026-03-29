@@ -46,4 +46,13 @@ public class Wallet {
 
         return false;
     }
+
+    /**
+     * Visszaadja az aktuális egyenleget.
+     *
+     * @return a jelenlegi egyenleg
+     */
+    public int getFunds() {
+        return balance;
+    }
 }
