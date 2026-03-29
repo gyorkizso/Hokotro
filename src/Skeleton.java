@@ -1,11 +1,16 @@
+import java.io.Console;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Skeleton {
+    public static Skeleton instance;
+    public Map<Object, String> names;
     Scanner scanner;
 
     Skeleton(){
         scanner = new Scanner(System.in);
+        instance = this;
     }
 
     String getStringFromUser(String paramName, String extra){
@@ -46,6 +51,49 @@ public class Skeleton {
         }
         System.out.print("Kérem válasszon a fentiek közül:");
         return Integer.parseInt(scanner.nextLine());
+    }
+
+    public void createObject(Object o, Object... args) {
+        String type = o.getClass().getTypeName();
+        int i = 1;
+        while (names.containsValue(type+i)){
+            i++;
+        }
+        String name = type+i;
+        names.put(o, name);
+
+        System.out.printf("%s típusú objektum létrehozva %s névvel", type, name);
+        if (args.length != 0){
+            System.out.print(", ezekkel a konstruktor paraméterekkel: ");
+            for (int j = 0; j < args.length; j++) {
+                Object paramName = args[j];
+                Object value = args[Math.min(j+1, args.length-1)];
+                System.out.printf("%s=%s, ", paramName, names.containsKey(value) ? names.get(value) : value);
+            }
+        }
+        System.out.print("\n");
+    }
+
+    public void methodCall(Object o, String methodName, Object... args){
+        System.out.printf("%s.%s(", names.get(o), methodName);
+        for (int j = 0; j < args.length; j+=2) {
+            Object paramName = args[j];
+            Object value = args[Math.min(j+1, args.length-1)];
+                System.out.printf("%s=%s, ", paramName, names.containsKey(value) ? names.get(value) : value);
+        }
+        System.out.print(") meghívva\n");
+    }
+
+    public void methodReturn(Object o, String methodName, Object returnValue) {
+        System.out.printf("%s.%s visszatért", names.get(o), methodName);
+        if (returnValue != null){
+            System.out.printf(" %s értékkel", names.containsKey(returnValue) ? names.get(returnValue) : returnValue);
+        }
+        System.out.print("\n");
+    }
+
+    public void methodReturn(Object o, String methodName) {
+        methodReturn(o, methodName, null);
     }
 
     public void testMatchStart(){
