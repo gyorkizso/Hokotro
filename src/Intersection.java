@@ -28,6 +28,7 @@ public class Intersection {
      * @param id a kereszteződés azonosítója
      */
     public Intersection(String id) {
+        Skeleton.instance.createObject(this, "id", id);
         this.id = id;
         this.connectedRoads = new ArrayList<Road>();
     }
@@ -38,8 +39,10 @@ public class Intersection {
      * @param r a csatlakoztatandó út
      */
     public void connectRoad(Road r) {
+        Skeleton.instance.methodCall(this,"connectRoad", "road", r);
         if (r != null) {
             connectedRoads.add(r);
         }
+        Skeleton.instance.methodReturn(this, "connectRoad");
     }
 }

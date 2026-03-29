@@ -18,6 +18,7 @@ public class Car extends Vehicle {
      */
     public Car(Lane currentLane, Player owner, Object destination, int speed) {
         super(currentLane, owner, destination, speed);
+        Skeleton.instance.createObject(this, "currentLane",currentLane,"owner",owner,"destination",destination,"speed",speed);
     }
 
     /**
@@ -27,7 +28,9 @@ public class Car extends Vehicle {
      * útvonalat, hanem a hívható felület része.
      */
     public void executeTurn() {
+        Skeleton.instance.methodCall(this,"executeTurn");
         // Skeleton implementáció: nincs valódi útvonaltervezés.
+        Skeleton.instance.methodReturn(this,"executeTurn");
     }
 
     /**
@@ -37,6 +40,8 @@ public class Car extends Vehicle {
      * nélkül.
      */
     public void onCollision() {
+        Skeleton.instance.methodCall(this,"onCollision");
         // Skeleton implementáció: nincs valódi ütközéskezelés.
+        Skeleton.instance.methodReturn(this,"onCollision");
     }
 }

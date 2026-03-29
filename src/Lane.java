@@ -24,6 +24,7 @@ public class Lane {
      * Létrehoz egy új sávot.
      */
     public Lane() {
+        Skeleton.instance.createObject(this);
         snowAmount = 0;
         iceAmount = 0;
         laneStates = new ArrayList<LaneState>();
@@ -37,6 +38,7 @@ public class Lane {
      * @param v az érkező jármű
      */
     public void acceptVehicle(Vehicle v) {
+        Skeleton.instance.methodCall(this,"acceptVehicle", "vehicle", v);
         int i;
 
         if (v != null) {
@@ -45,6 +47,7 @@ public class Lane {
                 laneStates.get(i).onVehicleEnter(v);
             }
         }
+        Skeleton.instance.methodReturn(this, "acceptVehicle");
     }
 
     /**
@@ -53,6 +56,7 @@ public class Lane {
      * @param amount a hozzáadandó hómennyiség
      */
     public void receiveSnow(int amount) {
+        Skeleton.instance.methodCall(this,"receiveSnow", "amount", amount);
         int i;
 
         if (amount > 0) {
@@ -61,6 +65,7 @@ public class Lane {
                 laneStates.get(i).onSnowfall(amount);
             }
         }
+        Skeleton.instance.methodReturn(this, "receiveSnow");
     }
 
     /**
@@ -70,6 +75,7 @@ public class Lane {
      * @param head a tisztítást végző fej
      */
     public void clean(PlowHead head) {
+        Skeleton.instance.methodCall(this,"clean","head",head);
         int i;
 
         if (head != null) {
@@ -77,6 +83,7 @@ public class Lane {
                 laneStates.get(i).onCleaned();
             }
         }
+        Skeleton.instance.methodReturn(this, "clean");
     }
 
     /**
@@ -86,12 +93,14 @@ public class Lane {
      * @param newState az új állapot
      */
     public void replaceLaneState(LaneState oldState, LaneState newState) {
+        Skeleton.instance.methodCall(this,"replaceLaneState", "oldState",oldState,"newState", newState);
         int index;
 
         index = laneStates.indexOf(oldState);
         if (index >= 0 && newState != null) {
             laneStates.set(index, newState);
         }
+        Skeleton.instance.methodReturn(this, "replaceLaneState");
     }
 
     /**
@@ -100,6 +109,8 @@ public class Lane {
      * @param newState a hozzáadandó állapot
      */
     public void addLaneState(LaneState newState) {
+        Skeleton.instance.methodCall(this,"addLaneState", "newState",newState);
+        Skeleton.instance.methodReturn(this, "addLaneState");
         if (newState != null) {
             laneStates.add(newState);
         }
@@ -111,6 +122,8 @@ public class Lane {
      * @param oldState az eltávolítandó állapot
      */
     public void removeLaneState(LaneState oldState) {
+        Skeleton.instance.methodCall(this,"removeLaneState","oldState", oldState);
+        Skeleton.instance.methodReturn(this, "removeLaneState");
         laneStates.remove(oldState);
     }
 
@@ -118,7 +131,9 @@ public class Lane {
      * A sáv inaktívvá válik.
      */
     public void deactivateLane() {
+        Skeleton.instance.methodCall(this,"deactivateLane");
         active = false;
+        Skeleton.instance.methodReturn(this, "deactivateLane");
     }
 
     /**
@@ -130,6 +145,8 @@ public class Lane {
      * @return az aktuális hómennyiség
      */
     public int getSnowAmount() {
+        Skeleton.instance.methodCall(this,"getSnowAmount");
+        Skeleton.instance.methodReturn(this, "getSnowAmount",snowAmount);
         return snowAmount;
     }
 
@@ -139,7 +156,9 @@ public class Lane {
      * Megjegyzés: ez a metódus technikai segédfüggvény a skeletonhoz.
      */
     public void clearSnow() {
+        Skeleton.instance.methodCall(this,"clearSnow");
         snowAmount = 0;
+        Skeleton.instance.methodReturn(this, "clearSnow");
     }
 
     /**
@@ -152,11 +171,13 @@ public class Lane {
      * @return az eltávolított jég mennyisége
      */
     public int removeAllIce() {
+        Skeleton.instance.methodCall(this,"removeAllIce");
         int previousIceAmount;
 
         previousIceAmount = iceAmount;
         iceAmount = 0;
 
+        Skeleton.instance.methodReturn(this, "removeAllIce", previousIceAmount);
         return previousIceAmount;
     }
 }

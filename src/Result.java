@@ -11,6 +11,7 @@ public class Result {
      * @param score a tárolt pontszám
      */
     public Result(int score) {
+        Skeleton.instance.createObject(this, "score", score);
         this.score = score;
     }
 }

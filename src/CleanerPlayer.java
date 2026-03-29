@@ -21,6 +21,7 @@ public class CleanerPlayer extends Player {
      */
     public CleanerPlayer(String name, Vehicle vehicle, Wallet wallet, Snowplow snowplow) {
         super(name, vehicle, wallet);
+        Skeleton.instance.createObject(this,"name",name,"vehicle",vehicle,"wallet",wallet,"snowplow",snowplow);
         this.snowplow = snowplow;
     }
 
@@ -33,9 +34,11 @@ public class CleanerPlayer extends Player {
      * @param plow a takarítást végző hókotró
      */
     public void performCleaning(Snowplow plow) {
+        Skeleton.instance.methodCall(this, "performCleaning", "plow", plow);
         if (plow != null) {
             plow.work();
         }
+        Skeleton.instance.methodReturn(this, "performCleaning");
     }
 
     /**
@@ -48,9 +51,11 @@ public class CleanerPlayer extends Player {
      * @param newHead az új fej
      */
     public void changePlowHead(Snowplow plow, PlowHead newHead) {
+        Skeleton.instance.methodCall(this, "changePlowHead", "plow", plow, "newHead", newHead);
         if (plow != null && newHead != null) {
             plow.equipHead(newHead);
         }
+        Skeleton.instance.methodReturn(this, "changePlowHead");
     }
 
     /**
@@ -61,6 +66,8 @@ public class CleanerPlayer extends Player {
      * @return a játékos pontszáma
      */
     public int getScore() {
+        Skeleton.instance.methodCall(this, "getScore");
+        Skeleton.instance.methodReturn(this, "getScore", 0);
         return 0;
     }
 }

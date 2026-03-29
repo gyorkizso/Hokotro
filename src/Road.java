@@ -18,6 +18,7 @@ public class Road {
      * @param second a második végpont
      */
     public Road(Intersection first, Intersection second) {
+        Skeleton.instance.createObject(this, "first",first,"second",second);
         endpoints = new Intersection[2];
         endpoints[0] = first;
         endpoints[1] = second;
@@ -31,12 +32,16 @@ public class Road {
      * @return a következő csomópont, vagy null
      */
     public Intersection getNextIntersection(Intersection from) {
+        Skeleton.instance.methodCall(this,"getNextIntersection" ,"from",from);
         if (from == endpoints[0]) {
+            Skeleton.instance.methodReturn(this, "getNextIntersection",endpoints[1]);
             return endpoints[1];
         }
         if (from == endpoints[1]) {
+            Skeleton.instance.methodReturn(this, "getNextIntersection",endpoints[0]);
             return endpoints[0];
         }
+        Skeleton.instance.methodReturn(this, "getNextIntersection",null);
         return null;
     }
 
@@ -48,9 +53,11 @@ public class Road {
      * @param lane a hozzáadandó sáv
      */
     public void addLane(Lane lane) {
+        Skeleton.instance.methodCall(this,"addLane", "lane",lane);
         if (lane != null) {
             lanes.add(lane);
         }
+        Skeleton.instance.methodReturn(this, "addLane");
     }
 
     /**
@@ -64,6 +71,7 @@ public class Road {
      * @return a megfelelő távolságban található szomszédos sávok listája
      */
     public List<Lane> getLaneNeighbors(Lane lane, int distance) {
+        Skeleton.instance.methodCall(this,"getLaneNeighbors", "lane", lane, "distance",distance);
         List<Lane> result = new ArrayList<Lane>();
         int index;
 
@@ -79,6 +87,7 @@ public class Road {
             result.add(lanes.get(index + distance));
         }
 
+        Skeleton.instance.methodReturn(this, "getLaneNeighbors", result);
         return result;
     }
 }

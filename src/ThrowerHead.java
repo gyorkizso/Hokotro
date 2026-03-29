@@ -18,6 +18,7 @@ public class ThrowerHead extends PlowHead {
      */
     public ThrowerHead(Snowplow plow, Lane targetLane) {
         super(plow, targetLane);
+        Skeleton.instance.createObject(this, "plow", plow,"targetLane",targetLane);
     }
 
     /**
@@ -31,10 +32,12 @@ public class ThrowerHead extends PlowHead {
      * @param road az aktuális út
      */
     public void applyTo(Snowplow plow, Lane currentLane, Road road) {
+        Skeleton.instance.methodCall(this,"applyTo","plow",plow,"currentLane",currentLane,"road",road);
         List<Lane> neighbors;
         int i;
 
         if (currentLane == null || road == null) {
+            Skeleton.instance.methodReturn(this, "applyTo");
             return;
         }
 
@@ -47,6 +50,7 @@ public class ThrowerHead extends PlowHead {
 
         currentLane.clearSnow();
         currentLane.clean(this);
+        Skeleton.instance.methodReturn(this, "applyTo");
     }
 
     /**
@@ -55,6 +59,8 @@ public class ThrowerHead extends PlowHead {
      * @return a fej ára
      */
     public int getPrice() {
+        Skeleton.instance.methodCall(this,"getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", PRICE);
         return PRICE;
     }
 }

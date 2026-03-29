@@ -11,6 +11,7 @@ public class Stop extends RoutePoint {
      */
     public Stop(Intersection location) {
         super(location);
+        Skeleton.instance.createObject(this, "location",location);
     }
 
     /**
@@ -21,9 +22,11 @@ public class Stop extends RoutePoint {
      * @param route az érintett járat
      */
     public void applyEffect(BusRoute route) {
+        Skeleton.instance.methodCall(this,"applyEffect", "route",route);
         if (!isVisited && route != null) {
             isVisited = true;
             route.addBonus();
         }
+        Skeleton.instance.methodReturn(this, "applyEffect");
     }
 }

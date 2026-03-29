@@ -20,6 +20,7 @@ public class BusPurchase extends Purchasable {
     public BusPurchase(int price, String displayName, Garage shop, Player buyer,
             Bus newBusTemplate) {
         super(price, displayName, shop, buyer);
+        Skeleton.instance.createObject(this,  "price", price,"displayName",displayName,"shop",shop,"buyer",buyer);
         this.newBusTemplate = newBusTemplate;
     }
 
@@ -33,6 +34,7 @@ public class BusPurchase extends Purchasable {
      * @param buyer a vásárló játékos
      */
     public void applyPurchase(Player buyer) {
+        Skeleton.instance.methodCall(this, "applyPurchase", "buyer", buyer);
         Bus purchasedBus;
 
         purchasedBus = newBusTemplate;
@@ -40,5 +42,7 @@ public class BusPurchase extends Purchasable {
 
         // Skeleton implementáció:
         // itt történne az új busz átadása a vásárlónak.
+
+        Skeleton.instance.methodReturn(this, "applyPurchase");
     }
 }

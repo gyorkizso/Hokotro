@@ -23,6 +23,7 @@ public class WeatherSystem {
     public WeatherSystem(RoadNetwork network, int snowfallRate) {
         this.network = network;
         this.snowfallRate = snowfallRate;
+        Skeleton.instance.createObject(this, "network",network,"snowfallRate",snowfallRate);
     }
 
     /**
@@ -35,7 +36,9 @@ public class WeatherSystem {
      * szintjén ez most helykitöltő metódus.
      */
     public void applySnowfall() {
+        Skeleton.instance.methodCall(this,"applySnowfall");
         // Skeleton implementáció: a teljes hálózat bejárásához a jelenlegi
         // modellben nincs külön publikus hozzáférés.
+        Skeleton.instance.methodReturn(this, "applySnowfall");
     }
 }

@@ -12,6 +12,7 @@ public class Terminal extends RoutePoint {
      */
     public Terminal(Intersection location) {
         super(location);
+        Skeleton.instance.createObject(this, "location", location);
     }
 
     /**
@@ -23,9 +24,11 @@ public class Terminal extends RoutePoint {
      * @param route az érintett járat
      */
     public void applyEffect(BusRoute route) {
+        Skeleton.instance.methodCall(this,"applyEffect", "route", route);
         if (!isVisited && route != null) {
             isVisited = true;
             route.completeIfTerminalsReached();
         }
+        Skeleton.instance.methodReturn(this, "applyEffect");
     }
 }

@@ -31,6 +31,7 @@ public class Match {
      * @param network a mérkőzéshez tartozó úthálózat
      */
     public Match(List<Player> players, List<Vehicle> vehicles, RoadNetwork network) {
+        Skeleton.instance.createObject(this, "players",players,"vehicles",vehicles,"network",network);
         this.players = players;
         this.vehicles = vehicles;
         this.network = network;
@@ -50,7 +51,9 @@ public class Match {
      * helyét jelöli ki, valódi játékszervező logika nélkül.
      */
     public void start() {
+        Skeleton.instance.methodCall(this,"start");
         // Skeleton implementáció: nincs valódi játékindító logika.
+        Skeleton.instance.methodReturn(this, "start");
     }
 
     /**
@@ -59,7 +62,9 @@ public class Match {
      * A szkeleton szintjén ez a metódus csak a hívható felület része.
      */
     public void finish() {
+        Skeleton.instance.methodCall(this,"finish");
         // Skeleton implementáció: nincs valódi lezárási logika.
+        Skeleton.instance.methodReturn(this, "finish");
     }
 
     /**
@@ -71,10 +76,16 @@ public class Match {
      * @return a játékos eredménye
      */
     public Result getResultFor(Player p) {
+        Skeleton.instance.methodCall(this,"getResultFor", "player", p);
+        Result result;
         if (p == null) {
-            return new Result(0);
+            result = new Result(0);
         }
-        return new Result(p.getScore());
+        else {
+            result = new Result(p.getScore());
+        }
+        Skeleton.instance.methodReturn(this, "getResultFor",result);
+        return result;
     }
 
     /**
@@ -83,6 +94,8 @@ public class Match {
      * @return a mérkőzés úthálózata
      */
     public RoadNetwork getNetwork() {
+        Skeleton.instance.methodCall(this, "getNetwork");
+        Skeleton.instance.methodReturn(this, "getNetwork", network);
         return network;
     }
 }

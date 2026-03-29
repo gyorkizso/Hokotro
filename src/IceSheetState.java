@@ -12,6 +12,7 @@ public class IceSheetState extends LaneState {
      */
     public IceSheetState(Lane lane) {
         super(lane);
+        Skeleton.instance.createObject(this, "lane", lane);
     }
 
     /**
@@ -24,8 +25,10 @@ public class IceSheetState extends LaneState {
      * @param vehicle az érkező jármű
      */
     public void onVehicleEnter(Vehicle vehicle) {
+        Skeleton.instance.methodCall(this,"onVehicleEnter","vehicle", vehicle);
         // Skeleton implementáció: a Vehicle osztályban nincs dokumentált
         // handleIcyLane(...) metódus, ezért itt nincs további hívás.
+        Skeleton.instance.methodReturn(this, "onVehicleEnter");
     }
 
 }

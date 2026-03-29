@@ -12,6 +12,7 @@ public class BlockedState extends LaneState {
      */
     public BlockedState(Lane lane) {
         super(lane);
+        Skeleton.instance.createObject(this, "lane", lane);
     }
 
     /**
@@ -22,6 +23,7 @@ public class BlockedState extends LaneState {
      * ahhoz igazodunk.
      */
     public void onCleaned() {
+        Skeleton.instance.methodCall(this, "onCleaned");
         // Skeleton implementáció: az akadály megszüntetésének helye.
     }
 }

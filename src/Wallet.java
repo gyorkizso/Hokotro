@@ -15,6 +15,7 @@ public class Wallet {
      */
     public Wallet(int balance) {
         this.balance = balance;
+        Skeleton.instance.createObject(this, "balance", balance);
     }
 
     /**
@@ -23,9 +24,11 @@ public class Wallet {
      * @param amount a jóváírandó összeg
      */
     public void addFunds(int amount) {
+        Skeleton.instance.methodCall(this,"addFunds", "amount", amount);
         if (amount > 0) {
             balance += amount;
         }
+        Skeleton.instance.methodReturn(this,"addFunds");
     }
 
     /**
@@ -35,15 +38,18 @@ public class Wallet {
      * @return igaz, ha a levonás sikeres volt; különben hamis
      */
     public boolean deductFunds(int amount) {
+        Skeleton.instance.methodCall(this,"deductFunds", "amount", amount);
         if (amount < 0) {
             return false;
         }
 
         if (balance >= amount) {
             balance -= amount;
+            Skeleton.instance.methodReturn(this, "deductFunds", true);
             return true;
         }
 
+        Skeleton.instance.methodReturn(this, "deductFunds", false);
         return false;
     }
 
@@ -53,6 +59,8 @@ public class Wallet {
      * @return a jelenlegi egyenleg
      */
     public int getFunds() {
+        Skeleton.instance.methodCall(this,"getFunds");
+        Skeleton.instance.methodReturn(this, "getFunds",balance);
         return balance;
     }
 }

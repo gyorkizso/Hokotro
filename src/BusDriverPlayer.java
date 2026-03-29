@@ -21,6 +21,7 @@ public class BusDriverPlayer extends Player {
      */
     public BusDriverPlayer(String name, Vehicle vehicle, Wallet wallet, Bus bus) {
         super(name, vehicle, wallet);
+        Skeleton.instance.createObject(this, "name", name, "vehicle", vehicle, "wallet", wallet, "bus", bus);
         this.bus = bus;
     }
 
@@ -31,9 +32,11 @@ public class BusDriverPlayer extends Player {
      * @param route a kiválasztott járat
      */
     public void selectRoute(Bus bus, BusRoute route) {
+        Skeleton.instance.methodCall(this, "selectRoute", "bus", bus, "route", route);
         if (bus != null) {
             bus.setActiveRoute(route);
         }
+        Skeleton.instance.methodReturn(this, "selectRoute");
     }
 
     /**
@@ -45,9 +48,11 @@ public class BusDriverPlayer extends Player {
      * @param bus az érintett busz
      */
     public void completeRoute(Bus bus) {
+        Skeleton.instance.methodCall(this, "completeRoute", "bus", bus);
         if (bus != null) {
             bus.clearRoute();
         }
+        Skeleton.instance.methodReturn(this, "completeRoute");
     }
 
     /**
@@ -58,6 +63,8 @@ public class BusDriverPlayer extends Player {
      * @return a játékos pontszáma
      */
     public int getScore() {
+        Skeleton.instance.methodCall(this, "getScore");
+        Skeleton.instance.methodReturn(this, "getScore", 0);
         return 0;
     }
 }

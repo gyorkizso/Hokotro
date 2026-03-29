@@ -33,6 +33,7 @@ public class BusRoute {
      * @param bonusPerStop az egy megállóért járó bónusz
      */
     public BusRoute(List<RoutePoint> routePoints, int baseReward, int bonusPerStop) {
+        Skeleton.instance.createObject(this, "routePoints",routePoints,"baseReward",baseReward,"bonusPerStop",bonusPerStop);
         this.routePoints = routePoints;
         this.baseReward = baseReward;
         this.bonusPerStop = bonusPerStop;
@@ -53,6 +54,7 @@ public class BusRoute {
      * @param currentPos a busz aktuális helye
      */
     public void checkArrival(Intersection currentPos) {
+        Skeleton.instance.methodCall(this, "checkArrival", "currentPos", currentPos);
         int i;
         RoutePoint point;
 
@@ -62,6 +64,7 @@ public class BusRoute {
                 point.applyEffect(this);
             }
         }
+        Skeleton.instance.methodReturn(this, "checkArrival");
     }
 
     /**
@@ -70,7 +73,9 @@ public class BusRoute {
      * Ezt a metódust a Stop osztály hívja meg érintéskor.
      */
     public void addBonus() {
+        Skeleton.instance.methodCall(this, "addBonus");
         collectedBonus += bonusPerStop;
+        Skeleton.instance.methodReturn(this, "addBonus");
     }
 
     /**
@@ -81,6 +86,7 @@ public class BusRoute {
      * itt tényleges pénzjóváírás nem történik.
      */
     public void completeIfTerminalsReached() {
+        Skeleton.instance.methodCall(this, "completeIfTerminalsReached");
         int i;
         RoutePoint point;
 
@@ -93,6 +99,7 @@ public class BusRoute {
 
         int finalReward = baseReward + collectedBonus;
         finalReward = finalReward;
+        Skeleton.instance.methodReturn(this, "completeIfTerminalsReached");
     }
 
     /**
@@ -101,6 +108,8 @@ public class BusRoute {
     * @return a járat teljesítéséért járó jutalom összege
     */
     public int getReward() {
+        Skeleton.instance.methodCall(this, "getReward");
+        Skeleton.instance.methodReturn(this, "getReward",baseReward + collectedBonus);
         return baseReward + collectedBonus;
     }
 }

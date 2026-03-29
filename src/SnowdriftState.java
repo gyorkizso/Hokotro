@@ -13,6 +13,7 @@ public class SnowdriftState extends LaneState {
      */
     public SnowdriftState(Lane lane) {
         super(lane);
+        Skeleton.instance.createObject(this, "lane",lane);
     }
 
     /**
@@ -24,7 +25,9 @@ public class SnowdriftState extends LaneState {
      * @param vehicle az érkező jármű
      */
     public void onVehicleEnter(Vehicle vehicle) {
+        Skeleton.instance.methodCall(this,"onVehicleEnter", "vehicle",vehicle);
         // Skeleton implementáció: nincs külön teendő.
+        Skeleton.instance.methodReturn(this, "onVehicleEnter");
     }
 
     /**
@@ -36,7 +39,9 @@ public class SnowdriftState extends LaneState {
      * @param amount a lehullott hó mennyisége
      */
     public void onSnowfall(int amount) {
+        Skeleton.instance.methodCall(this,"onSnowfall","amount",amount);
         // Skeleton implementáció: a hó mennyisége nem nő tovább.
+        Skeleton.instance.methodReturn(this, "onSnowfall");
     }
 
     /**
@@ -45,6 +50,8 @@ public class SnowdriftState extends LaneState {
      * A skeleton szintjén ez a metódus csak a kötelező felület része.
      */
     public void onCleaned() {
+        Skeleton.instance.methodCall(this,"onCleaned");
         // Skeleton implementáció: nincs külön teendő.
+        Skeleton.instance.methodReturn(this, "onCleaned");
     }
 }

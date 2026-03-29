@@ -16,6 +16,7 @@ public class IceBreakerHead extends PlowHead {
      */
     public IceBreakerHead(Snowplow plow, Lane targetLane) {
         super(plow, targetLane);
+        Skeleton.instance.createObject(this, "plow",plow,"targetLane",targetLane);
     }
 
     /**
@@ -29,6 +30,7 @@ public class IceBreakerHead extends PlowHead {
      * @param road az aktuális út
      */
     public void applyTo(Snowplow plow, Lane currentLane, Road road) {
+        Skeleton.instance.methodCall(this,"applyTo","plow",plow,"currentLane",currentLane,"road",road);
         int removedIce;
 
         if (currentLane == null) {
@@ -38,6 +40,7 @@ public class IceBreakerHead extends PlowHead {
         removedIce = currentLane.removeAllIce();
         currentLane.receiveSnow(removedIce);
         currentLane.clean(this);
+        Skeleton.instance.methodReturn(this, "applyTo");
     }
 
     /**
@@ -46,6 +49,8 @@ public class IceBreakerHead extends PlowHead {
      * @return a fej ára
      */
     public int getPrice() {
+        Skeleton.instance.methodCall(this,"getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice",PRICE);
         return PRICE;
     }
 }

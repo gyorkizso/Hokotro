@@ -16,6 +16,7 @@ public class SaltedState extends LaneState {
      */
     public SaltedState(Lane lane, int remainingDuration) {
         super(lane);
+        Skeleton.instance.createObject(this, "lane",lane, "remainingDuration",remainingDuration);
         this.remainingDuration = remainingDuration;
     }
 
@@ -30,9 +31,11 @@ public class SaltedState extends LaneState {
      * @param amount a lehullott hó mennyisége
      */
     public void onSnowfall(int amount) {
+        Skeleton.instance.methodCall(this,"onSnowfall", "amount",amount);
         if (remainingDuration > 0) {
             remainingDuration--;
         }
+        Skeleton.instance.methodReturn(this, "onSnowfall");
     }
 
 }

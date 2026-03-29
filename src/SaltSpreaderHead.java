@@ -23,6 +23,7 @@ public class SaltSpreaderHead extends PlowHead {
      */
     public SaltSpreaderHead(Snowplow plow, Lane targetLane, Consumable saltSupply) {
         super(plow, targetLane);
+        Skeleton.instance.createObject(this, "plow",plow,"targetLane",targetLane,"saltSupply",saltSupply);
         this.saltSupply = saltSupply;
     }
 
@@ -37,13 +38,16 @@ public class SaltSpreaderHead extends PlowHead {
      * @param road az aktuális út
      */
     public void applyTo(Snowplow plow, Lane currentLane, Road road) {
+        Skeleton.instance.methodCall(this,"applyTo","plow",plow,"currentLane",currentLane,"road",road);
         if (currentLane == null || saltSupply == null) {
+            Skeleton.instance.methodReturn(this, "applyTo");
             return;
         }
 
         if (saltSupply.consume(1)) {
             currentLane.addLaneState(new SaltedState(currentLane, 2));
         }
+        Skeleton.instance.methodReturn(this, "applyTo");
     }
 
     /**
@@ -52,6 +56,8 @@ public class SaltSpreaderHead extends PlowHead {
      * @return a fej ára
      */
     public int getPrice() {
+        Skeleton.instance.methodCall(this,"getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", PRICE);
         return PRICE;
     }
 }

@@ -23,6 +23,7 @@ public class DragonHead extends PlowHead {
      */
     public DragonHead(Snowplow plow, Lane targetLane, Consumable fuelSupply) {
         super(plow, targetLane);
+        Skeleton.instance.createObject(this, "plow",plow,"targetLane",targetLane,"fuelSupply",fuelSupply);
         this.fuelSupply = fuelSupply;
     }
 
@@ -37,7 +38,9 @@ public class DragonHead extends PlowHead {
      * @param road az aktuális út
      */
     public void applyTo(Snowplow plow, Lane currentLane, Road road) {
+        Skeleton.instance.methodCall(this,"applyTo", "plow",plow,"currentLane",currentLane,"road",road);
         if (currentLane == null || fuelSupply == null) {
+            Skeleton.instance.methodReturn(this, "applyTo");
             return;
         }
 
@@ -47,6 +50,7 @@ public class DragonHead extends PlowHead {
             currentLane.addLaneState(new ClearState(currentLane));
             currentLane.clean(this);
         }
+        Skeleton.instance.methodReturn(this, "applyTo");
     }
 
     /**
@@ -55,6 +59,8 @@ public class DragonHead extends PlowHead {
      * @return a fej ára
      */
     public int getPrice() {
+        Skeleton.instance.methodCall(this,"getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", PRICE);
         return PRICE;
     }
 }

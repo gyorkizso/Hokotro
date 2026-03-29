@@ -13,6 +13,7 @@ public class SnowyState extends LaneState {
      */
     public SnowyState(Lane lane) {
         super(lane);
+        Skeleton.instance.createObject(this, "lane",lane);
     }
 
     /**
@@ -24,7 +25,9 @@ public class SnowyState extends LaneState {
      * @param vehicle az érkező jármű
      */
     public void onVehicleEnter(Vehicle vehicle) {
+        Skeleton.instance.methodCall(this,"onVehicleEnter","vehicle",vehicle);
         // Skeleton implementáció: nincs külön teendő.
+        Skeleton.instance.methodReturn(this, "onVehicleEnter");
     }
 
     /**
@@ -36,7 +39,9 @@ public class SnowyState extends LaneState {
      * @param amount a lehullott hó mennyisége
      */
     public void onSnowfall(int amount) {
+        Skeleton.instance.methodCall(this,"onSnowfall","amount",amount);
         // Skeleton implementáció: nincs külön teendő.
+        Skeleton.instance.methodReturn(this, "onSnowfall");
     }
 
 }

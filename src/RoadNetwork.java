@@ -27,6 +27,7 @@ public class RoadNetwork {
      * Létrehoz egy üres úthálózatot.
      */
     public RoadNetwork() {
+        Skeleton.instance.createObject(this);
         intersections = new ArrayList<Intersection>();
         roads = new ArrayList<Road>();
         garages = new ArrayList<Garage>();
@@ -38,9 +39,11 @@ public class RoadNetwork {
      * @param i a hozzáadandó kereszteződés
      */
     public void addIntersection(Intersection i) {
+        Skeleton.instance.methodCall(this,"addIntersection", "intersection", i);
         if (i != null) {
             intersections.add(i);
         }
+        Skeleton.instance.methodReturn(this, "addIntersection");
     }
 
     /**
@@ -49,9 +52,11 @@ public class RoadNetwork {
      * @param r a hozzáadandó út
      */
     public void addRoad(Road r) {
+        Skeleton.instance.methodCall(this,"addRoad", "road", r);
         if (r != null) {
             roads.add(r);
         }
+        Skeleton.instance.methodReturn(this, "addRoad");
     }
 
     /**
@@ -65,6 +70,9 @@ public class RoadNetwork {
      * @return az útvonalat alkotó utak listája
      */
     public List<Road> findShortestPath(Intersection from, Intersection to) {
-        return new ArrayList<Road>();
+        Skeleton.instance.methodCall(this,"findShortestPath", "from",from,"to",to);
+        List<Road> result = new ArrayList<Road>();
+        Skeleton.instance.methodReturn(this, "findShortestPath", result);
+        return result;
     }
 }

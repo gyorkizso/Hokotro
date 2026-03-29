@@ -20,6 +20,7 @@ public class PlowPurchase extends Purchasable {
     public PlowPurchase(int price, String displayName, Garage shop, Player buyer,
             Snowplow newPlowTemplate) {
         super(price, displayName, shop, buyer);
+        Skeleton.instance.createObject(this, "price",price,"displayName",displayName,"shop",shop,"buyer",buyer);
         this.newPlowTemplate = newPlowTemplate;
     }
 
@@ -33,6 +34,7 @@ public class PlowPurchase extends Purchasable {
      * @param buyer a vásárló játékos
      */
     public void applyPurchase(Player buyer) {
+        Skeleton.instance.methodCall(this,"applyPurchase", "buyer", buyer);
         Snowplow purchasedPlow;
 
         purchasedPlow = newPlowTemplate;
@@ -40,5 +42,6 @@ public class PlowPurchase extends Purchasable {
 
         // Skeleton implementáció:
         // itt történne az új hókotró átadása a vásárlónak.
+        Skeleton.instance.methodReturn(this, "applyPurchase");
     }
 }

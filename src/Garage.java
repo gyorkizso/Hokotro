@@ -25,6 +25,7 @@ public class Garage {
      * @param location a garázs helyszíne
      */
     public Garage(Intersection location) {
+        Skeleton.instance.createObject(this, "location", location);
         this.location = location;
         this.offers = new ArrayList<Purchasable>();
     }
@@ -37,6 +38,8 @@ public class Garage {
      * @return az elérhető megvásárolható tételek listája
      */
     public List<Purchasable> getOffers() {
+        Skeleton.instance.methodCall(this,"getOffers");
+        Skeleton.instance.methodReturn(this, "getOffers", offers);
         return offers;
     }
 
@@ -50,8 +53,10 @@ public class Garage {
      * @param item a megvásárolandó tétel
      */
     public void processTransaction(Player buyer, Purchasable item) {
+        Skeleton.instance.methodCall(this,"processTransaction","buyer",buyer,"item",item);
         if (buyer != null && item != null) {
             item.applyPurchase(buyer);
         }
+        Skeleton.instance.methodReturn(this, "processTransaction");
     }
 }

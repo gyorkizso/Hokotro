@@ -20,6 +20,7 @@ public class HeadPurchase extends Purchasable {
     public HeadPurchase(int price, String displayName, Garage shop, Player buyer,
             PlowHead headToGive) {
         super(price, displayName, shop, buyer);
+        Skeleton.instance.createObject(this, "price",price,"displayName",displayName,"shop",shop,"buyer",buyer);
         this.headToGive = headToGive;
     }
 
@@ -33,6 +34,7 @@ public class HeadPurchase extends Purchasable {
      * @param buyer a vásárló játékos
      */
     public void applyPurchase(Player buyer) {
+        Skeleton.instance.methodCall(this,"applyPurchase", "buyer", buyer);
         PlowHead purchasedHead;
 
         purchasedHead = headToGive;
@@ -40,5 +42,6 @@ public class HeadPurchase extends Purchasable {
 
         // Skeleton implementáció:
         // itt történne a fej átadása a vásárlónak.
+        Skeleton.instance.methodReturn(this, "applyPurchase");
     }
 }

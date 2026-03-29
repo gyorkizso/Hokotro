@@ -13,6 +13,7 @@ public class Salt extends Consumable {
      */
     public Salt(Object owner, int amount) {
         super(owner, amount, "só");
+        Skeleton.instance.createObject(this, "owner",owner,"amount",amount);
     }
 
     /**
@@ -25,7 +26,10 @@ public class Salt extends Consumable {
      * @return igaz, ha volt elegendő só; különben hamis
      */
     public boolean consume(int used) {
-        return super.consume(used);
+        Skeleton.instance.methodCall(this,"consume","used",used);
+        boolean returnVal = super.consume(used);
+        Skeleton.instance.methodReturn(this, "consume",returnVal);
+        return returnVal;
     }
 
     /**
@@ -34,6 +38,8 @@ public class Salt extends Consumable {
      * @param added a hozzáadandó mennyiség
      */
     public void refill(int added) {
+        Skeleton.instance.methodCall(this,"refill","added",added);
         super.refill(added);
+        Skeleton.instance.methodReturn(this, "refill");
     }
 }

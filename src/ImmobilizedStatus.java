@@ -21,6 +21,7 @@ public class ImmobilizedStatus {
      * @param remainingTurns a hátralévő büntetési körök száma
      */
     public ImmobilizedStatus(Bus target, int remainingTurns) {
+        Skeleton.instance.createObject(this,"target",target,"remainingTurns",remainingTurns);
         this.target = target;
         this.remainingTurns = remainingTurns;
     }
@@ -31,8 +32,10 @@ public class ImmobilizedStatus {
      * A számláló nem csökkenhet 0 alá.
      */
     public void decrementTurn() {
+        Skeleton.instance.methodCall(this,"decrementTurn");
         if (remainingTurns > 0) {
             remainingTurns--;
         }
+        Skeleton.instance.methodReturn(this, "decrementTurn");
     }
 }

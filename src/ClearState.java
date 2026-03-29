@@ -13,6 +13,7 @@ public class ClearState extends LaneState {
      */
     public ClearState(Lane lane) {
         super(lane);
+        Skeleton.instance.createObject(this, "lane", lane);
     }
 
     /**
@@ -24,6 +25,8 @@ public class ClearState extends LaneState {
      * @param amount a lehullott hó mennyisége
      */
     public void onSnowfall(int amount) {
+        Skeleton.instance.methodCall(this, "onSnowfall", "lane", lane);
+        Skeleton.instance.methodReturn(this, "onSnowfall" );
         // Skeleton implementáció: nincs külön teendő.
     }
 
