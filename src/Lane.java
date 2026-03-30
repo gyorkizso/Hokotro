@@ -150,6 +150,15 @@ public class Lane {
         return snowAmount;
     }
 
+     /**
+     * Visszaadja a sáv aktuális jégmennyiségét.
+     *
+     * @return az aktuális jégmennyiség
+     */
+    public int getIceAmount() {
+        return iceAmount;
+    }
+
     /**
      * Lenullázza a sáv aktuális hómennyiségét.
      *
@@ -179,5 +188,21 @@ public class Lane {
 
         Skeleton.instance.methodReturn(this, "removeAllIce", previousIceAmount);
         return previousIceAmount;
+    }
+
+    /**
+     * Beállítja a hómennyiséget.
+     * @param amount a beállítandó hómennyiség.
+     */
+    public void setSnowAmount(int amount){
+        snowAmount = amount;
+    }
+
+    /**
+     * Beállítja a hómennyiséget.
+     * @param amount a beállítandó jégmennyiség.
+     */
+    public void setIceAmount(int amount){
+        iceAmount = amount;
     }
 }

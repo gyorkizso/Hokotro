@@ -41,4 +41,13 @@ public class WeatherSystem {
         // modellben nincs külön publikus hozzáférés.
         Skeleton.instance.methodReturn(this, "applySnowfall");
     }
+
+    /**
+     * Beállítja a havazás mértékét.
+     * 
+     * @param amount havazás mértéke
+     */
+    public void setSnowfallRate(int amount){
+        snowfallRate = amount;
+    }
 }
