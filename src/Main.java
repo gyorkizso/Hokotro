@@ -9,7 +9,7 @@ public class Main {
         menu.add(new AbstractMap.SimpleEntry<>("Kilépés", ()->{}));
         menu.add(new AbstractMap.SimpleEntry<>("Mérkőzés indítása", skeleton::testMatchStart));
         menu.add(new AbstractMap.SimpleEntry<>("Havazás kezelése", skeleton::testSnowfall));
-        menu.add(new AbstractMap.SimpleEntry<>("Jég kialakulása", skeleton::tesIcing));
+        menu.add(new AbstractMap.SimpleEntry<>("Jég kialakulása", skeleton::testIcing));
         menu.add(new AbstractMap.SimpleEntry<>("Jármű mozgatása", skeleton::testVehicleMoving));
         menu.add(new AbstractMap.SimpleEntry<>("Söprő fej használata", skeleton::testUsingBroomHead));
         menu.add(new AbstractMap.SimpleEntry<>("Hányó fej használata", skeleton::testUsingThrowerHead));
