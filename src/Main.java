@@ -1,5 +1,5 @@
-import javax.swing.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args){
@@ -33,7 +33,7 @@ public class Main {
         //Addig újra megjelenik a főmenü, ameddig a felhasználó nem lép ki expliciten
         int input = -1;
         while (input != 0){
-            input = skeleton.getListSelectionFromUser(menu.stream().map(AbstractMap.SimpleEntry::getKey).toList());
+            input = skeleton.getListSelectionFromUser(menu.stream().map(AbstractMap.SimpleEntry::getKey).collect(Collectors.toList()));
             menu.get(input).getValue().run();
         }
     }
