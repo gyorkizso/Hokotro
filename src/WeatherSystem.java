@@ -38,4 +38,13 @@ public class WeatherSystem {
         // Skeleton implementáció: a teljes hálózat bejárásához a jelenlegi
         // modellben nincs külön publikus hozzáférés.
     }
+
+    /**
+     * Beállítja a havazás mértékét.
+     * 
+     * @param amount havazás mértéke
+     */
+    public void setSnowfallRate(int amount){
+        snowfallRate = amount;
+    }
 }
