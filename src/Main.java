@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args){
         Skeleton skeleton = new Skeleton();
 
+        //A főmenü opcióit tárolja párban a metódussal, ami meghívódik kiválasztásakor.
         List<AbstractMap.SimpleEntry<String, Runnable>> menu = new ArrayList<>();
         menu.add(new AbstractMap.SimpleEntry<>("Kilépés", ()->{}));
         menu.add(new AbstractMap.SimpleEntry<>("Mérkőzés indítása", skeleton::testMatchStart));
@@ -29,6 +30,7 @@ public class Main {
         menu.add(new AbstractMap.SimpleEntry<>("Akadályozott jármű kiszabadítása", skeleton::testFreeVehicle));
         menu.add(new AbstractMap.SimpleEntry<>("Takarító játékos pontozása", skeleton::testCleanerPoints));
 
+        //Addig újra megjelenik a főmenü, ameddig a felhasználó nem lép ki expliciten
         int input = -1;
         while (input != 0){
             input = skeleton.getListSelectionFromUser(menu.stream().map(AbstractMap.SimpleEntry::getKey).toList());
