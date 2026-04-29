@@ -4,44 +4,46 @@
  * Felelőssége az árazás biztosítása és a megvásárolt jármű átadásának
  * reprezentálása a vásárló felé.
  */
-public class PlowPurchase extends Purchasable {
-    /** A megvásárolható hókotró sablonja. */
-    private Snowplow newPlowTemplate;
+public class PlowPurchase implements Purchasable {
+
+    /** A hókotró ára. */
+    private int price;
+
+    /** A megvásárolható hókotró példánya. */
+    private Snowplow newPlow;
 
     /**
      * Létrehoz egy új hókotró-vásárlási tételt.
      *
      * @param price a hókotró ára
-     * @param displayName a tétel megnevezése
-     * @param shop a vásárlást lebonyolító garázs
-     * @param buyer a vásárló játékos
-     * @param newPlowTemplate az átadandó hókotró sablonja
+     * @param newPlow az átadandó hókotró
      */
-    public PlowPurchase(int price, String displayName, Garage shop, Player buyer,
-            Snowplow newPlowTemplate) {
-        super(price, displayName, shop, buyer);
-        Skeleton.instance.createObject(this, "price",price,"displayName",displayName,"shop",shop,"buyer",buyer);
-        this.newPlowTemplate = newPlowTemplate;
+    public PlowPurchase(int price, Snowplow newPlow) {
+        this.price = price;
+        this.newPlow = newPlow;
+    }
+
+    /**
+     * Visszaadja a vásárlási tétel árát.
+     *
+     * @return a hókotró ára
+     */
+    @Override
+    public int getPrice() {
+        return price;
     }
 
     /**
      * Végrehajtja a vásárlás hatását.
      *
-     * A skeleton szintjén a metódus az új hókotró átadásának helyét
-     * reprezentálja. A konkrét játékoshoz rendeléshez külön, dokumentált
-     * járműkezelő metódusra lenne szükség.
-     *
      * @param buyer a vásárló játékos
      */
+    @Override
     public void applyPurchase(Player buyer) {
-        Skeleton.instance.methodCall(this,"applyPurchase", "buyer", buyer);
-        Snowplow purchasedPlow;
+        if (buyer == null || newPlow == null) {
+            return;
+        }
 
-        purchasedPlow = newPlowTemplate;
-        purchasedPlow = purchasedPlow;
-
-        // Skeleton implementáció:
-        // itt történne az új hókotró átadása a vásárlónak.
-        Skeleton.instance.methodReturn(this, "applyPurchase");
+        buyer.addVehicle(newPlow);
     }
 }

@@ -1,42 +1,55 @@
 /**
  * A ConsumablePurchase fogyóanyag utántöltésének megvásárlását reprezentálja.
  *
- * Felelőssége a cél készlet feltöltése a megadott mértékben.
+ * Felelőssége, hogy a vásárlás során a megfelelő mennyiségű készletet
+ * hozzáadja a célzott fogyóanyaghoz.
+ *
  */
-public class ConsumablePurchase extends Purchasable {
-    /** Az a készlet, amelyet a vásárlás feltölt. */
-    private Consumable targetConsumable;
+public class ConsumablePurchase implements Purchasable {
+
+    /** A fogyóanyagcsomag ára. */
+    private int price;
 
     /** Az utántöltés mértéke. */
     private int refillAmount;
 
+    /** Az a készlet, amelyet a vásárlás során fel kell tölteni. */
+    private Consumable targetConsumable;
+
     /**
      * Létrehoz egy új fogyóanyag-vásárlási tételt.
      *
-     * @param price a csomag ára
-     * @param displayName a tétel megnevezése
-     * @param shop a vásárlást lebonyolító garázs
-     * @param buyer a vásárló játékos
-     * @param targetConsumable a feltöltendő készlet
+     * @param price a fogyóanyagcsomag ára
      * @param refillAmount az utántöltés mértéke
+     * @param targetConsumable a feltöltendő készlet
      */
-    public ConsumablePurchase(int price, String displayName, Garage shop, Player buyer,
-            Consumable targetConsumable, int refillAmount) {
-        super(price, displayName, shop, buyer);
-        this.targetConsumable = targetConsumable;
+    public ConsumablePurchase(int price, int refillAmount, Consumable targetConsumable) {
+        this.price = price;
         this.refillAmount = refillAmount;
+        this.targetConsumable = targetConsumable;
+    }
+
+    /**
+     * Visszaadja a vásárlási tétel árát.
+     *
+     * @return a fogyóanyagcsomag ára
+     */
+    @Override
+    public int getPrice() {
+        return price;
     }
 
     /**
      * Végrehajtja a vásárlás hatását.
      *
-     * Meghívja a cél készlet refill(refillAmount) metódusát.
-     *
      * @param buyer a vásárló játékos
      */
+    @Override
     public void applyPurchase(Player buyer) {
-        if (targetConsumable != null) {
-            targetConsumable.refill(refillAmount);
+        if (targetConsumable == null) {
+            return;
         }
+
+        targetConsumable.refill(refillAmount);
     }
 }
