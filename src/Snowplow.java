@@ -22,9 +22,9 @@ public class Snowplow extends Vehicle {
      *
      * @param road az az út, amelyhez az aktuális sáv tartozik
      */
-    public void work(Road road) {
-        if (equippedHead != null && currentLane != null && road != null) {
-            equippedHead.applyTo(this, currentLane, road);
+    public void work() {
+        if (equippedHead != null && currentLane != null && currentLane.getRoad() != null) {
+            equippedHead.applyTo(this, currentLane, currentLane.getRoad());
         }
     }
 
@@ -36,7 +36,6 @@ public class Snowplow extends Vehicle {
     public void equipHead(PlowHead newHead) {
         if (newHead != null) {
             equippedHead = newHead;
-            consumeMovement(1);
         }
     }
 }

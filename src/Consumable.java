@@ -1,66 +1,94 @@
 /**
- * A Consumable a fogyó készletek közös absztrakt alaposztálya.
+ * A Consumable a játékban használt fogyó erőforrásokat reprezentálja.
  *
- * Felelőssége a mennyiség nyilvántartása és felhasználása, valamint annak
- * biztosítása, hogy az adott erőforrás elfogyása esetén a hozzá kötött
- * tevékenység hatástalanná váljon.
- *
- * Asszociáció:
- * - owner: a készlet tulajdonosa
+ * Felelőssége a mennyiség nyilvántartása, valamint annak biztosítása,
+ * hogy csak elegendő készlet esetén történjen felhasználás.
  */
-public abstract class Consumable {
-    /** A fogyóanyag tulajdonosa. */
-    protected Object owner;
+public class Consumable {
 
-    /** Az aktuálisan rendelkezésre álló mennyiség. */
-    protected int amount;
+    /** Az aktuális mennyiség. */
+    private int amount;
 
-    /** A mértékegység megnevezése. */
-    protected String unitName;
+    /** A mértékegység neve. */
+    private String unitName;
+
+    /** A készlet tulajdonosa (opcionális). */
+    private Object owner;
 
     /**
-     * Létrehoz egy új fogyóanyag-objektumot.
+     * Létrehoz egy új fogyóanyagot.
      *
-     * @param owner a fogyóanyag tulajdonosa
      * @param amount a kezdeti mennyiség
      * @param unitName a mértékegység neve
+     * @param owner a készlet tulajdonosa
      */
-    public Consumable(Object owner, int amount, String unitName) {
-        this.owner = owner;
+    public Consumable(int amount, String unitName, Object owner) {
+        Skeleton.instance.createObject(this,
+                "amount", amount,
+                "unitName", unitName,
+                "owner", owner);
+
         this.amount = amount;
         this.unitName = unitName;
+        this.owner = owner;
     }
 
     /**
-     * Megkísérli csökkenteni a mennyiséget felhasználáskor.
+     * Csökkenti a mennyiséget, ha elegendő készlet áll rendelkezésre.
      *
-     * Ha van elegendő készlet, akkor a mennyiség csökken, és a metódus
-     * igaz értékkel tér vissza. Ellenkező esetben nem módosítja az állapotot.
-     *
-     * @param used a felhasználni kívánt mennyiség
-     * @return igaz, ha volt elegendő mennyiség; különben hamis
+     * @param used a felhasznált mennyiség
+     * @return igaz, ha sikeres volt a felhasználás
      */
     public boolean consume(int used) {
-        if (used < 0) {
+        Skeleton.instance.methodCall(this, "consume", "used", used);
+
+        if (used <= 0 || amount < used) {
+            Skeleton.instance.methodReturn(this, "consume", false);
             return false;
         }
 
-        if (amount >= used) {
-            amount -= used;
-            return true;
-        }
+        amount -= used;
 
-        return false;
+        Skeleton.instance.methodReturn(this, "consume", true);
+        return true;
     }
 
     /**
-     * Növeli a mennyiséget vásárlás vagy utántöltés esetén.
+     * Növeli a készletet.
      *
-     * @param added a hozzáadandó mennyiség
+     * @param added a hozzáadott mennyiség
      */
     public void refill(int added) {
+        Skeleton.instance.methodCall(this, "refill", "added", added);
+
         if (added > 0) {
             amount += added;
         }
+
+        Skeleton.instance.methodReturn(this, "refill");
+    }
+
+    /**
+     * Visszaadja az aktuális mennyiséget.
+     *
+     * @return a készlet mennyisége
+     */
+    public int getAmount() {
+        Skeleton.instance.methodCall(this, "getAmount");
+        Skeleton.instance.methodReturn(this, "getAmount", amount);
+
+        return amount;
+    }
+
+    /**
+     * Visszaadja a mértékegység nevét.
+     *
+     * @return a mértékegység neve
+     */
+    public String getUnitName() {
+        Skeleton.instance.methodCall(this, "getUnitName");
+        Skeleton.instance.methodReturn(this, "getUnitName", unitName);
+
+        return unitName;
     }
 }

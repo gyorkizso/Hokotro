@@ -1,47 +1,17 @@
-import java.util.logging.Logger;
-
 /**
- * A BioKerosene a sárkány fej működéséhez szükséges üzemanyag.
- *
- * Felelőssége a mennyiség kezelésével biztosítani, hogy a sárkány fej
- * csak megfelelő készlet mellett tudjon működni.
+ * A BioKerosene a sárkány fej működéséhez szükséges üzemanyag készletet reprezentálja.
  */
 public class BioKerosene extends Consumable {
+
     /**
-     * Létrehoz egy új biokerozin-készletet.
+     * Létrehoz egy új kerozin készletet.
      *
-     * @param owner a készlet tulajdonosa
      * @param amount a kezdeti mennyiség
+     * @param owner a készlet tulajdonosa
      */
-    public BioKerosene(Object owner, int amount) {
-        super(owner, amount, "biokerozin");
-        Skeleton.instance.createObject(this, "owner", owner, "amount", amount);
-    }
+    public BioKerosene(int amount, Object owner) {
+        super(amount, "liter", owner);
 
-    /**
-     * Elégeti a szükséges üzemanyag mennyiségét.
-     *
-     * Megjegyzés: a visszatérési érték a Consumable ősosztály miatt
-     * boolean típusú, így jelezhető, hogy volt-e elegendő készlet.
-     *
-     * @param used a felhasznált mennyiség
-     * @return igaz, ha volt elegendő üzemanyag; különben hamis
-     */
-    public boolean consume(int used) {
-        Skeleton.instance.methodCall(this, "consume", "used", used);
-        boolean returnVal = super.consume(used);
-        Skeleton.instance.methodReturn(this, "consume", returnVal);
-        return  returnVal;
-    }
-
-    /**
-     * Növeli az üzemanyagszintet utántöltéskor.
-     *
-     * @param added a hozzáadandó mennyiség
-     */
-    public void refill(int added) {
-        Skeleton.instance.methodCall(this, "refill", "added", added);
-        super.refill(added);
-        Skeleton.instance.methodReturn(this, "refill");
+        Skeleton.instance.createObject(this, "amount", amount, "unitName", "liter", "owner", owner);
     }
 }

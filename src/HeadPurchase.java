@@ -47,8 +47,8 @@ public class HeadPurchase implements Purchasable {
     public void applyPurchase(Player buyer) {
         Skeleton.instance.methodCall(this, "applyPurchase", "buyer", buyer);
 
-        if (buyer != null && headToGive != null) {
-            buyer.receiveHead(headToGive);
+        if (buyer instanceof CleanerPlayer) {
+            ((CleanerPlayer) buyer).receiveHead(headToGive);
         }
 
         Skeleton.instance.methodReturn(this, "applyPurchase");

@@ -109,7 +109,6 @@ public abstract class Player {
 
         if (vehicle != null) {
             this.vehicle = vehicle;
-            vehicle.setOwner(this);
         }
 
         Skeleton.instance.methodReturn(this, "addVehicle");

@@ -1,15 +1,15 @@
 /**
- * A Salt a sószóró fej működéséhez szükséges sókészletet reprezentálja.
+ * A Gravel a zúzottkő készletet reprezentálja.
  */
-public class Salt extends Consumable {
+public class Gravel extends Consumable {
 
     /**
-     * Létrehoz egy új só készletet.
+     * Létrehoz egy új zúzalék készletet.
      *
      * @param amount a kezdeti mennyiség
      * @param owner a készlet tulajdonosa
      */
-    public Salt(int amount, Object owner) {
+    public Gravel(int amount, Object owner) {
         super(amount, "kg", owner);
 
         Skeleton.instance.createObject(this, "amount", amount, "unitName", "kg", "owner", owner);
