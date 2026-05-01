@@ -25,44 +25,56 @@ public class Bus extends Vehicle {
      */
     public Bus(Lane currentLane, Player owner, Object destination, int speed) {
         super(currentLane, owner, destination, speed);
-        Skeleton.instance.createObject(this, "currentLane", currentLane, "owner", owner, "destination", destination, "speed", speed);
     }
 
     /**
      * Ellenőrzi, hogy a jelenlegi csomópont egy megálló-e.
-     *
-     * A skeleton szintjén ez a metódus nem végez valódi megállólogikát,
-     * csak a hívható felület része.
-     *
      * @param currentPos a jelenlegi csomópont
      */
     public void checkStop(Intersection currentPos) {
-        Skeleton.instance.methodCall(this, "checkStop", "currentPos", currentPos);
-        // Skeleton implementáció: nincs valódi megállóellenőrzés.
-
-        Skeleton.instance.methodReturn(this, "checkStop");
+        if (activeRoute == null) {
+            return;
+        }
+        activeRoute.checkArrival(currentPos);
     }
 
     /**
      * Ütközés esetén mozgásképtelen állapotot rendel a buszhoz.
      */
     public void onCollision() {
-        Skeleton.instance.methodCall(this, "onCollision");
-        status = new ImmobilizedStatus(this, 1);
-        Skeleton.instance.methodReturn(this, "onCollision");
+        setStatus(new ImmobilizedStatus(this, 1));
+    }
+
+    /**
+     * Visszaadja az aktív járatot.
+     * @return az aktív járat
+     */
+    public BusRoute getActiveRoute() {
+        return activeRoute;
     }
 
     /**
      * Beállítja az aktív járatot.
-     *
-     * Ez a metódus technikai segédfüggvény a skeletonhoz.
-     *
      * @param route a beállítandó járat
      */
     public void setActiveRoute(BusRoute route) {
-        Skeleton.instance.methodCall(this, "setActiveRoute","route", route);
         activeRoute = route;
-        Skeleton.instance.methodReturn(this, "setActiveRoute");
+    }
+
+    /**
+     * Visszaadja a mozgásképtelen állapotot.
+     * @return a mozgásképtelen állapot, vagy null, ha nincs ilyen
+     */
+    public ImmobilizedStatus getStatus() {
+        return status;
+    }
+
+    /**
+     * Beállítja a mozgásképtelen állapotot.
+     * @param status a beállítandó állapot
+     */
+    public void setStatus(ImmobilizedStatus status) {
+        this.status = status;
     }
 
     /**
@@ -71,8 +83,13 @@ public class Bus extends Vehicle {
      * Ez a metódus technikai segédfüggvény a skeletonhoz.
      */
     public void clearRoute() {
-        Skeleton.instance.methodCall(this, "clearRoute");
         activeRoute = null;
-        Skeleton.instance.methodReturn(this, "clearRoute");
+    }
+
+    /**
+     * Törli a mozgásképtelen állapotot.
+     */
+    public void clearStatus() {
+        status = null;
     }
 }

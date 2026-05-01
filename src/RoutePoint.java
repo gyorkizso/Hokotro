@@ -33,4 +33,28 @@ public abstract class RoutePoint {
      * @param route az érintett járat
      */
     public abstract void applyEffect(BusRoute route);
+
+    /**
+     * Visszaadja, hogy a pontot már érintették-e.
+     * @return igaz, ha a pontot érintették; különben hamis
+     */    
+    public boolean isVisited() {
+        return isVisited;
+    }
+
+    /**
+     * Beállítja, hogy a pontot érintették-e.
+     * @param visited igazra állítja, ha a pontot érintették; különben hamis
+     */
+    public void setVisited(boolean visited) {
+        isVisited = visited;
+    }
+
+    /**
+     * Visszaadja a pont fizikai helyét reprezentáló csomópontot.
+     * @return a pont helye
+     */
+    Intersection getLocation() {
+        return location;
+    }
 }
