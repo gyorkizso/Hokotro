@@ -81,6 +81,7 @@ public class Road {
 
         index = lanes.indexOf(lane);
         if (index < 0 || distance < 1) {
+            Skeleton.instance.methodReturn(this, "getLaneNeighbors", result);
             return result;
         }
 
@@ -92,6 +93,29 @@ public class Road {
         }
 
         Skeleton.instance.methodReturn(this, "getLaneNeighbors", result);
+        return result;
+    }
+
+    public void distributeSnow(Lane sourceLane, int amount, int distance){
+        Skeleton.instance.methodCall(this, "distributeSnow", "sourceLane", sourceLane, "amount", amount, "distance", distance);
+        List<Lane> neighbours = getLaneNeighbors(sourceLane, distance);
+        for (Lane lane : neighbours){
+            lane.addSnow(amount/2);
+        }
+        Skeleton.instance.methodReturn(this, "distributeSnow");
+    }
+
+    public Lane getLaneAt(int index){
+        Skeleton.instance.methodCall(this, "getLaneAt", "index", index);
+        Lane result = lanes.get(index);
+        Skeleton.instance.methodReturn(this, "getLaneAt", result);
+        return result;
+    }
+
+    public  int getLaneIndex(Lane lane) {
+        Skeleton.instance.methodCall(this, "getLaneIndex", "lane", lane);
+        int result = lanes.indexOf(lane);
+        Skeleton.instance.methodReturn(this, "getLaneIndex", result);
         return result;
     }
 }
