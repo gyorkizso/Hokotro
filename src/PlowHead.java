@@ -1,8 +1,9 @@
 /**
  * A PlowHead a hókotróra szerelhető fejek közös absztrakt alaposztálya.
  *
- * Felelőssége, hogy egységes módon leírható legyen a takarítás hatása
- * az útsáv állapotára.
+ * Felelőssége, hogy egységes keretet adjon a különböző takarítófejek
+ * működésének, valamint biztosítsa, hogy a takarítás hatása polimorf
+ * módon legyen leírható.
  */
 public abstract class PlowHead {
     /** A fejhez tartozó hókotró. */
@@ -25,9 +26,6 @@ public abstract class PlowHead {
     /**
      * A fej kifejti hatását a megadott sávon, a hókotró és az út
      * kontextusának figyelembevételével.
-     *
-     * Megjegyzés: a szkeleton szekvenciadiagram a háromparaméteres
-     * hívást írja elő, ezért a megvalósítás ehhez igazodik.
      *
      * @param plow az érintett hókotró
      * @param currentLane az aktuális sáv
