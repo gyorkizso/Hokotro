@@ -19,8 +19,6 @@ public class Snowplow extends Vehicle {
 
     /**
      * Meghívja a felszerelt kotrófej hatását az aktuális sávon.
-     *
-     * @param road az az út, amelyhez az aktuális sáv tartozik
      */
     public void work() {
         if (equippedHead != null && currentLane != null && currentLane.getRoad() != null) {
@@ -38,4 +36,10 @@ public class Snowplow extends Vehicle {
             equippedHead = newHead;
         }
     }
+
+    /**
+     * Kezeli a jeges sávra érkezést.
+     */
+    @Override
+    public void handleIcyLane(Lane lane) {}
 }
