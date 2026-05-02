@@ -19,6 +19,8 @@ public class BusPurchase implements Purchasable {
      * @param newBus az átadandó busz
      */
     public BusPurchase(int price, Bus newBus) {
+        Skeleton.instance.createObject(this, "price", price, "newBus", newBus);
+
         this.price = price;
         this.newBus = newBus;
     }
@@ -30,6 +32,9 @@ public class BusPurchase implements Purchasable {
      */
     @Override
     public int getPrice() {
+        Skeleton.instance.methodCall(this, "getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", price);
+
         return price;
     }
 
@@ -40,10 +45,12 @@ public class BusPurchase implements Purchasable {
      */
     @Override
     public void applyPurchase(Player buyer) {
-        if (buyer == null || newBus == null) {
-            return;
+        Skeleton.instance.methodCall(this, "applyPurchase", "buyer", buyer);
+
+        if (buyer != null && newBus != null) {
+            buyer.addVehicle(newBus);
         }
 
-        buyer.addVehicle(newBus);
+        Skeleton.instance.methodReturn(this, "applyPurchase");
     }
 }

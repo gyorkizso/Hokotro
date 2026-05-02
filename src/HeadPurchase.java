@@ -19,6 +19,8 @@ public class HeadPurchase implements Purchasable {
      * @param headToGive az átadandó kotrófej
      */
     public HeadPurchase(int price, PlowHead headToGive) {
+        Skeleton.instance.createObject(this, "price", price, "headToGive", headToGive);
+
         this.price = price;
         this.headToGive = headToGive;
     }
@@ -30,6 +32,9 @@ public class HeadPurchase implements Purchasable {
      */
     @Override
     public int getPrice() {
+        Skeleton.instance.methodCall(this, "getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", price);
+
         return price;
     }
 
@@ -40,10 +45,12 @@ public class HeadPurchase implements Purchasable {
      */
     @Override
     public void applyPurchase(Player buyer) {
-        if (buyer == null || headToGive == null) {
-            return;
+        Skeleton.instance.methodCall(this, "applyPurchase", "buyer", buyer);
+
+        if (buyer instanceof CleanerPlayer) {
+            ((CleanerPlayer) buyer).receiveHead(headToGive);
         }
 
-        buyer.receiveHead(headToGive);
+        Skeleton.instance.methodReturn(this, "applyPurchase");
     }
 }

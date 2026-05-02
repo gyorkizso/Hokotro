@@ -69,7 +69,7 @@ public class RoadNetwork {
      * @param to a cél csomópont
      * @return az útvonalat alkotó utak listája
      */
-    public List<Road> findShortestPath(Intersection from, Intersection to) {
+    public static List<Road> findShortestPath(Intersection from, Intersection to) {
         Skeleton.instance.methodCall(this,"findShortestPath", "from",from,"to",to);
         List<Road> result = new ArrayList<Road>();
         Skeleton.instance.methodReturn(this, "findShortestPath", result);

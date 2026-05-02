@@ -19,6 +19,8 @@ public class PlowPurchase implements Purchasable {
      * @param newPlow az átadandó hókotró
      */
     public PlowPurchase(int price, Snowplow newPlow) {
+        Skeleton.instance.createObject(this, "price", price, "newPlow", newPlow);
+
         this.price = price;
         this.newPlow = newPlow;
     }
@@ -30,6 +32,9 @@ public class PlowPurchase implements Purchasable {
      */
     @Override
     public int getPrice() {
+        Skeleton.instance.methodCall(this, "getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", price);
+
         return price;
     }
 
@@ -40,10 +45,12 @@ public class PlowPurchase implements Purchasable {
      */
     @Override
     public void applyPurchase(Player buyer) {
-        if (buyer == null || newPlow == null) {
-            return;
+        Skeleton.instance.methodCall(this, "applyPurchase", "buyer", buyer);
+
+        if (buyer != null && newPlow != null) {
+            buyer.addVehicle(newPlow);
         }
 
-        buyer.addVehicle(newPlow);
+        Skeleton.instance.methodReturn(this, "applyPurchase");
     }
 }
