@@ -16,9 +16,6 @@ public abstract class Vehicle {
     /** Az a sáv, ahol a jármű jelenleg tartózkodik. */
     protected Lane currentLane;
 
-    /** A jármű tulajdonosához vagy irányítójához tartozó játékos. */
-    protected Player owner;
-
     /** A jármű célpontja. */
     protected Object destination;
 
@@ -38,11 +35,10 @@ public abstract class Vehicle {
      * Létrehoz egy új járművet.
      *
      * @param currentLane az aktuális sáv
-     * @param owner a jármű tulajdonosa vagy irányítója
      * @param destination a jármű célpontja
      * @param speed a jármű sebessége
      */
-    public Vehicle(Lane currentLane, Player owner, Object destination, int speed) {
+    public Vehicle(Lane currentLane, Object destination, int speed) {
         this.currentLane = currentLane;
         this.currentIntersection = null;
         this.owner = owner;

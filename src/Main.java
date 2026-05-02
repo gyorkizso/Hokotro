@@ -1,40 +1,212 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
+    static Prototype prototype;
+
+    static PrintStream outStream;
+
+    static List<String> state;
+
+    public static void reset(){
+        new Skeleton();
+        prototype = new Prototype();
+        state = new ArrayList<>();
+    }
+
+    public static void help(){
+
+    }
+
+    public static void save(String fileName){
+        try {
+            PrintStream file = new PrintStream(new FileOutputStream(fileName));
+            for (String line : state){
+                file.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Kimeneti fájl nem hozható létre");
+        }
+    }
+
+    public static InputStream load(String fileName){
+        try {
+            return new FileInputStream(fileName);
+        } catch (FileNotFoundException e) {
+            System.out.println("Bemeneti fájl nem létezik.");
+        }
+        return null;
+    }
+
     public static void main(String[] args){
-        Skeleton skeleton = new Skeleton();
+        reset();
 
-        //A főmenü opcióit tárolja párban a metódussal, ami meghívódik kiválasztásakor.
-        List<AbstractMap.SimpleEntry<String, Runnable>> menu = new ArrayList<>();
-        menu.add(new AbstractMap.SimpleEntry<>("Kilépés", ()->{}));
-        menu.add(new AbstractMap.SimpleEntry<>("Mérkőzés indítása", skeleton::testMatchStart));
-        menu.add(new AbstractMap.SimpleEntry<>("Havazás kezelése", skeleton::testSnowfall));
-        menu.add(new AbstractMap.SimpleEntry<>("Jég kialakulása", skeleton::testIcing));
-        menu.add(new AbstractMap.SimpleEntry<>("Jármű mozgatása", skeleton::testVehicleMoving));
-        menu.add(new AbstractMap.SimpleEntry<>("Söprő fej használata", skeleton::testUsingBroomHead));
-        menu.add(new AbstractMap.SimpleEntry<>("Hányó fej használata", skeleton::testUsingThrowerHead));
-        menu.add(new AbstractMap.SimpleEntry<>("Jégtörő fej használata", skeleton::testUsingIceBreakerHead));
-        menu.add(new AbstractMap.SimpleEntry<>("Sószóró fej használata", skeleton::testUsingSaltSpreaderHead));
-        menu.add(new AbstractMap.SimpleEntry<>("Sárkány fej használata", skeleton::testUsingDragonHead));
-        menu.add(new AbstractMap.SimpleEntry<>("Ütközés kezelése", skeleton::testCollisionHandling));
-        menu.add(new AbstractMap.SimpleEntry<>("Akadály eltávolítása", skeleton::testObstacleRemoval));
-        menu.add(new AbstractMap.SimpleEntry<>("Hókotrófej cseréje", skeleton::testPlowHeadChange));
-        menu.add(new AbstractMap.SimpleEntry<>("Autók útvonalválasztása", skeleton::testCarRouteSelection));
-        menu.add(new AbstractMap.SimpleEntry<>("Sávváltás akadály esetén", skeleton::testLaneChangeOnObstacle));
-        menu.add(new AbstractMap.SimpleEntry<>("Buszjárat teljesítése", skeleton::testCompleteBusRoute));
-        menu.add(new AbstractMap.SimpleEntry<>("Buszmegállók érintése", skeleton::testVisitBusStop));
-        menu.add(new AbstractMap.SimpleEntry<>("Hókotróval történő takarítás", skeleton::testCleanWithSnowPlow));
-        menu.add(new AbstractMap.SimpleEntry<>("Jármű elakadása", skeleton::testVehicleStuckInLane));
-        menu.add(new AbstractMap.SimpleEntry<>("Garázsban történő vásárlás", skeleton::testPurchaseSnowPlowInGarage));
-        menu.add(new AbstractMap.SimpleEntry<>("Akadályozott jármű kiszabadítása", skeleton::testFreeVehicle));
-        menu.add(new AbstractMap.SimpleEntry<>("Takarító játékos pontozása", skeleton::testCleanerPoints));
+        InputStream start = System.in;
 
-        //Addig újra megjelenik a főmenü, ameddig a felhasználó nem lép ki expliciten
-        int input = -1;
-        while (input != 0){
-            input = skeleton.getListSelectionFromUser(menu.stream().map(AbstractMap.SimpleEntry::getKey).collect(Collectors.toList()));
-            menu.get(input).getValue().run();
+        String outFile = "";
+        if (args.length > 1) {
+            InputStream stream = load(args[0]);
+            if (stream != null){
+                start = stream;
+            }
+            outFile = args[1];
+        }
+        else if (args.length > 0) {
+            outFile = args[0];
+        }
+
+        List<OutputStream> streams = new ArrayList<>();
+        streams.add(System.out);
+
+        try {
+            streams.add((new FileOutputStream(outFile)));
+        } catch (FileNotFoundException e) {
+            System.out.println("Kimeneti fájl nem hozható létre.");
+        }
+        
+        outStream = new PrintStream(new CombinedOutputStream(streams));
+        Skeleton.instance.outStream = outStream;
+
+        execute(start);
+    }
+
+    static void execute (InputStream stream){
+        Scanner scanner = new Scanner(stream);
+        while(scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] words = line.split(" ");
+            String command = words[0].toLowerCase();
+
+            if (command.equals("exit")){
+                break;
+            }
+
+            switch (command) {
+                case "create_bus":
+                    prototype.createBus(words[1]);
+                    break;
+                case "create_snowplow":
+                    prototype.createSnowplow(words[1]);
+                    break;
+                case "create_player":
+                    prototype.createPlayers(Integer.parseInt(words[1]), Integer.parseInt(words[2]), words[3]);
+                    break;
+                case "create_car":
+                    prototype.createCar(words[1], words[2]);
+                    break;
+                case "create_match":
+                    prototype.createMatch();
+                    break;
+                case "create_intersection":
+                    prototype.createIntersection();
+                    break;
+                case "create_road":
+                    prototype.createRoad(words[1], words[2], Integer.parseInt(words[3]));
+                    break;
+                case "create_garage":
+                    prototype.createGarage(words[1]);
+                    break;
+                case "load":
+                    execute(load(words[1]));
+                    break;
+                case "save":
+                    save(words[1]);
+                    break;
+
+                case "reset":
+                    reset();
+                    break;
+
+                case "help":
+                    help();
+                    break;
+
+                case "next_turn":
+                    prototype.nextTurn();
+                    break;
+
+                case "pass":
+                    prototype.pass();
+                    break;
+
+                case "set_random":
+                    prototype.setRandom(RandomType.valueOf(words[1]), Boolean.parseBoolean(words[2]));
+                    break;
+
+                case "start_match":
+                    prototype.startMatch();
+                    break;
+
+                case "set":
+                    prototype.set(SetType.valueOf(words[1]), words[2], words[3]);
+                    break;
+
+                case "print":
+                    prototype.print(PrintType.valueOf(words[1]), words[2]);
+                    break;
+
+                case "snowfall":
+                    prototype.snowfall(Integer.parseInt(words[1]));
+                    break;
+
+                case "move_vehicle":
+                    prototype.moveVehicle(words[1], words[2]);
+                    break;
+
+                case "use_head":
+                    prototype.useHead(words[1], HeadType.valueOf(words[2]));
+                    break;
+
+                case "handle_collision":
+                    prototype.handleCollision(words[1], words[2]);
+                    break;
+
+                case "remove_obstacle":
+                    prototype.removeObstacle(words[1]);
+                    break;
+
+                case "change_plow_head":
+                    prototype.changePlowHead(words[1], HeadType.valueOf(words[2]));
+                    break;
+
+                case "car_route":
+                    prototype.carRoute(words[1]);
+                    break;
+
+                case "change_lane":
+                    prototype.changeLane(words[1]);
+                    break;
+
+                case "complete_bus_route":
+                    prototype.completeBusRoute(words[1]);
+                    break;
+
+                case "visit_stop":
+                    prototype.visitStop(words[1], words[2]);
+                    break;
+
+                case "vehicle_stuck":
+                    prototype.vehicleStuck(words[1]);
+                    break;
+
+                case "purchase":
+                    prototype.purchase(words[1], BuyType.valueOf(words[2]));
+                    break;
+
+                case "free_vehicle":
+                    prototype.freeVehicle(words[1]);
+                    break;
+
+                case "score_cleaner":
+                    prototype.scoreCleaner(words[1]);
+                    break;
+                default:
+                    outStream.println("Unknown command");
+                    break;
+            }
+            state.add(line);
         }
     }
 }

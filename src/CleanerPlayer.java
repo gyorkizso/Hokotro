@@ -25,14 +25,13 @@ public class CleanerPlayer extends Player {
      * Létrehoz egy új takarító játékost.
      *
      * @param name a játékos neve
-     * @param vehicle a játékoshoz tartozó jármű
      * @param wallet a játékos pénztárcája
      * @param snowplow az irányított hókotró
      */
-    public CleanerPlayer(String name, Vehicle vehicle, Wallet wallet, Snowplow snowplow) {
-        super(name, vehicle, wallet);
+    public CleanerPlayer(String name, Wallet wallet, Snowplow snowplow) {
+        super(name, snowplow, wallet);
 
-        Skeleton.instance.createObject(this, "name", name, "vehicle", vehicle, "wallet", wallet, "snowplow", snowplow);
+        Skeleton.instance.createObject(this, "name", name, "wallet", wallet, "snowplow", snowplow);
 
         this.snowplow = snowplow;
         this.ownedHeads = new ArrayList<PlowHead>();

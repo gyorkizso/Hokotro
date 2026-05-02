@@ -17,10 +17,10 @@ public class BusDriverPlayer extends Player {
      * @param wallet a játékos pénztárcája
      * @param bus az irányított busz
      */
-    public BusDriverPlayer(String name, Vehicle vehicle, Wallet wallet, Bus bus) {
-        super(name, vehicle, wallet);
+    public BusDriverPlayer(String name, Wallet wallet, Bus bus) {
+        super(name, bus, wallet);
 
-        Skeleton.instance.createObject(this, "name", name, "vehicle", vehicle, "wallet", wallet, "bus", bus);
+        Skeleton.instance.createObject(this, "name", name, "wallet", wallet, "bus", bus);
 
         this.bus = bus;
     }
