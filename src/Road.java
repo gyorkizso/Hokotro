@@ -60,6 +60,10 @@ public class Road {
         Skeleton.instance.methodReturn(this, "addLane");
     }
 
+    public List<Lane> getLanes(){
+        return lanes;
+    }
+
     /**
      * Visszaadja az adott sáv szomszédos sávjait a megadott távolságban.
      *
