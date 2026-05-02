@@ -82,14 +82,19 @@ public class Main {
             if (command.equals("exit")){
                 break;
             }
-            state.add(line);
 
             switch (command) {
                 case "create_bus":
-                    prototype.createBus(words[1], words[2], words[3]);
+                    prototype.createBus(words[1]);
                     break;
                 case "create_snowplow":
-                    prototype.createSnowplow(words[1], words[2], words[3]);
+                    prototype.createSnowplow(words[1]);
+                    break;
+                case "create_player":
+                    prototype.createPlayers(Integer.parseInt(words[1]), Integer.parseInt(words[2]), words[3]);
+                    break;
+                case "create_car":
+                    prototype.createCar(words[1], words[2]);
                     break;
                 case "create_match":
                     prototype.createMatch();
@@ -98,7 +103,7 @@ public class Main {
                     prototype.createIntersection();
                     break;
                 case "create_road":
-                    prototype.createRoad(words[1], words[2]);
+                    prototype.createRoad(words[1], words[2], Integer.parseInt(words[3]));
                     break;
                 case "create_garage":
                     prototype.createGarage(words[1]);

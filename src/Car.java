@@ -10,16 +10,19 @@ import java.util.List;
  * - destination: az a célállomás, ami felé halad
  */
 public class Car extends Vehicle {
+    RoadNetwork network;
+
     /**
      * Létrehoz egy új autót.
      *
      * @param currentLane az aktuális sáv
-     * @param owner a jármű tulajdonosa vagy irányítója
      * @param destination a célállomás
      * @param speed a jármű sebessége
      */
-    public Car(Lane currentLane, Player owner, Object destination, int speed) {
-        super(currentLane, owner, destination, speed);
+    public Car(Lane currentLane, RoadNetwork network, Object destination, int speed) {
+        super(currentLane, null, speed);
+        Skeleton.instance.createObject(this, "currentLane", currentLane, "network", network, "speed", speed);
+        this.network = network;
     }
 
     /**
@@ -28,7 +31,7 @@ public class Car extends Vehicle {
     public void executeTurn() {
         Road currentRoad = currentLane.getRoad();
         
-        List<Road> shortestPath = RoadNetwork.findShortestPath(currentRoad, getDestination());
+        List<Road> shortestPath = network.findShortestPath(currentRoad.getNextIntersection(getDestination()), getDestination());
 
     }
 

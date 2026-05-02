@@ -46,7 +46,7 @@ public class DragonHead extends PlowHead {
 
         if (fuelSupply.consume(1)) {
             currentLane.clearSnow();
-            currentLane.removeAllIce();
+            currentLane.clearIce();
             currentLane.addLaneState(new ClearState(currentLane));
             currentLane.clean(this);
         }

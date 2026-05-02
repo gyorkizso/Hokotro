@@ -9,12 +9,10 @@ public class Snowplow extends Vehicle {
      * Létrehoz egy új hókotrót.
      *
      * @param currentLane az aktuális sáv
-     * @param owner a jármű tulajdonosa vagy irányítója
-     * @param destination a célpont
      * @param speed a jármű sebessége
      */
-    public Snowplow(Lane currentLane, Player owner, Object destination, int speed) {
-        super(currentLane, owner, destination, speed);
+    public Snowplow(Lane currentLane, int speed) {
+        super(currentLane, null, speed);
     }
 
     /**

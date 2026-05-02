@@ -37,7 +37,8 @@ public class IceBreakerHead extends PlowHead {
             return;
         }
 
-        removedIce = currentLane.removeAllIce();
+        removedIce = currentLane.getIceAmount();
+        currentLane.clearIce();
         currentLane.receiveSnow(removedIce);
         currentLane.clean(this);
         Skeleton.instance.methodReturn(this, "applyTo");

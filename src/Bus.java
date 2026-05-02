@@ -19,12 +19,10 @@ public class Bus extends Vehicle {
      * Létrehoz egy új buszt.
      *
      * @param currentLane az aktuális sáv
-     * @param owner a jármű tulajdonosa vagy irányítója
-     * @param destination a célpont
      * @param speed a jármű sebessége
      */
-    public Bus(Lane currentLane, Player owner, Object destination, int speed) {
-        super(currentLane, owner, destination, speed);
+    public Bus(Lane currentLane, int speed) {
+        super(currentLane, null, speed);
     }
 
     /**

@@ -322,6 +322,10 @@ public class Lane {
         return blocked;
     }
 
+    public List<LaneState> getLaneStates(){
+        return laneStates;
+    }
+
     /**
      * Visszaadja az adott távolságra lévő szomszédos sávokat
      * a sávhoz tartozó úton belül.
@@ -337,7 +341,7 @@ public class Lane {
         if (road == null) {
             result = new ArrayList<Lane>();
         } else {
-            result = road.getNeighborLanes(this, distance);
+            result = road.getLaneNeighbors(this, distance);
         }
 
         Skeleton.instance.methodReturn(this, "getNeighborLanes", result);

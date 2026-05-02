@@ -25,39 +25,56 @@ public class Prototype {
         return Skeleton.instance.names.keySet().stream().filter((obj) -> clas.isAssignableFrom(obj.getClass())).map(obj -> (T) obj).collect(Collectors.toList());
     }
 
-    public void createBus(String locationName, String playerName, String destinationName){
+    public void createBus(String locationName){
         Lane location = get(locationName);
-        BusDriverPlayer player = get(playerName);
-        Object destination = get(destinationName);
-        Snowplow snowplow = new Snowplow(location, player, destination, 10); }
+        Bus bus = new Bus(location, 10); }
 
-    public void createSnowplow(String locationName, String playerName, String destinationName){
+    public void createSnowplow(String locationName){
         Lane location = get(locationName);
-        BusDriverPlayer player = get(playerName);
-        Object destination = get(destinationName);
-        Snowplow snowplow = new Snowplow(location, player, destination, 10);
+        Snowplow snowplow = new Snowplow(location, 10);
     }
 
-    public void createMatch(){
-        Match match = new Match(getAll(Player.class),getAll(Vehicle.class), new RoadNetwork());
+    public void createCar(String startName, String destinationName) {
+        Lane start = get(startName);
+        Lane destination = get(destinationName);
+        RoadNetwork roadNetwork = get(RoadNetwork.class);
+
+        new Car(start, roadNetwork, destination, 1);
     }
 
-    public  void createIntersection(){
-        RoadNetwork network = get(RoadNetwork.class);
-        Intersection intersection = new Intersection("");
-        if (network != null){
-            network.addIntersection(intersection);
+    public void createPlayers(int cleaner, int driver, String laneName){
+        Lane lane = get(laneName);
+        for (int i = 0; i < cleaner; i++) {
+            new CleanerPlayer("", new Wallet(0), new Snowplow(lane, 10 ));
+        }
+        for (int i = 0; i < driver; i++) {
+            new BusDriverPlayer("", new Wallet(0), new Bus(lane, 10 ));
         }
     }
 
-    public void createRoad(String s1, String s2){
+    public void createMatch() {
+        RoadNetwork roadNetwork = new RoadNetwork();
+        for (Road road : getAll(Road.class)){
+            roadNetwork.addRoad(road);
+        }
+        for (Intersection intersection : getAll(Intersection.class)){
+            roadNetwork.addIntersection(intersection);
+        }
+        Match match = new Match(getAll(Player.class), getAll(Vehicle.class), roadNetwork);
+        WeatherSystem weatherSystem =  new WeatherSystem(roadNetwork, 1);
+    }
+
+    public  void createIntersection(){
+        Intersection intersection = new Intersection("");
+    }
+
+    public void createRoad(String s1, String s2, int lanes){
         Intersection i1 = get(s1);
         Intersection i2 = get(s2);
 
-        RoadNetwork network = get(RoadNetwork.class);
         Road road = new Road(i1, i2);
-        if (network != null){
-            network.addRoad(road);
+        for (int i = 0; i < lanes; i++) {
+            road.addLane(new Lane());
         }
     }
 
@@ -160,9 +177,8 @@ public class Prototype {
 
     public void useHead(String snowplowName, HeadType head){
         Snowplow vehicle = get(snowplowName);
-        Road road = get(Road.class);
         changePlowHead(snowplowName, head);
-        vehicle.work(road);
+        vehicle.work();
     }
 
     public void handleCollision(String name1, String name2){
@@ -183,13 +199,13 @@ public class Prototype {
         PlowHead newHead = null;
         switch (head){
             case Broom -> {
-                newHead = new BroomHead(vehicle, vehicle.getLane());
+                newHead = new BroomHead(vehicle, vehicle.getCurrentLane());
             }
             case Thrower -> {
-                newHead = new ThrowerHead(vehicle, vehicle.getLane());
+                newHead = new ThrowerHead(vehicle, vehicle.getCurrentLane());
             }
             case IceBreaker -> {
-                newHead = new IceBreakerHead(vehicle, vehicle.getLane());
+                newHead = new IceBreakerHead(vehicle, vehicle.getCurrentLane());
             }
             case SaltSpreader -> {
                 // newHead = new SaltSpreaderHead(vehicle, vehicle.getLane());
@@ -260,7 +276,7 @@ public class Prototype {
 
     public void freeVehicle(String name){
         Vehicle vehicle = get(name);
-        vehicle.getLane().removeLaneState(vehicle.getLane().getLaneStates().stream().filter(BlockedState.class::isInstance).findFirst().get());
+        vehicle.getCurrentLane().removeLaneState(vehicle.getCurrentLane().getLaneStates().stream().filter(BlockedState.class::isInstance).findFirst().get());
     }
 
     public void scoreCleaner(String name){

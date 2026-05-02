@@ -24,8 +24,6 @@ public abstract class Player {
      * @param wallet a játékos pénztárcája
      */
     public Player(String name, Vehicle vehicle, Wallet wallet) {
-        Skeleton.instance.createObject(this, "name", name, "vehicle", vehicle, "wallet", wallet);
-
         this.name = name;
         this.vehicle = vehicle;
         this.wallet = wallet;
