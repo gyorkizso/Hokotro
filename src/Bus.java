@@ -23,6 +23,9 @@ public class Bus extends Vehicle {
      */
     public Bus(Lane currentLane, int speed) {
         super(currentLane, null, speed);
+        Skeleton.instance.createObject(this,
+                "currentLane", currentLane,
+                "speed", speed);
     }
 
     /**
@@ -30,10 +33,13 @@ public class Bus extends Vehicle {
      * @param currentPos a jelenlegi csomópont
      */
     public void checkStop(Intersection currentPos) {
+        Skeleton.instance.methodCall(this, "checkStop", currentPos);
         if (activeRoute == null) {
+            Skeleton.instance.methodReturn(this, "checkStop");
             return;
         }
         activeRoute.checkArrival(currentPos);
+        Skeleton.instance.methodReturn(this, "checkStop");
     }
 
     /**
@@ -41,7 +47,9 @@ public class Bus extends Vehicle {
      */
     @Override
     public void onCollision() {
+        Skeleton.instance.methodCall(this, "onCollision");
         setStatus(new ImmobilizedStatus(this, 1));
+        Skeleton.instance.methodReturn(this, "onCollision");
     }
 
     /**
@@ -49,6 +57,8 @@ public class Bus extends Vehicle {
      * @return az aktív járat
      */
     public BusRoute getActiveRoute() {
+        Skeleton.instance.methodCall(this, "getActiveRoute");
+        Skeleton.instance.methodReturn(this, "getActiveRoute", activeRoute);
         return activeRoute;
     }
 
@@ -57,6 +67,8 @@ public class Bus extends Vehicle {
      * @param route a beállítandó járat
      */
     public void setActiveRoute(BusRoute route) {
+        Skeleton.instance.methodCall(this, "setActiveRoute", route);
+        Skeleton.instance.methodReturn(this, "setActiveRoute");
         activeRoute = route;
     }
 
@@ -65,6 +77,8 @@ public class Bus extends Vehicle {
      * @return a mozgásképtelen állapot, vagy null, ha nincs ilyen
      */
     public ImmobilizedStatus getStatus() {
+        Skeleton.instance.methodCall(this, "getStatus");
+        Skeleton.instance.methodReturn(this, "getStatus", status);
         return status;
     }
 
@@ -73,6 +87,8 @@ public class Bus extends Vehicle {
      * @param status a beállítandó állapot
      */
     public void setStatus(ImmobilizedStatus status) {
+        Skeleton.instance.methodCall(this, "setStatus", status);
+        Skeleton.instance.methodReturn(this, "setStatus");
         this.status = status;
     }
 
@@ -82,6 +98,8 @@ public class Bus extends Vehicle {
      * Ez a metódus technikai segédfüggvény a skeletonhoz.
      */
     public void clearRoute() {
+        Skeleton.instance.methodCall(this, "clearRoute");
+        Skeleton.instance.methodReturn(this, "clearRoute");
         activeRoute = null;
     }
 
@@ -89,6 +107,8 @@ public class Bus extends Vehicle {
      * Törli a mozgásképtelen állapotot.
      */
     public void clearStatus() {
+        Skeleton.instance.methodCall(this, "clearStatus");
+        Skeleton.instance.methodReturn(this, "clearStatus");
         status = null;
     }
 }

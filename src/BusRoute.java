@@ -36,6 +36,12 @@ public class BusRoute {
      * @param bonusPerStop az egy megállóért járó bónusz
      */
     public BusRoute(List<RoutePoint> routePoints, int baseReward, int bonusPerStop, Wallet wallet) {
+        Skeleton.instance.createObject(this,
+                "routePoints", routePoints,
+                "baseReward", baseReward,
+                "bonusPerStop", bonusPerStop,
+                "wallet", wallet);
+
         this.routePoints = routePoints;
         this.baseReward = baseReward;
         this.bonusPerStop = bonusPerStop;
@@ -57,11 +63,13 @@ public class BusRoute {
      * @param currentPos a busz aktuális helye
      */
     public void checkArrival(Intersection currentPos) {
+        Skeleton.instance.methodCall(this, "checkArrival", currentPos);
         for (RoutePoint point : routePoints) {
             if (point.location == currentPos) {
                 point.applyEffect(this);
             }
         }
+        Skeleton.instance.methodReturn(this, "checkArrival");
     }
 
     /**
@@ -70,7 +78,9 @@ public class BusRoute {
      * Ezt a metódust a Stop osztály hívja meg érintéskor.
      */
     public void addBonus() {
+        Skeleton.instance.methodCall(this, "addBonus");
         collectedBonus += bonusPerStop;
+        Skeleton.instance.methodReturn(this, "addBonus");
     }
 
     /**
@@ -79,7 +89,9 @@ public class BusRoute {
      * @param wallet a pénztárca
      */
     public void setWallet(Wallet wallet) {
+        Skeleton.instance.methodCall(this, "setWallet", wallet);
         this.wallet = wallet;
+        Skeleton.instance.methodReturn(this, "setWallet");
     }
 
     /**
@@ -90,6 +102,7 @@ public class BusRoute {
      * itt tényleges pénzjóváírás nem történik.
      */
     public void completeIfTerminalsReached() {
+        Skeleton.instance.methodCall(this, "completeIfTerminalsReached");
         int visitedTerminals = 0;
 
         for (RoutePoint point : routePoints) {
@@ -102,5 +115,6 @@ public class BusRoute {
             int totalReward = baseReward + collectedBonus;
             wallet.addFunds(totalReward);
         }
+        Skeleton.instance.methodReturn(this, "completeIfTerminalsReached");
     }
 }

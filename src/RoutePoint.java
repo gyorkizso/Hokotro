@@ -22,6 +22,8 @@ public abstract class RoutePoint {
     public RoutePoint(Intersection location) {
         this.location = location;
         this.isVisited = false;
+        Skeleton.instance.createObject(this,
+                "location", location);
     }
 
     /**
@@ -39,6 +41,8 @@ public abstract class RoutePoint {
      * @return igaz, ha a pontot érintették; különben hamis
      */    
     public boolean isVisited() {
+        Skeleton.instance.methodCall(this, "isVisited");
+        Skeleton.instance.methodReturn(this, "isVisited", isVisited);
         return isVisited;
     }
 
@@ -47,7 +51,9 @@ public abstract class RoutePoint {
      * @param visited igazra állítja, ha a pontot érintették; különben hamis
      */
     public void setVisited(boolean visited) {
+        Skeleton.instance.methodCall(this, "setVisited", visited);
         isVisited = visited;
+        Skeleton.instance.methodReturn(this, "setVisited");
     }
 
     /**
@@ -55,6 +61,8 @@ public abstract class RoutePoint {
      * @return a pont helye
      */
     Intersection getLocation() {
+        Skeleton.instance.methodCall(this, "getLocation");
+        Skeleton.instance.methodReturn(this, "getLocation", location);
         return location;
     }
 }

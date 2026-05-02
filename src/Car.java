@@ -29,13 +29,16 @@ public class Car extends Vehicle {
      * Végrehajtja az autó körét.
      */
     public void executeTurn(RoadNetwork roadNetwork) {
+        Skeleton.instance.methodCall(this, "executeTurn", roadNetwork);
         List<Road> shortestPath = roadNetwork.findShortestPath(currentIntersection, getDestination());
         Road nextRoad = shortestPath.get(0);
         for (Lane lane : nextRoad.getLanes()) {
             if (tryMoveTo(lane)) {
+                Skeleton.instance.methodReturn(this, "executeTurn");
                 return;
             }
         }
+        Skeleton.instance.methodReturn(this, "executeTurn");
     }
 
     /**
@@ -43,6 +46,8 @@ public class Car extends Vehicle {
      */
     @Override
     public void onCollision() {
+        Skeleton.instance.methodCall(this, "onCollision");
         currentLane.addLaneState(new BlockedState(currentLane));
+        Skeleton.instance.methodReturn(this, "onCollision");
     }
 }
