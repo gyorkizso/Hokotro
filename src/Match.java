@@ -79,10 +79,9 @@ public class Match {
         Skeleton.instance.methodCall(this,"getResultFor", "player", p);
         Result result;
         if (p == null) {
-            result = new Result(0);
-        }
-        else {
-            result = new Result(p.getScore());
+            result = new Result(null, 0);
+        } else {
+            result = new Result(p, p.getScore());
         }
         Skeleton.instance.methodReturn(this, "getResultFor",result);
         return result;

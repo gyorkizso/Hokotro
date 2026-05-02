@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * A Vehicle a közlekedő járművek közös absztrakt alaposztálya.
  *
@@ -48,21 +50,19 @@ public abstract class Vehicle {
 
     /**
      * Megkísérli a jármű áthelyezését egy cél sávra.
-     *
-     * A szkeleton szintjén ez minimális működést tartalmaz: ha a jármű aktív,
-     * és a cél sáv nem null, akkor az aktuális sáv lecserélődik, és meghívódik
-     * az új sávra érkezést kezelő metódus.
-     *
      * @param targetLane a cél sáv
      * @return igaz, ha az áthelyezés megtörtént; különben hamis
      */
     public boolean tryMoveTo(Lane targetLane) {
-        if (!active || targetLane == null) {
+        if (!active || targetLane == null || targetLane.isBlocked()) {
             return false;
         }
-
-        currentLane = targetLane;
-        onEnterLane(targetLane);
+        if(targetLane != currentLane) {
+            consumeMovement(1);
+            currentLane.removeVehicle(this);
+            currentLane = targetLane;
+            onEnterLane(targetLane);
+        }
         return true;
     }
 
@@ -95,12 +95,17 @@ public abstract class Vehicle {
 
     /**
      * Megvizsgálja, hogy szükséges-e sávváltás.
-     *
-     * A szkeleton szintjén ez a metódus csak a hívható felület része,
-     * valódi sávváltási logika nélkül.
      */
     public void checkAndChangeLane() {
-        // Skeleton implementáció: nincs valódi sávváltási algoritmus.
+        if (currentLane.isBlocked()) {
+            List<Lane> adjacentLanes = currentLane.getNeighborLanes(1);
+            for (Lane lane : adjacentLanes) {
+                if (!lane.isBlocked()) {
+                    tryMoveTo(lane);
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -108,5 +113,84 @@ public abstract class Vehicle {
      */
     public void deactivateVehicle() {
         active = false;
+    }
+
+    /*
+     * A jeges sávra érkezés kezelését
+     * végzi. A konkrét következmény a jármű típusától függ, ezért a metódus
+     * alapértelmezett viselkedését a leszármazott osztályok pontosíthatják.
+     */
+    public void handleIcyLane(Lane lane){
+        
+    }
+
+    /*
+     * Visszaadja az utat, amelyhez a jármű aktuális sávja tartozik.
+     */
+    public Road getCurrentRoad() {
+        return currentLane == null ? null : currentLane.getRoad();
+    }
+
+    /*
+     * Visszaadja a jármű célpontját.
+     */
+    public Intersection getDestination() {
+        return (Intersection) destination;
+    }
+
+    /*
+     * Beállítja a jármű célpontját.
+     */
+    public void setDestination(Intersection destination) {
+        this.destination = destination;
+    }
+
+    /*
+     * Visszaadja, hogy a jármű aktív-e még a játékban.
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    /*
+     * Visszaadja a jármű sebességét.
+     */
+    public int getSpeed() {
+        return speed;
+    }
+
+    /*
+     * Beállítja a jármű sebességét.
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    /*
+     * Visszaadja a jármű aktuális sávját.
+     */
+    public Lane getCurrentLane() {
+        return currentLane;
+    }
+
+    /*
+     * Beállítja a jármű aktuális sávját.
+     */
+    public void setCurrentLane(Lane currentLane) {
+        this.currentLane = currentLane;
+    }
+
+    /*
+     * Beállítja a jármű aktuális mozgásmennyiségét.
+     */
+    public void setMovementRemaining(int movementRemaining) {
+        this.movementRemaining = movementRemaining;
+    }
+
+    /*
+     * Visszaadja az adott körben még felhasználható mozgásmennyiséget.
+     */
+    public int getMovementRemaining() {
+        return movementRemaining;
     }
 }

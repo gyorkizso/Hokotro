@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * A Car számítógép által vezérelt normál jármű.
  *
@@ -18,30 +20,22 @@ public class Car extends Vehicle {
      */
     public Car(Lane currentLane, Player owner, Object destination, int speed) {
         super(currentLane, owner, destination, speed);
-        Skeleton.instance.createObject(this, "currentLane",currentLane,"owner",owner,"destination",destination,"speed",speed);
     }
 
     /**
      * Végrehajtja az autó körét.
-     *
-     * A skeleton szintjén ez a metódus csak helykitöltő: nem számol valódi
-     * útvonalat, hanem a hívható felület része.
      */
     public void executeTurn() {
-        Skeleton.instance.methodCall(this,"executeTurn");
-        // Skeleton implementáció: nincs valódi útvonaltervezés.
-        Skeleton.instance.methodReturn(this,"executeTurn");
+        Road currentRoad = currentLane.getRoad();
+        
+        List<Road> shortestPath = RoadNetwork.findShortestPath(currentRoad, getDestination());
+
     }
 
     /**
      * Kezeli az ütközés eseményét.
-     *
-     * A skeleton szintjén ez a metódus csak helykitöltő, valódi akadályképzés
-     * nélkül.
      */
     public void onCollision() {
-        Skeleton.instance.methodCall(this,"onCollision");
-        // Skeleton implementáció: nincs valódi ütközéskezelés.
-        Skeleton.instance.methodReturn(this,"onCollision");
+        currentLane.addLaneState(new BlockedState(currentLane));
     }
 }

@@ -4,44 +4,52 @@
  * Felelőssége az árazás biztosítása és a megvásárolt busz átadásának
  * reprezentálása a vásárló felé.
  */
-public class BusPurchase extends Purchasable {
-    /** A megvásárolható busz sablonja. */
-    private Bus newBusTemplate;
+public class BusPurchase implements Purchasable {
+
+    /** A busz ára. */
+    private int price;
+
+    /** A megvásárolható busz példánya. */
+    private Bus newBus;
 
     /**
      * Létrehoz egy új busz-vásárlási tételt.
      *
      * @param price a busz ára
-     * @param displayName a tétel megnevezése
-     * @param shop a vásárlást lebonyolító garázs
-     * @param buyer a vásárló játékos
-     * @param newBusTemplate az átadandó busz sablonja
+     * @param newBus az átadandó busz
      */
-    public BusPurchase(int price, String displayName, Garage shop, Player buyer,
-            Bus newBusTemplate) {
-        super(price, displayName, shop, buyer);
-        Skeleton.instance.createObject(this,  "price", price,"displayName",displayName,"shop",shop,"buyer",buyer);
-        this.newBusTemplate = newBusTemplate;
+    public BusPurchase(int price, Bus newBus) {
+        Skeleton.instance.createObject(this, "price", price, "newBus", newBus);
+
+        this.price = price;
+        this.newBus = newBus;
+    }
+
+    /**
+     * Visszaadja a vásárlási tétel árát.
+     *
+     * @return a busz ára
+     */
+    @Override
+    public int getPrice() {
+        Skeleton.instance.methodCall(this, "getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", price);
+
+        return price;
     }
 
     /**
      * Végrehajtja a vásárlás hatását.
      *
-     * A skeleton szintjén a metódus az új busz átadásának helyét
-     * reprezentálja. A konkrét hozzárendeléshez külön, dokumentált
-     * járműkezelő metódusra lenne szükség.
-     *
      * @param buyer a vásárló játékos
      */
+    @Override
     public void applyPurchase(Player buyer) {
         Skeleton.instance.methodCall(this, "applyPurchase", "buyer", buyer);
-        Bus purchasedBus;
 
-        purchasedBus = newBusTemplate;
-        purchasedBus = purchasedBus;
-
-        // Skeleton implementáció:
-        // itt történne az új busz átadása a vásárlónak.
+        if (buyer != null && newBus != null) {
+            buyer.addVehicle(newBus);
+        }
 
         Skeleton.instance.methodReturn(this, "applyPurchase");
     }

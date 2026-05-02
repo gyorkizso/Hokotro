@@ -15,7 +15,6 @@ public class Snowplow extends Vehicle {
      */
     public Snowplow(Lane currentLane, Player owner, Object destination, int speed) {
         super(currentLane, owner, destination, speed);
-        Skeleton.instance.createObject(this,"currentLane",currentLane,"owner",owner,"destination",destination,"speed",speed);
     }
 
     /**
@@ -23,12 +22,10 @@ public class Snowplow extends Vehicle {
      *
      * @param road az az út, amelyhez az aktuális sáv tartozik
      */
-    public void work(Road road) {
-        Skeleton.instance.methodCall(this,"work","road",road);
-        if (equippedHead != null && currentLane != null && road != null) {
-            equippedHead.applyTo(this, currentLane, road);
+    public void work() {
+        if (equippedHead != null && currentLane != null && currentLane.getRoad() != null) {
+            equippedHead.applyTo(this, currentLane, currentLane.getRoad());
         }
-        Skeleton.instance.methodReturn(this, "work");
     }
 
     /**
@@ -37,11 +34,8 @@ public class Snowplow extends Vehicle {
      * @param newHead az új kotrófej
      */
     public void equipHead(PlowHead newHead) {
-        Skeleton.instance.methodCall(this,"equipHead","newHead",newHead);
         if (newHead != null) {
             equippedHead = newHead;
-            consumeMovement(1);
         }
-        Skeleton.instance.methodReturn(this, "equipHead");
     }
 }

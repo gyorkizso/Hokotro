@@ -4,44 +4,53 @@
  * Felelőssége az árazás biztosítása és a megvásárolt fej átadásának
  * reprezentálása a vásárló felé.
  */
-public class HeadPurchase extends Purchasable {
-    /** Az átadandó kotrófej. */
+public class HeadPurchase implements Purchasable {
+
+    /** A kotrófej ára. */
+    private int price;
+
+    /** A megvásárolható konkrét kotrófej. */
     private PlowHead headToGive;
 
     /**
      * Létrehoz egy új fej-vásárlási tételt.
      *
      * @param price a fej ára
-     * @param displayName a tétel megnevezése
-     * @param shop a vásárlást lebonyolító garázs
-     * @param buyer a vásárló játékos
-     * @param headToGive az átadandó fej
+     * @param headToGive az átadandó kotrófej
      */
-    public HeadPurchase(int price, String displayName, Garage shop, Player buyer,
-            PlowHead headToGive) {
-        super(price, displayName, shop, buyer);
-        Skeleton.instance.createObject(this, "price",price,"displayName",displayName,"shop",shop,"buyer",buyer);
+    public HeadPurchase(int price, PlowHead headToGive) {
+        Skeleton.instance.createObject(this, "price", price, "headToGive", headToGive);
+
+        this.price = price;
         this.headToGive = headToGive;
+    }
+
+    /**
+     * Visszaadja a vásárlási tétel árát.
+     *
+     * @return a kotrófej ára
+     */
+    @Override
+    public int getPrice() {
+        Skeleton.instance.methodCall(this, "getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", price);
+
+        return price;
     }
 
     /**
      * Végrehajtja a vásárlás hatását.
      *
-     * A skeleton szintjén a metódus a fej átadásának helyét reprezentálja.
-     * A konkrét felszereléshez külön, dokumentált átadási vagy felszerelési
-     * műveletre lenne szükség.
-     *
      * @param buyer a vásárló játékos
      */
+    @Override
     public void applyPurchase(Player buyer) {
-        Skeleton.instance.methodCall(this,"applyPurchase", "buyer", buyer);
-        PlowHead purchasedHead;
+        Skeleton.instance.methodCall(this, "applyPurchase", "buyer", buyer);
 
-        purchasedHead = headToGive;
-        purchasedHead = purchasedHead;
+        if (buyer instanceof CleanerPlayer) {
+            ((CleanerPlayer) buyer).receiveHead(headToGive);
+        }
 
-        // Skeleton implementáció:
-        // itt történne a fej átadása a vásárlónak.
         Skeleton.instance.methodReturn(this, "applyPurchase");
     }
 }

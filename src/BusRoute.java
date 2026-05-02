@@ -25,6 +25,9 @@ public class BusRoute {
     /** Az eddig összegyűjtött bónuszok összege. */
     private int collectedBonus;
 
+    /** A járat jutalmát fogadó pénztárca. */
+    private Wallet wallet;
+
     /**
      * Létrehoz egy új buszjáratot.
      *
@@ -32,11 +35,11 @@ public class BusRoute {
      * @param baseReward az alapjutalom
      * @param bonusPerStop az egy megállóért járó bónusz
      */
-    public BusRoute(List<RoutePoint> routePoints, int baseReward, int bonusPerStop) {
-        Skeleton.instance.createObject(this, "routePoints",routePoints,"baseReward",baseReward,"bonusPerStop",bonusPerStop);
+    public BusRoute(List<RoutePoint> routePoints, int baseReward, int bonusPerStop, Wallet wallet) {
         this.routePoints = routePoints;
         this.baseReward = baseReward;
         this.bonusPerStop = bonusPerStop;
+        this.wallet = wallet;
         this.collectedBonus = 0;
 
         if (this.routePoints == null) {
@@ -54,17 +57,11 @@ public class BusRoute {
      * @param currentPos a busz aktuális helye
      */
     public void checkArrival(Intersection currentPos) {
-        Skeleton.instance.methodCall(this, "checkArrival", "currentPos", currentPos);
-        int i;
-        RoutePoint point;
-
-        for (i = 0; i < routePoints.size(); i++) {
-            point = routePoints.get(i);
+        for (RoutePoint point : routePoints) {
             if (point.location == currentPos) {
                 point.applyEffect(this);
             }
         }
-        Skeleton.instance.methodReturn(this, "checkArrival");
     }
 
     /**
@@ -73,9 +70,16 @@ public class BusRoute {
      * Ezt a metódust a Stop osztály hívja meg érintéskor.
      */
     public void addBonus() {
-        Skeleton.instance.methodCall(this, "addBonus");
         collectedBonus += bonusPerStop;
-        Skeleton.instance.methodReturn(this, "addBonus");
+    }
+
+    /**
+     * Beállítja a járat jutalmát fogadó pénztárcát.
+     *
+     * @param wallet a pénztárca
+     */
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     /**
@@ -86,30 +90,17 @@ public class BusRoute {
      * itt tényleges pénzjóváírás nem történik.
      */
     public void completeIfTerminalsReached() {
-        Skeleton.instance.methodCall(this, "completeIfTerminalsReached");
-        int i;
-        RoutePoint point;
+        int visitedTerminals = 0;
 
-        for (i = 0; i < routePoints.size(); i++) {
-            point = routePoints.get(i);
-            if (point instanceof Terminal && !point.isVisited) {
-                return;
+        for (RoutePoint point : routePoints) {
+            if (point instanceof Terminal && point.isVisited) {
+                visitedTerminals++;
             }
         }
 
-        int finalReward = baseReward + collectedBonus;
-        finalReward = finalReward;
-        Skeleton.instance.methodReturn(this, "completeIfTerminalsReached");
-    }
-
-    /**
-    * Visszaadja a járat teljesítéséért járó jutalom összegét.
-    *
-    * @return a járat teljesítéséért járó jutalom összege
-    */
-    public int getReward() {
-        Skeleton.instance.methodCall(this, "getReward");
-        Skeleton.instance.methodReturn(this, "getReward",baseReward + collectedBonus);
-        return baseReward + collectedBonus;
+        if(visitedTerminals == 2) {
+            int totalReward = baseReward + collectedBonus;
+            wallet.addFunds(totalReward);
+        }
     }
 }
