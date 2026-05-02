@@ -60,10 +60,20 @@ public class RoadNetwork {
     }
 
     /**
-     * Megkeresi és visszaadja a két csomópont közötti legrövidebb, járható utat.
+     * Hozzáad egy garázs az úthálózathoz.
      *
-     * A skeleton szintjén itt nincs valódi útkereső algoritmus; a metódus
-     * csak egy hívható helykitöltő.
+     * @param g a hozzáadandó garázs
+     */
+    public void addGarage(Garage g){
+        Skeleton.instance.methodCall(this, "addRoad", "garage", g);
+        if (g != null){
+            garages.add(g);
+        }
+        Skeleton.instance.methodReturn(this, "addRoad");
+    }
+
+    /**
+     * Megkeresi és visszaadja a két csomópont közötti legrövidebb, járható utat.
      *
      * @param from a kiinduló csomópont
      * @param to a cél csomópont
@@ -71,7 +81,11 @@ public class RoadNetwork {
      */
     public List<Road> findShortestPath(Intersection from, Intersection to) {
         Skeleton.instance.methodCall(this,"findShortestPath", "from",from,"to",to);
+
         List<Road> result = new ArrayList<Road>();
+        List<Intersection> visited = new ArrayList<>();
+        result.add(from);
+
         Skeleton.instance.methodReturn(this, "findShortestPath", result);
         return result;
     }

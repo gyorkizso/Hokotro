@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Az Intersection egy kereszteződést ír le, ahol több út is összefuthat.
@@ -44,5 +46,29 @@ public class Intersection {
             connectedRoads.add(r);
         }
         Skeleton.instance.methodReturn(this, "connectRoad");
+    }
+
+    public List<Road> getConnectedRoads(){
+        return connectedRoads;
+    }
+
+    public  List<Intersection> getNeighbours(){
+        return connectedRoads.stream().map(road -> road.getNextIntersection(this)).collect(Collectors.toList());
+    }
+
+    public Garage getGarage(){
+        return garage;
+    }
+
+    public boolean hasGarage(){
+        return garage != null;
+    }
+
+    public void setGarage(Garage g){
+        garage = g;
+    }
+
+    public String getId(){
+        return id;
     }
 }
