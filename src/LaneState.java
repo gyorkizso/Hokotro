@@ -2,7 +2,7 @@
  * A LaneState egy útsáv aktuális állapotát írja le.
  *
  * Felelőssége, hogy az állapothoz tartozó szabályok az adott állapothoz
- * kötötten jelenjenek meg.
+ * kötötten jelenjenek meg, és a sáv viselkedése polimorf módon legyen kezelhető.
  */
 public abstract class LaneState {
     /** Az a sáv, amelynek az állapotát ez az objektum reprezentálja. */
@@ -20,31 +20,19 @@ public abstract class LaneState {
     /**
      * Reagál arra, hogy egy jármű a sávra érkezik.
      *
-     * A skeleton szintjén az alapértelmezett implementáció nem végez műveletet.
-     *
      * @param vehicle a belépő jármű
      */
-    public void onVehicleEnter(Vehicle vehicle) {
-        // Skeleton alapértelmezett implementáció.
-    }
+    public abstract void onVehicleEnter(Vehicle vehicle);
 
     /**
      * Kezeli a havazás hatását az adott állapotban.
      *
-     * A skeleton szintjén az alapértelmezett implementáció nem végez műveletet.
-     *
      * @param amount a lehullott hó mennyisége
      */
-    public void onSnowfall(int amount) {
-        // Skeleton alapértelmezett implementáció.
-    }
+    public abstract void onSnowfall(int amount);
 
     /**
      * Reagál arra, hogy a sávot letakarították.
-     *
-     * A skeleton szintjén az alapértelmezett implementáció nem végez műveletet.
      */
-    public void onCleaned() {
-        // Skeleton alapértelmezett implementáció.
-    }
+    public abstract void onCleaned();
 }

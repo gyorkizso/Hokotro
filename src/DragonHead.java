@@ -23,33 +23,46 @@ public class DragonHead extends PlowHead {
      */
     public DragonHead(Snowplow plow, Lane targetLane, Consumable fuelSupply) {
         super(plow, targetLane);
-        Skeleton.instance.createObject(this, "plow",plow,"targetLane",targetLane,"fuelSupply",fuelSupply);
+        Skeleton.instance.createObject(this,
+                "plow", plow,
+                "targetLane", targetLane,
+                "fuelSupply", fuelSupply);
         this.fuelSupply = fuelSupply;
     }
 
     /**
      * Kifejti a sárkány fej hatását.
      *
-     * A skeleton szintjén, ha van elegendő üzemanyag, a metódus eltávolítja
-     * a sáv havát és jegét, majd tiszta állapotot ad a sávhoz.
+     * Ha van elegendő üzemanyag, a metódus eltávolítja a sáv havát és jegét,
+     * majd hozzáad egy ClearState állapotot a sávhoz.
+     *
+     * Megjegyzés:
+     * A részletes terv szerint ideálisan a meglévő jeges állapotot kellene
+     * ClearState-re cserélni, de a jelenlegi Lane publikus felülete nem teszi
+     * lehetővé a konkrét lecserélendő állapot visszakeresését.
      *
      * @param plow az érintett hókotró
      * @param currentLane az aktuális sáv
      * @param road az aktuális út
      */
+    @Override
     public void applyTo(Snowplow plow, Lane currentLane, Road road) {
-        Skeleton.instance.methodCall(this,"applyTo", "plow",plow,"currentLane",currentLane,"road",road);
+        Skeleton.instance.methodCall(this, "applyTo",
+                "plow", plow,
+                "currentLane", currentLane,
+                "road", road);
+
         if (currentLane == null || fuelSupply == null) {
             Skeleton.instance.methodReturn(this, "applyTo");
             return;
         }
 
         if (fuelSupply.consume(1)) {
-            currentLane.clearSnow();
-            currentLane.removeAllIce();
+            currentLane.setIceAmount(0);
+            currentLane.setSnowAmount(0);
             currentLane.addLaneState(new ClearState(currentLane));
-            currentLane.clean(this);
         }
+
         Skeleton.instance.methodReturn(this, "applyTo");
     }
 
@@ -58,8 +71,9 @@ public class DragonHead extends PlowHead {
      *
      * @return a fej ára
      */
+    @Override
     public int getPrice() {
-        Skeleton.instance.methodCall(this,"getPrice");
+        Skeleton.instance.methodCall(this, "getPrice");
         Skeleton.instance.methodReturn(this, "getPrice", PRICE);
         return PRICE;
     }
