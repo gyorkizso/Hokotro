@@ -41,10 +41,11 @@ public class IceBreakerHead extends PlowHead {
             return;
         }
 
-        int removedIce = currentLane.removeAllIce();
+        int removedIce = currentLane.getIceAmount();
+        currentLane.clearIce();
 
         if (removedIce > 0) {
-            currentLane.receiveSnow(removedIce);
+            currentLane.addSnow(removedIce);
         }
 
         currentLane.clean(this);
