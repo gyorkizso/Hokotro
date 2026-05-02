@@ -28,16 +28,20 @@ public class Car extends Vehicle {
     /**
      * Végrehajtja az autó körét.
      */
-    public void executeTurn() {
-        Road currentRoad = currentLane.getRoad();
-        
-        List<Road> shortestPath = network.findShortestPath(currentRoad.getNextIntersection(getDestination()), getDestination());
-
+    public void executeTurn(RoadNetwork roadNetwork) {
+        List<Road> shortestPath = roadNetwork.findShortestPath(currentIntersection, getDestination());
+        Road nextRoad = shortestPath.get(0);
+        for (Lane lane : nextRoad.getLanes()) {
+            if (tryMoveTo(lane)) {
+                return;
+            }
+        }
     }
 
     /**
      * Kezeli az ütközés eseményét.
      */
+    @Override
     public void onCollision() {
         currentLane.addLaneState(new BlockedState(currentLane));
     }

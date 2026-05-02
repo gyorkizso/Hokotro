@@ -1,7 +1,7 @@
 /**
  * A SaltSpreaderHead a sószóró fejet reprezentálja.
  *
- * Felelőssége az útsáv sózása, ami elindítja a hó és a jég folyamatos
+ * Felelőssége az útsáv sózása, ami elindítja a hó és a jég fokozatos
  * olvadását. Működéséhez sóra mint fogyóeszközre van szükség.
  *
  * Asszociáció:
@@ -23,22 +23,30 @@ public class SaltSpreaderHead extends PlowHead {
      */
     public SaltSpreaderHead(Snowplow plow, Lane targetLane, Consumable saltSupply) {
         super(plow, targetLane);
-        Skeleton.instance.createObject(this, "plow",plow,"targetLane",targetLane,"saltSupply",saltSupply);
+        Skeleton.instance.createObject(this,
+                "plow", plow,
+                "targetLane", targetLane,
+                "saltSupply", saltSupply);
         this.saltSupply = saltSupply;
     }
 
     /**
      * Kifejti a sószóró fej hatását.
      *
-     * A skeleton szintjén, ha van elegendő só, a metódus hozzáad egy
-     * sózott állapotot a sávhoz.
+     * Ha van elegendő sókészlet, a sáv új SaltedState állapotot kap.
+     * Ha nincs készlet vagy nincs cél sáv, a metódus hatástalanul tér vissza.
      *
      * @param plow az érintett hókotró
      * @param currentLane az aktuális sáv
      * @param road az aktuális út
      */
+    @Override
     public void applyTo(Snowplow plow, Lane currentLane, Road road) {
-        Skeleton.instance.methodCall(this,"applyTo","plow",plow,"currentLane",currentLane,"road",road);
+        Skeleton.instance.methodCall(this, "applyTo",
+                "plow", plow,
+                "currentLane", currentLane,
+                "road", road);
+
         if (currentLane == null || saltSupply == null) {
             Skeleton.instance.methodReturn(this, "applyTo");
             return;
@@ -47,6 +55,7 @@ public class SaltSpreaderHead extends PlowHead {
         if (saltSupply.consume(1)) {
             currentLane.addLaneState(new SaltedState(currentLane, 2));
         }
+
         Skeleton.instance.methodReturn(this, "applyTo");
     }
 
@@ -55,8 +64,9 @@ public class SaltSpreaderHead extends PlowHead {
      *
      * @return a fej ára
      */
+    @Override
     public int getPrice() {
-        Skeleton.instance.methodCall(this,"getPrice");
+        Skeleton.instance.methodCall(this, "getPrice");
         Skeleton.instance.methodReturn(this, "getPrice", PRICE);
         return PRICE;
     }

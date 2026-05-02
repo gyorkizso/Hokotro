@@ -22,6 +22,17 @@ public class SaltedState extends LaneState {
     }
 
     /**
+     * Sózott állapotban a járműbelépés nem okoz külön állapotváltozást.
+     *
+     * @param vehicle az érkező jármű
+     */
+    @Override
+    public void onVehicleEnter(Vehicle vehicle) {
+        Skeleton.instance.methodCall(this, "onVehicleEnter", "vehicle", vehicle);
+        Skeleton.instance.methodReturn(this, "onVehicleEnter");
+    }
+
+    /**
      * Kezeli a havazás hatását sózott állapotban.
      *
      * A prototípus szintjén a sózott állapot azt biztosítja,

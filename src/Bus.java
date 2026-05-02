@@ -39,6 +39,7 @@ public class Bus extends Vehicle {
     /**
      * Ütközés esetén mozgásképtelen állapotot rendel a buszhoz.
      */
+    @Override
     public void onCollision() {
         setStatus(new ImmobilizedStatus(this, 1));
     }

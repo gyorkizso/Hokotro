@@ -28,6 +28,9 @@ public abstract class Vehicle {
     /** Azt jelzi, hogy a jármű aktív-e még a játékban. */
     protected boolean active;
 
+    /** A kereszteződés, ahol a jármű jelenleg tartózkodik. */
+    protected Intersection currentIntersection;
+
     /**
      * Létrehoz egy új járművet.
      *
@@ -37,6 +40,8 @@ public abstract class Vehicle {
      */
     public Vehicle(Lane currentLane, Object destination, int speed) {
         this.currentLane = currentLane;
+        this.currentIntersection = null;
+        this.owner = owner;
         this.destination = destination;
         this.speed = speed;
         this.movementRemaining = speed;
@@ -59,6 +64,29 @@ public abstract class Vehicle {
             onEnterLane(targetLane);
         }
         return true;
+    }
+
+    /**
+     * Megkísérli a jármű áthelyezését egy cél kereszteződésre.
+     * @param targetIntersection a cél kereszteződés
+     * @return igaz, ha az áthelyezés megtörtént; különben hamis
+     */
+    public boolean tryMoveTo(Intersection targetIntersection) {
+        Road currentRoad = getCurrentRoad();
+        if (!active || targetIntersection == null || currentRoad == null) {
+            return false;
+        }
+        List<Road> connectedRoads = targetIntersection.getConnectedRoads();
+        for (Road road : connectedRoads) {
+            if(road == currentRoad) {
+                consumeMovement(1);
+                currentLane.removeVehicle(this);
+                currentLane = null;
+                currentIntersection = targetIntersection;
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -110,13 +138,16 @@ public abstract class Vehicle {
         active = false;
     }
 
-    /*
+    /**
      * A jeges sávra érkezés kezelését
      * végzi. A konkrét következmény a jármű típusától függ, ezért a metódus
      * alapértelmezett viselkedését a leszármazott osztályok pontosíthatják.
+     * @param lane a jeges sáv, amelyre a jármű érkezett
      */
     public void handleIcyLane(Lane lane){
-        
+        if(lane.getVehicles().size() > 1) {
+            this.onCollision();
+        }
     }
 
     /*
@@ -188,4 +219,9 @@ public abstract class Vehicle {
     public int getMovementRemaining() {
         return movementRemaining;
     }
+
+    /*
+     * Meghívódik, amikor a jármű ütközik egy másik járművel.
+     */
+    public void onCollision() {}
 }

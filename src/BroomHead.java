@@ -24,31 +24,48 @@ public class BroomHead extends PlowHead {
     /**
      * Kifejti a söprő fej hatását.
      *
-     * A skeleton szintjén a metódus a szekvenciadiagram szerinti fő
-     * hívásokat hajtja végre, részletes elosztási algoritmus nélkül.
+     * A fej a havat az aktuális sávból a közvetlen szomszédos sávokba tolja.
+     * Ha nincs szomszédos sáv, akkor a hó az út mellé kerül.
      *
      * @param plow az érintett hókotró
      * @param currentLane az aktuális sáv
      * @param road az aktuális út
      */
+    @Override
     public void applyTo(Snowplow plow, Lane currentLane, Road road) {
-        Skeleton.instance.methodCall(this, "applyTo", "plow", plow, "currentLane", currentLane, "road", road);
-        List<Lane> neighbors;
-        int i;
+        Skeleton.instance.methodCall(this, "applyTo",
+                "plow", plow,
+                "currentLane", currentLane,
+                "road", road);
 
         if (currentLane == null || road == null) {
+            Skeleton.instance.methodReturn(this, "applyTo");
             return;
         }
 
-        currentLane.getSnowAmount();
-        neighbors = road.getLaneNeighbors(currentLane, 1);
+        int snowAmount = currentLane.getSnowAmount();
+        List<Lane> neighbors = road.getLaneNeighbors(currentLane, 1);
 
-        for (i = 0; i < neighbors.size(); i++) {
-            neighbors.get(i).receiveSnow(1);
+        if (snowAmount > 0 && !neighbors.isEmpty()) {
+            int i;
+            int distributedPerLane = snowAmount / neighbors.size();
+            int remainder = snowAmount % neighbors.size();
+
+            for (i = 0; i < neighbors.size(); i++) {
+                int amountToPush = distributedPerLane;
+                if (remainder > 0) {
+                    amountToPush++;
+                    remainder--;
+                }
+                if (amountToPush > 0) {
+                    neighbors.get(i).receiveSnow(amountToPush);
+                }
+            }
         }
 
         currentLane.clearSnow();
         currentLane.clean(this);
+
         Skeleton.instance.methodReturn(this, "applyTo");
     }
 
@@ -57,6 +74,7 @@ public class BroomHead extends PlowHead {
      *
      * @return a fej ára
      */
+    @Override
     public int getPrice() {
         Skeleton.instance.methodCall(this, "getPrice");
         Skeleton.instance.methodReturn(this, "getPrice", PRICE);

@@ -16,31 +16,40 @@ public class IceBreakerHead extends PlowHead {
      */
     public IceBreakerHead(Snowplow plow, Lane targetLane) {
         super(plow, targetLane);
-        Skeleton.instance.createObject(this, "plow",plow,"targetLane",targetLane);
+        Skeleton.instance.createObject(this, "plow", plow, "targetLane", targetLane);
     }
 
     /**
      * Kifejti a jégtörő fej hatását.
      *
-     * A skeleton szintjén a metódus eltávolítja a sáv teljes jégmennyiségét,
-     * majd azt hóként visszahelyezi ugyanarra a sávra.
+     * Eltávolítja a sáv teljes jégmennyiségét, majd a feltört jeget
+     * hóként visszahelyezi ugyanarra a sávra.
      *
      * @param plow az érintett hókotró
      * @param currentLane az aktuális sáv
      * @param road az aktuális út
      */
+    @Override
     public void applyTo(Snowplow plow, Lane currentLane, Road road) {
-        Skeleton.instance.methodCall(this,"applyTo","plow",plow,"currentLane",currentLane,"road",road);
-        int removedIce;
+        Skeleton.instance.methodCall(this, "applyTo",
+                "plow", plow,
+                "currentLane", currentLane,
+                "road", road);
 
         if (currentLane == null) {
+            Skeleton.instance.methodReturn(this, "applyTo");
             return;
         }
 
-        removedIce = currentLane.getIceAmount();
+        int removedIce = currentLane.getIceAmount();
         currentLane.clearIce();
-        currentLane.receiveSnow(removedIce);
+
+        if (removedIce > 0) {
+            currentLane.addSnow(removedIce);
+        }
+
         currentLane.clean(this);
+
         Skeleton.instance.methodReturn(this, "applyTo");
     }
 
@@ -49,9 +58,10 @@ public class IceBreakerHead extends PlowHead {
      *
      * @return a fej ára
      */
+    @Override
     public int getPrice() {
-        Skeleton.instance.methodCall(this,"getPrice");
-        Skeleton.instance.methodReturn(this, "getPrice",PRICE);
+        Skeleton.instance.methodCall(this, "getPrice");
+        Skeleton.instance.methodReturn(this, "getPrice", PRICE);
         return PRICE;
     }
 }
