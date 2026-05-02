@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * A RoadNetwork a város úthálózatának topológiai modelljét valósítja meg.
@@ -31,6 +30,18 @@ public class RoadNetwork {
         intersections = new ArrayList<Intersection>();
         roads = new ArrayList<Road>();
         garages = new ArrayList<Garage>();
+    }
+
+    List<Road> getRoads(){
+        return roads;
+    }
+
+    List<Intersection> getIntersections(){
+        return intersections;
+    }
+
+    List<Garage> getGarages(){
+        return garages;
     }
 
     /**
@@ -83,8 +94,39 @@ public class RoadNetwork {
         Skeleton.instance.methodCall(this,"findShortestPath", "from",from,"to",to);
 
         List<Road> result = new ArrayList<Road>();
+        Queue<Intersection> queue = new ArrayDeque<>();
         List<Intersection> visited = new ArrayList<>();
-        result.add(from);
+        Map<Intersection, Intersection> previous = new HashMap<>();
+
+        visited.add(from);
+        queue.add(from);
+
+        while(!queue.isEmpty()){
+            Intersection current = queue.remove();
+
+            if (current.equals(to)){
+                Intersection prev = to;
+
+                //Visszafele felépíti az utat a previous tábla alapján
+                while(previous.containsKey(prev)){
+                    Intersection currentPrev = prev;
+                    result.add(prev.getConnectedRoads().stream().filter(road -> road.getNextIntersection(currentPrev).equals(previous.get(currentPrev))).findFirst().get()) ;
+                    prev = previous.get(prev);
+                }
+            }
+
+            for (Road road : current.getConnectedRoads()){
+                //Az út járható ha legalább egy sávja járható
+                if (road.getLanes().stream().anyMatch(lane -> !lane.isBlocked())){
+                    Intersection next = road.getNextIntersection(current);
+                    if (visited.contains(next)){
+                        visited.add(next);
+                        previous.put(next, current);
+                        queue.add(next);
+                    }
+                }
+            }
+        }
 
         Skeleton.instance.methodReturn(this, "findShortestPath", result);
         return result;

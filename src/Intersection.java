@@ -61,7 +61,7 @@ public class Intersection {
     }
 
     public boolean hasGarage(){
-        return garage != null;
+         return garage != null;
     }
 
     public void setGarage(Garage g){
