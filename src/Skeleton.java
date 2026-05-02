@@ -1,71 +1,74 @@
-import java.io.Console;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 /**
-* Singleton osztály a Skeleton teszteseteinek, valamint ki és bemenetének kezelésére
-*/
+ * Singleton osztály a Skeleton teszteseteinek, valamint ki és bemenetének kezelésére
+ */
 public class Skeleton {
     /** A singleton példány */
     public static Skeleton instance;
     /** A tesztek során létrehozott objektumok neveit tartja számon */
     public Map<Object, String> names = new HashMap<>();
-    
+
+    public PrintStream outStream = System.out;
+
     Scanner scanner;
 
-    Skeleton(){
+    public Skeleton(){
         scanner = new Scanner(System.in);
         instance = this;
     }
 
     /** Bekér a felhasználótól egy Stringet.
-    *
-    * Az egész sort beolvassa szóközökkel együtt.
-    * @param paramName a paraméter neve amihez kérjük az értéket.
-    * @param extra extra szöveg amit a normál üzenet után ír.
-    * @return a felhasználó által megadott szöveg
-    */
+     *
+     * Az egész sort beolvassa szóközökkel együtt.
+     * @param paramName a paraméter neve amihez kérjük az értéket.
+     * @param extra extra szöveg amit a normál üzenet után ír.
+     * @return a felhasználó által megadott szöveg
+     */
     String getStringFromUser(String paramName, String extra){
-        System.out.printf("Kérem adja meg a(z) %s értékét %s:", paramName, extra);
+        outStream.printf("Kérem adja meg a(z) %s értékét %s:", paramName, extra);
         String string = scanner.nextLine();
         return string.strip();
     }
 
     /** Bekér a felhasználótól egy szöveget
-    *
-    * Az egész sort beolvassa szóközökkel együtt.
-    * @param paramName a paraméter neve amihez kérjük az értéket.
-    * @return a felhasználó által megadott szöveg
-    */
+     *
+     * Az egész sort beolvassa szóközökkel együtt.
+     * @param paramName a paraméter neve amihez kérjük az értéket.
+     * @return a felhasználó által megadott szöveg
+     */
     String getStringFromUser(String paramName){
         return getStringFromUser(paramName, "");
     }
 
     /** Bekér a felhasználótól egy egész számot
-    * @param paramName a paraméter neve amihez kérjük az értéket.
-    * @return a felhasználó által megadott szám
-    */
+     * @param paramName a paraméter neve amihez kérjük az értéket.
+     * @return a felhasználó által megadott szám
+     */
     int getIntFromUser(String paramName) {
         String raw = getStringFromUser(paramName);
         return Integer.parseInt(raw);
     }
 
     /** Bekér a felhasználótól egy valós számot
-    * @param paramName a paraméter neve amihez kérjük az értéket.
-    * @return a felhasználó által megadott szám
-    */
+     * @param paramName a paraméter neve amihez kérjük az értéket.
+     * @return a felhasználó által megadott szám
+     */
     double getDoubleFromUser(String paramName) {
         String raw = getStringFromUser(paramName);
         return Double.parseDouble(raw);
     }
 
     /** Bekér a felhasználótól egy igaz hamis értéke
-    
-    * 0 jelenti az igazat és 1 a hamisat. Egyéb érték hibát dob.
-    * @param paramName a paraméter neve amihez kérjük az értéket.
-    * @return a felhasználó által megadott érték
-    */
+
+     * 0 jelenti az igazat és 1 a hamisat. Egyéb érték hibát dob.
+     * @param paramName a paraméter neve amihez kérjük az értéket.
+     * @return a felhasználó által megadott érték
+     */
     boolean getBooleanFromUser(String paramName) {
         String raw = getStringFromUser(paramName, "(0=hamis, 1=igaz):");
         switch (raw){
@@ -79,40 +82,40 @@ public class Skeleton {
     }
 
     /** Megkéri a felhasználót, hogy válasszon a megadott opciók közül
-    
-    * 0 jelenti az igazat és 1 a hamisat. Egyéb érték hibát dob.
-    * @param options az opciók amik fel lesznek sorolva.
-    * @return a felhasználó által választott opció sorszáma
-    */
+
+     * 0 jelenti az igazat és 1 a hamisat. Egyéb érték hibát dob.
+     * @param options az opciók amik fel lesznek sorolva.
+     * @return a felhasználó által választott opció sorszáma
+     */
     int getListSelectionFromUser(List<String> options){
         for (int i = 0; i < options.size(); i++){
-            System.out.printf("%d. %s%n", i, options.get(i));
+            outStream.printf("%d. %s%n", i, options.get(i));
         }
-        System.out.print("Kérem válasszon a fentiek közül:");
+        outStream.print("Kérem válasszon a fentiek közül:");
         return Integer.parseInt(scanner.nextLine());
     }
 
     /** Kiírja standard kimenetre egy metódus meghívását
-    * 
-    * @param o az objektum amihez tartozik a metódus
-    * @param methodName a metódus neve
-    * @param args a metódus argumentumainak nevei és értékei. A neveket és értékeket egymás után kell megadni felváltva, kezdve az első argumentum nevével.
-    */
+     *
+     * @param o az objektum amihez tartozik a metódus
+     * @param methodName a metódus neve
+     * @param args a metódus argumentumainak nevei és értékei. A neveket és értékeket egymás után kell megadni felváltva, kezdve az első argumentum nevével.
+     */
     public void methodCall(Object o, String methodName, Object... args){
-        System.out.printf("%s.%s(", names.get(o), methodName);
+        outStream.printf("%s.%s(", names.get(o), methodName);
         for (int j = 0; j < args.length; j+=2) {
             Object paramName = args[j];
             Object value = args[Math.min(j+1, args.length-1)];
-                System.out.printf("%s=%s, ", paramName, names.containsKey(value) ? names.get(value) : value);
+            outStream.printf("%s=%s, ", paramName, names.containsKey(value) ? names.get(value) : value);
         }
-        System.out.print(") meghívva\n");
+        outStream.print(") meghívva\n");
     }
 
     /** Kiírja standard kimenetre egy objektum létrehozását
-    * 
-    * @param o az objektum ami létrejött
-    * @param args a konstruktor argumentumainak nevei és értékei. A neveket és értékeket egymás után kell megadni felváltva, kezdve az első argumentum nevével.
-    */
+     *
+     * @param o az objektum ami létrejött
+     * @param args a konstruktor argumentumainak nevei és értékei. A neveket és értékeket egymás után kell megadni felváltva, kezdve az első argumentum nevével.
+     */
     public void createObject(Object o, Object... args) {
         String type = o.getClass().getTypeName();
         int i = 1;
@@ -122,104 +125,104 @@ public class Skeleton {
         String name = type+i;
         names.put(o, name);
 
-        System.out.printf("%s típusú objektum létrehozva %s névvel", type, name);
+        outStream.printf("%s típusú objektum létrehozva %s névvel", type, name);
         if (args.length != 0){
-            System.out.print(", ezekkel a konstruktor paraméterekkel: ");
+            outStream.print(", ezekkel a konstruktor paraméterekkel: ");
             for (int j = 0; j < args.length; j+=2) {
                 Object paramName = args[j];
                 Object value = args[Math.min(j+1, args.length-1)];
-                System.out.printf("%s=%s, ", paramName, names.containsKey(value) ? names.get(value) : value);
+                outStream.printf("%s=%s, ", paramName, names.containsKey(value) ? names.get(value) : value);
             }
         }
-        System.out.print("\n");
+        outStream.print("\n");
     }
 
     /** Kiírja standard kimenetre egy metódus visszatérését
-    * 
-    * @param o az objektum amihez tartozik a metódus
-    * @param methodName a metódus neve
-    * @param returnValue a metódus visszatérési értéke
-    */
+     *
+     * @param o az objektum amihez tartozik a metódus
+     * @param methodName a metódus neve
+     * @param returnValue a metódus visszatérési értéke
+     */
     public void methodReturn(Object o, String methodName, Object returnValue) {
-        System.out.printf("%s.%s visszatért", names.get(o), methodName);
+        outStream.printf("%s.%s visszatért", names.get(o), methodName);
         if (returnValue != null){
-            System.out.printf(" %s értékkel", names.containsKey(returnValue) ? names.get(returnValue) : returnValue);
+            outStream.printf(" %s értékkel", names.containsKey(returnValue) ? names.get(returnValue) : returnValue);
         }
-        System.out.print("\n");
+        outStream.print("\n");
     }
 
     /** Kiírja standard kimenetre egy metódus visszatérését
-    * 
-    * @param o az objektum amihez tartozik a metódus
-    * @param methodName a metódus neve
-    */
+     *
+     * @param o az objektum amihez tartozik a metódus
+     * @param methodName a metódus neve
+     */
     public void methodReturn(Object o, String methodName) {
         methodReturn(o, methodName, null);
     }
 
     /*1. Teszteset:*/
     public void testMatchStart(){
-        System.out.println("--- 1. Teszteset: Mérkőzés létrehozása ---");
+        outStream.println("--- 1. Teszteset: Mérkőzés létrehozása ---");
 
         /*1. Objektumok létrehozása:*/
-        System.out.println("Lane típusú objektum létrehozva l névvel, paraméterek nélkül.");
+        outStream.println("Lane típusú objektum létrehozva l névvel, paraméterek nélkül.");
         Lane l = new Lane();
 
-        System.out.println("Road típusú objektum létrehozva road névvel, ezekkel a konstruktor paraméterekkel: " +
-            "[first=null, second=null]"
+        outStream.println("Road típusú objektum létrehozva road névvel, ezekkel a konstruktor paraméterekkel: " +
+                "[first=null, second=null]"
         );
         Road road = new Road(null, null);
 
-        System.out.println("RoadNetwork típusú objektum létrehozva testNetwork névvel, paraméterek nélkül.");
+        outStream.println("RoadNetwork típusú objektum létrehozva testNetwork névvel, paraméterek nélkül.");
         RoadNetwork testNetwork = new RoadNetwork();
 
-        System.out.println("Match típusú objektum létrehozva m névvel, ezekkel a konstruktor paraméterekkel:" 
-        + "[player=null, vehicles=null, network=testNetwork].");
+        outStream.println("Match típusú objektum létrehozva m névvel, ezekkel a konstruktor paraméterekkel:"
+                + "[player=null, vehicles=null, network=testNetwork].");
         Match m = new Match(null, null, testNetwork);
 
-        System.out.println("CleanerPlayer típusú objektum létrehozva p1 névvel," 
-        + "ezekkel a konstruktor paraméterekkel: [name=CleanerPlayer, vehicle=null, waller=null, snowplow=null].");
+        outStream.println("CleanerPlayer típusú objektum létrehozva p1 névvel,"
+                + "ezekkel a konstruktor paraméterekkel: [name=CleanerPlayer, vehicle=null, waller=null, snowplow=null].");
         CleanerPlayer p1 = new CleanerPlayer("CleanerPlayer", null, null, null);
 
-        System.out.println("BusDriverPlayer típusú objektum létrehozva p2 névvel, paraméterek nélkül.");
+        outStream.println("BusDriverPlayer típusú objektum létrehozva p2 névvel, paraméterek nélkül.");
         BusDriverPlayer p2 = new BusDriverPlayer("BusDriverPlayer", null, null, null);
 
         /*2. Metódushívások:*/
         m.start();
-        System.out.println("m.start() meghívva");
-        
+        outStream.println("m.start() meghívva");
+
         /*3. belső hívások a start()-on belül:*/
         /*a) Lane inicializálása*/
-        System.out.println("l.setSnowAmount(amount=0) meghívva");
+        outStream.println("l.setSnowAmount(amount=0) meghívva");
         l.setSnowAmount(0);
-        System.out.println("l.setSnowAmount visszatért void értékkel");
+        outStream.println("l.setSnowAmount visszatért void értékkel");
 
-        System.out.println("l.setIceAmount(amount=0) meghívva");
+        outStream.println("l.setIceAmount(amount=0) meghívva");
         l.setIceAmount(0);
-        System.out.println("l.setIceAmount visszatért void értékkel");
+        outStream.println("l.setIceAmount visszatért void értékkel");
 
         /*b) Road inicializálása*/
-        System.out.println("road.addLane(lane=l) meghívva");
+        outStream.println("road.addLane(lane=l) meghívva");
         road.addLane(l);
-        System.out.println("road.addLane visszatért void értékkel");
+        outStream.println("road.addLane visszatért void értékkel");
 
         /*c) Első játékos köre*/
-        System.out.println("p1.beginTurn() meghívva");
+        outStream.println("p1.beginTurn() meghívva");
         p1.beginTurn();
-        System.out.println("p1.beginTurn visszatért void értékkel");
+        outStream.println("p1.beginTurn visszatért void értékkel");
 
         /*d) Második játékos köre*/
-        System.out.println("p2.beginTurn() meghívva");
+        outStream.println("p2.beginTurn() meghívva");
         p2.beginTurn();
-        System.out.println("p2.beginTurn visszatért void értékkel");
+        outStream.println("p2.beginTurn visszatért void értékkel");
 
-        System.out.println("m.start visszatért void értékkel");
-        System.out.println("--- Teszt vége ---");
+        outStream.println("m.start visszatért void értékkel");
+        outStream.println("--- Teszt vége ---");
     }
 
     /*2. Teszteset:*/
     public void testSnowfall() {
-        System.out.println("--- Teszteset: Havazás kezelése ---");
+        outStream.println("--- Teszteset: Havazás kezelése ---");
 
         /*1. Bekérjük a teszteléshez szükséges értékeket.*/
         int snowyThreshold = getIntFromUser("SnowyThreshold/havasSzint");
@@ -227,470 +230,470 @@ public class Skeleton {
         int amount = getIntFromUser("SnowfallRate/Hóesés mértéke)");
 
         /*2. Objektumok létrehozása:*/
-        System.out.println("RoadNetwork típusú objektum létrehozva testNetwork névvel, paraméterek nélkül.");
+        outStream.println("RoadNetwork típusú objektum létrehozva testNetwork névvel, paraméterek nélkül.");
         RoadNetwork testNetwork = new RoadNetwork();
 
-        System.out.println("WeatherSystem típusú objektum létrehozva ws névvel, ezekkel a konstruktor paraméterekkel: " +
-            "[network=testNetwork, snowFallRate=amount]"
+        outStream.println("WeatherSystem típusú objektum létrehozva ws névvel, ezekkel a konstruktor paraméterekkel: " +
+                "[network=testNetwork, snowFallRate=amount]"
         );
         WeatherSystem ws = new WeatherSystem(testNetwork, amount);
-    
-        System.out.println("Lane típusú objektum létrehozva l névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva l névvel.");
         Lane l = new Lane();
 
-        System.out.println("Road típusú objektum létrehozva road névvel, ezekkel a konstruktor paraméterekkel: " +
-            "[first=null, second=null]"
+        outStream.println("Road típusú objektum létrehozva road névvel, ezekkel a konstruktor paraméterekkel: " +
+                "[first=null, second=null]"
         );
         Road road = new Road(null, null);
-    
-        System.out.println("ClearState típusú objektum létrehozva s névvel.");
+
+        outStream.println("ClearState típusú objektum létrehozva s névvel.");
         ClearState s = new ClearState(l);
 
-        System.out.println("l.addLaneState(newState=s) meghívva");
+        outStream.println("l.addLaneState(newState=s) meghívva");
         l.addLaneState(s);
-        System.out.println("l.addLaneState visszatért void értékkel");
+        outStream.println("l.addLaneState visszatért void értékkel");
 
-        System.out.println("testNetwork.addRoad(r=road) meghívva");
+        outStream.println("testNetwork.addRoad(r=road) meghívva");
         testNetwork.addRoad(road);
-        System.out.println("testNetwork.addRoad(r=road) visszatért void értékkel");
+        outStream.println("testNetwork.addRoad(r=road) visszatért void értékkel");
 
         /*3. Folyamat:*/
-        System.out.println("ws.setSnowfallRate(amount=" + amount + ") meghívva");
+        outStream.println("ws.setSnowfallRate(amount=" + amount + ") meghívva");
         ws.setSnowfallRate(amount);
-        System.out.println("ws.setSnowfallRate visszatért void értékkel");
+        outStream.println("ws.setSnowfallRate visszatért void értékkel");
 
-        System.out.println("ws.applySnowfall() meghívva");
-    
-        System.out.println("l.receiveSnow(amount=" + amount + ") meghívva");
-    
-        System.out.println("s.onSnowfall(amount=" + amount + ") meghívva");
-    
-        System.out.println("l.getSnowAmount() meghívva");
+        outStream.println("ws.applySnowfall() meghívva");
+
+        outStream.println("l.receiveSnow(amount=" + amount + ") meghívva");
+
+        outStream.println("s.onSnowfall(amount=" + amount + ") meghívva");
+
+        outStream.println("l.getSnowAmount() meghívva");
 
         /*4. Új érték szimulálása:*/
-        int newSnowAmount = amount; 
-        System.out.println("l.getSnowAmount visszatért " + newSnowAmount + " értékkel");
+        int newSnowAmount = amount;
+        outStream.println("l.getSnowAmount visszatért " + newSnowAmount + " értékkel");
 
-        System.out.println("l.setSnowAmount(newSnowAmount=" + newSnowAmount + ") meghívva");
-        System.out.println("l.setSnowAmount visszatért void értékkel");
+        outStream.println("l.setSnowAmount(newSnowAmount=" + newSnowAmount + ") meghívva");
+        outStream.println("l.setSnowAmount visszatért void értékkel");
 
         /*5. Az 'alt' blokk: feltételvizsgálat*/
         if (newSnowAmount >= snowdriftThreshold) {
             /*Hótorlasz eset*/
-            System.out.println("SnowdriftState típusú objektum létrehozva newState névvel, ezekkel a konstruktor paraméterekkel [lane=l]");
+            outStream.println("SnowdriftState típusú objektum létrehozva newState névvel, ezekkel a konstruktor paraméterekkel [lane=l]");
             SnowdriftState newState = new SnowdriftState(l);
-        
-            System.out.println("l.replaceLaneState(oldState=s, newState=newState) meghívva");
+
+            outStream.println("l.replaceLaneState(oldState=s, newState=newState) meghívva");
             /*l.replaceLaneState(this, newState)*/
-            System.out.println("l.replaceLaneState visszatért void értékkel");
-        
+            outStream.println("l.replaceLaneState visszatért void értékkel");
+
         } else if (newSnowAmount >= snowyThreshold) {
             /*Havas út eset*/
-            System.out.println("SnowyState típusú objektum létrehozva newState névvel, ezekkel a konstruktor paraméterekkel [lane=l]");
+            outStream.println("SnowyState típusú objektum létrehozva newState névvel, ezekkel a konstruktor paraméterekkel [lane=l]");
             SnowyState newState = new SnowyState(l);
-        
-            System.out.println("l.replaceLaneState(oldState=s, newState=newState) meghívva");
+
+            outStream.println("l.replaceLaneState(oldState=s, newState=newState) meghívva");
             /*l.replaceLaneState(this, newState)*/
-            System.out.println("l.replaceLaneState visszatért void értékkel");
+            outStream.println("l.replaceLaneState visszatért void értékkel");
         }
 
         /*6. Többi függvény visszatérése:*/
-        System.out.println("s.onSnowfall visszatért void értékkel");
-        System.out.println("lane.receiveSnow visszatért void értékkel");
-        System.out.println("ws.applySnowfall visszatért void értékkel");
-    
-        System.out.println("--- Teszt vége ---");
+        outStream.println("s.onSnowfall visszatért void értékkel");
+        outStream.println("lane.receiveSnow visszatért void értékkel");
+        outStream.println("ws.applySnowfall visszatért void értékkel");
+
+        outStream.println("--- Teszt vége ---");
     }
 
     /*3. Teszteset:*/
     public void testIcing() {
-        System.out.println("--- Teszteset: Jég kialakulása ---");
+        outStream.println("--- Teszteset: Jég kialakulása ---");
 
         // 1. Paraméterek bekérése és objektumok létrehozása:
         int iceSheetThreshold = getIntFromUser("iceSheetThreshold/JégpáncélKüszöb");
         int icingRate = getIntFromUser("icingRate/JegesedésMérték");
-    
-        System.out.println("Lane típusú objektum létrehozva l névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva l névvel.");
         Lane l = new Lane();
-    
-        System.out.println("SnowyState típusú objektum létrehozva s névvel.");
+
+        outStream.println("SnowyState típusú objektum létrehozva s névvel.");
         SnowyState s = new SnowyState(l);
-    
-        System.out.println("BusDriverPlayer típusú objektum létrehozva testBusDriverPlayer névvel, ezekkel a konstruktor paraméterekkel: " +
-            "[name=BusDriverPlayer, vehicle=null, wallet=null, bus=null]"
+
+        outStream.println("BusDriverPlayer típusú objektum létrehozva testBusDriverPlayer névvel, ezekkel a konstruktor paraméterekkel: " +
+                "[name=BusDriverPlayer, vehicle=null, wallet=null, bus=null]"
         );
         BusDriverPlayer testBusDriverPlayer = new BusDriverPlayer("BusDriverPlayer", null, null, null);
 
-        System.out.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=testID]"
+        outStream.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=testID]"
         );
         Intersection testDestination = new Intersection("testID");
 
         int testVehicleSpeed = getIntFromUser("testVehicleSpeed/TesztjárműSebesség");
 
-        System.out.println("Bus típusú objektum létrehozva b névvel, ezekkel a konstruktor paraméterekkel: " +
-            "[currentLane=l, owner=testBusDriverPlayer, destination=testDestination," + testVehicleSpeed
+        outStream.println("Bus típusú objektum létrehozva b névvel, ezekkel a konstruktor paraméterekkel: " +
+                "[currentLane=l, owner=testBusDriverPlayer, destination=testDestination," + testVehicleSpeed
         );
         Bus b = new Bus(l, testBusDriverPlayer, testDestination, testVehicleSpeed);
 
         /*2. Folyamat:*/
-        System.out.println("l.acceptVehicle(v=b) meghívva");
+        outStream.println("l.acceptVehicle(v=b) meghívva");
         /*l.acceptVehicle(b);*/
 
-        System.out.println("s.onVehicleEnter(v=b) meghívva");
+        outStream.println("s.onVehicleEnter(v=b) meghívva");
         /*s.onVehicleEnter(b);*/
-    
-        System.out.println("l.getIceAmount() meghívva");
+
+        outStream.println("l.getIceAmount() meghívva");
 
         // Szimuláljuk a jelenlegi jégmennyiséget és a növekedést
         int currentIce = 0; // Kiindulási állapot
         int newIceAmount = currentIce + icingRate;
-        System.out.println("l.getIceAmount visszatért " + currentIce + " értékkel");
-    
-        System.out.println("l.setIceAmount(newIceAmount=" + newIceAmount + ") meghívva");
-        System.out.println("l.setIceAmount visszatért void értékkel");
+        outStream.println("l.getIceAmount visszatért " + currentIce + " értékkel");
+
+        outStream.println("l.setIceAmount(newIceAmount=" + newIceAmount + ") meghívva");
+        outStream.println("l.setIceAmount visszatért void értékkel");
 
         /*3. Az 'alt' blokk: Jégpáncél kialakulása*/
         if (newIceAmount >= iceSheetThreshold) {
-            System.out.println("IceSheetState típusú objektum létrehozva nextState névvel, ezekkel a konstruktor paraméterekkel [lane=l]");
+            outStream.println("IceSheetState típusú objektum létrehozva nextState névvel, ezekkel a konstruktor paraméterekkel [lane=l]");
             IceSheetState nextState = new IceSheetState(l);
-        
-            System.out.println("l.replaceLaneState(oldState=s, newState=nextState) meghívva");
+
+            outStream.println("l.replaceLaneState(oldState=s, newState=nextState) meghívva");
             l.replaceLaneState(s, nextState);
-            System.out.println("l.replaceLaneState visszatért void értékkel");
+            outStream.println("l.replaceLaneState visszatért void értékkel");
         }
 
         /*4. Visszatérések:*/
-        System.out.println("s.onVehicleEnter visszatért void értékkel");
-        System.out.println("l.acceptVehicle visszatért void értékkel");
-    
-        System.out.println("--- Teszt vége ---");
+        outStream.println("s.onVehicleEnter visszatért void értékkel");
+        outStream.println("l.acceptVehicle visszatért void értékkel");
+
+        outStream.println("--- Teszt vége ---");
     }
 
     /*4. Teszteset:*/
     public void testVehicleMoving() {
-        System.out.println("--- Teszteset: Jármű mozgatása ---");
+        outStream.println("--- Teszteset: Jármű mozgatása ---");
 
         /*1. Objektumok és paraméterek előkészítése:*/
         int movementNeeded = getIntFromUser("movementNeeded/mozgásIgény");
         int movementRemaining = getIntFromUser("movementRemaining/hátralevőMozgás");
-    
-        System.out.println("Lane típusú objektum létrehozva currentLane névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva currentLane névvel.");
         Lane currentLane = new Lane();
 
-        System.out.println("BusDriverPlayer típusú objektum létrehozva testBusDriverPlayer névvel, ezekkel a konstruktor paraméterekkel: " +
-            "[name=BusDriverPlayer, vehicle=null, wallet=null, bus=null]"
+        outStream.println("BusDriverPlayer típusú objektum létrehozva testBusDriverPlayer névvel, ezekkel a konstruktor paraméterekkel: " +
+                "[name=BusDriverPlayer, vehicle=null, wallet=null, bus=null]"
         );
         BusDriverPlayer testBusDriverPlayer = new BusDriverPlayer("BusDriverPlayer", null, null, null);
 
-        System.out.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=testID]"
+        outStream.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=testID]"
         );
         Intersection testDestination = new Intersection("testID");
 
         int vehicleSpeed = getIntFromUser("vehicleSpeed/BuszSebesség");
 
-        System.out.println("Bus típusú objektum létrehozva v névvel, ezekkel a konstruktor paraméterekkel" +
-            "[currentLane=currentLane, owner=testBusDriverPlayer, destination=testDestination, speed=vehicleSpeed]"
+        outStream.println("Bus típusú objektum létrehozva v névvel, ezekkel a konstruktor paraméterekkel" +
+                "[currentLane=currentLane, owner=testBusDriverPlayer, destination=testDestination, speed=vehicleSpeed]"
         );
         Bus v = new Bus(currentLane, testBusDriverPlayer, testDestination, vehicleSpeed);
-    
-        System.out.println("Lane típusú objektum létrehozva target névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva target névvel.");
         Lane target = new Lane();
 
-        System.out.println("ClearState típusú objektum létrehozva s névvel.");
+        outStream.println("ClearState típusú objektum létrehozva s névvel.");
         ClearState s = new ClearState(target);
 
         /*2. Folyamat modellezése:*/
-        System.out.println("v.tryMoveTo(target=target) meghívva");
-    
+        outStream.println("v.tryMoveTo(target=target) meghívva");
+
         /*A jármű belső logikája - mozgáspont levonás:*/
-        System.out.println("v.consumeMovement(amount=" + movementNeeded + ") meghívva");
+        outStream.println("v.consumeMovement(amount=" + movementNeeded + ") meghívva");
         v.consumeMovement(movementNeeded);
-        System.out.println("v.consumeMovement visszatért void értékkel");
+        outStream.println("v.consumeMovement visszatért void értékkel");
 
         /*3. Az 'alt' blokk - Van-e elég mozgáspont?*/
         if (movementRemaining >= movementNeeded) {
             /*Sikeres mozgás ága*/
-            System.out.println("target.acceptVehicle(v=v) meghívva");
+            outStream.println("target.acceptVehicle(v=v) meghívva");
             /*target.acceptVehicle(v);*/
-        
+
             /*A sáv továbbhív az állapotára*/
-            System.out.println("s.onVehicleEnter(v=v) meghívva");
+            outStream.println("s.onVehicleEnter(v=v) meghívva");
             s.onVehicleEnter(v);
-            System.out.println("s.onVehicleEnter visszatért void értékkel");
-        
+            outStream.println("s.onVehicleEnter visszatért void értékkel");
+
             /*A sáv értesíti a járművet az egyéb eseményekről*/
-            System.out.println("v.onEnterLane(other=null) meghívva");
+            outStream.println("v.onEnterLane(other=null) meghívva");
             v.onEnterLane(null);
-            System.out.println("v.onEnterLane visszatért void értékkel");
-        
-            System.out.println("target.acceptVehicle visszatért void értékkel");
-        
+            outStream.println("v.onEnterLane visszatért void értékkel");
+
+            outStream.println("target.acceptVehicle visszatért void értékkel");
+
             /*Visszatérés a Skeletonnak*/
-            System.out.println("v.tryMoveTo visszatért true értékkel");
+            outStream.println("v.tryMoveTo visszatért true értékkel");
 
         } else {
             /*Sikertelen mozgás ága (nincs elég pont)*/
-            System.out.println("v.tryMoveTo visszatért false értékkel");
+            outStream.println("v.tryMoveTo visszatért false értékkel");
         }
 
-        System.out.println("--- Teszt vége ---");
-    }   
+        outStream.println("--- Teszt vége ---");
+    }
 
     /*5. Teszteset:*/
     public void testUsingBroomHead() {
-        
-        System.out.println("--- Teszteset: Söprő fej használata ---");
+
+        outStream.println("--- Teszteset: Söprő fej használata ---");
 
         /*1. Objektumok létrehozása:*/
         int amount = getIntFromUser("aktuális hómennyiség/amount");
         int neighborCount = getIntFromUser("szomszédos sávok száma/neighborCount");
         int spSpeed = getIntFromUser("HókotróSebesség/SnowPlowSpeed");
 
-        System.out.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
+        outStream.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
         );
         CleanerPlayer cp = new CleanerPlayer("CleanerPlayer", null, null, null);
-    
-        System.out.println("Lane típusú objektum létrehozva cl névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva cl névvel.");
         Lane cl = new Lane();
 
-        System.out.println("Lane típusú objektum létrehozva neighborLane névvel.");
+        outStream.println("Lane típusú objektum létrehozva neighborLane névvel.");
         Lane neighborLane = new Lane();
 
-        System.out.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=testID]"
+        outStream.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=testID]"
         );
         Intersection testDestination = new Intersection("testID");
 
-        System.out.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
+        outStream.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
         );
         Snowplow sp = new Snowplow(cl, cp, testDestination, spSpeed);
-    
-        System.out.println("BroomHead típusú objektum létrehozva bh névvel.");
+
+        outStream.println("BroomHead típusú objektum létrehozva bh névvel.");
         BroomHead bh = new BroomHead(sp, cl);
-     
-        System.out.println("SnowDriftState típusú objektum létrehozva ss névvel.");
+
+        outStream.println("SnowDriftState típusú objektum létrehozva ss névvel.");
         SnowdriftState ss = new SnowdriftState(cl);
 
-        System.out.println("Road típusú objektum létrehozva r névvel.");
+        outStream.println("Road típusú objektum létrehozva r névvel.");
         Road r = new Road(null, null);
 
         /*2. A folyamat indítása*/
-        System.out.println("cp.performCleaning(p=sp) meghívva");
-    
-        System.out.println("sp.work() meghívva");
-    
-        System.out.println("bh.applyTo(p=sp, l=cl, r=r) meghívva");
-    
+        outStream.println("cp.performCleaning(p=sp) meghívva");
+
+        outStream.println("sp.work() meghívva");
+
+        outStream.println("bh.applyTo(p=sp, l=cl, r=r) meghívva");
+
         /*Utak lekérése a szomszédokhoz*/
-        System.out.println("r.getLanes() meghívva");
-        System.out.println("r.getLanes visszatért lanes listával");
-    
-        System.out.println("cl.getSnowAmount() meghívva");
-        System.out.println("cl.getSnowAmount visszatért " + amount + " értékkel");
+        outStream.println("r.getLanes() meghívva");
+        outStream.println("r.getLanes visszatért lanes listával");
+
+        outStream.println("cl.getSnowAmount() meghívva");
+        outStream.println("cl.getSnowAmount visszatért " + amount + " értékkel");
 
         /*3. LOOP - Szomszédos sávok havasítása*/
         for (int i = 1; i <= neighborCount; i++) {
-            System.out.println("--- Loop: neighbor " + i + " ---");
-            System.out.println("neighbor:Lane.receiveSnow(amount=" + (amount/2) + ") meghívva");
-            System.out.println("neighbor:Lane.receiveSnow visszatért void értékkel");
+            outStream.println("--- Loop: neighbor " + i + " ---");
+            outStream.println("neighbor:Lane.receiveSnow(amount=" + (amount/2) + ") meghívva");
+            outStream.println("neighbor:Lane.receiveSnow visszatért void értékkel");
         }
 
         /*4. Takarítás befejezése és állapotváltás*/
-        System.out.println("cl.clean(h=bh) meghívva");
-    
-        System.out.println("ss.onCleaned() meghívva");
-    
-        System.out.println("ClearState típusú objektum létrehozva cs névvel, ezekkel a konstruktor paraméterekkel [lane=cl]");
-        ClearState cs = new ClearState(cl);
-    
-        System.out.println("cl.replaceLaneState(oldState=ss, newState=cs) meghívva");
-        cl.replaceLaneState(ss, cs);
-        System.out.println("cl.replaceLaneState visszatért void értékkel");
-    
-        System.out.println("ss.onCleaned visszatért void értékkel");
-        System.out.println("cl.clean visszatért void értékkel");
-    
-        /*5. Visszatérések*/
-        System.out.println("bh.applyTo visszatért void értékkel");
-        System.out.println("sp.work visszatért void értékkel");
-        System.out.println("cp.performCleaning visszatért void értékkel");
+        outStream.println("cl.clean(h=bh) meghívva");
 
-        System.out.println("--- Teszt vége ---");
-}
-    
+        outStream.println("ss.onCleaned() meghívva");
+
+        outStream.println("ClearState típusú objektum létrehozva cs névvel, ezekkel a konstruktor paraméterekkel [lane=cl]");
+        ClearState cs = new ClearState(cl);
+
+        outStream.println("cl.replaceLaneState(oldState=ss, newState=cs) meghívva");
+        cl.replaceLaneState(ss, cs);
+        outStream.println("cl.replaceLaneState visszatért void értékkel");
+
+        outStream.println("ss.onCleaned visszatért void értékkel");
+        outStream.println("cl.clean visszatért void értékkel");
+
+        /*5. Visszatérések*/
+        outStream.println("bh.applyTo visszatért void értékkel");
+        outStream.println("sp.work visszatért void értékkel");
+        outStream.println("cp.performCleaning visszatért void értékkel");
+
+        outStream.println("--- Teszt vége ---");
+    }
+
     /*6. Teszteset:*/
     public void testUsingThrowerHead() {
-        
-        System.out.println("--- Teszteset: Hányó fej használata ---");
+
+        outStream.println("--- Teszteset: Hányó fej használata ---");
 
         /*1. Paraméterek és objektumok létrehozása:*/
         int amount = getIntFromUser("aktuális hómennyiség/amount");
         int spSpeed = getIntFromUser("HókotróSebesség/SnowplowSpeed");
         int targetLaneDistance = 2; /*Ref: 2 sávval arrébb*/
 
-        System.out.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
+        outStream.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
         );
         CleanerPlayer cp = new CleanerPlayer("CleanerPlayer", null, null, null);
-    
-        System.out.println("Lane típusú objektum létrehozva cl névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva cl névvel.");
         Lane cl = new Lane();
 
-        System.out.println("Lane típusú objektum létrehozva otherLane névvel.");
+        outStream.println("Lane típusú objektum létrehozva otherLane névvel.");
         Lane otherLane = new Lane();
 
-        System.out.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=testID]"
+        outStream.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=testID]"
         );
         Intersection testDestination = new Intersection("testID");
 
-        System.out.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
+        outStream.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
         );
         Snowplow sp = new Snowplow(cl, cp, testDestination, spSpeed);
-    
-        System.out.println("ThrowerHead típusú objektum létrehozva th névvel, ezekkel a paraméterekkel:" + 
-            "[plow=sp targetLane=cl]"
+
+        outStream.println("ThrowerHead típusú objektum létrehozva th névvel, ezekkel a paraméterekkel:" +
+                "[plow=sp targetLane=cl]"
         );
         ThrowerHead th = new ThrowerHead(sp, cl);
-    
-        System.out.println("SnowdriftState típusú objektum létrehozva ss névvel.");
+
+        outStream.println("SnowdriftState típusú objektum létrehozva ss névvel.");
         SnowdriftState ss = new SnowdriftState(cl);
 
-        System.out.println("Road típusú objektum létrehozva r névvel, ezekkel a paraméterekkel:" +
-            "[first=null, second=null]"
+        outStream.println("Road típusú objektum létrehozva r névvel, ezekkel a paraméterekkel:" +
+                "[first=null, second=null]"
         );
         Road r = new Road(null, null);
 
         /*2. Folyamat:*/
-        System.out.println("cp.performCleaning(p=sp) meghívva");
-        System.out.println("sp.work() meghívva");
-    
+        outStream.println("cp.performCleaning(p=sp) meghívva");
+        outStream.println("sp.work() meghívva");
+
         /*th: ThrowerHead kapja meg a vezérlést*/
-        System.out.println("th.applyTo(p=sp, l=cl, r=r) meghívva");
-    
-        System.out.println("r.getLanes() meghívva");
-        System.out.println("r.getLanes visszatért lanes listával");
-    
-        System.out.println("cl.getSnowAmount() meghívva");
-        System.out.println("cl.getSnowAmount visszatért " + amount + " értékkel");
+        outStream.println("th.applyTo(p=sp, l=cl, r=r) meghívva");
+
+        outStream.println("r.getLanes() meghívva");
+        outStream.println("r.getLanes visszatért lanes listával");
+
+        outStream.println("cl.getSnowAmount() meghívva");
+        outStream.println("cl.getSnowAmount visszatért " + amount + " értékkel");
 
         /*3. LOOP - Hó áthelyezése távolabbi sávokhoz*/
-        System.out.println("--- A célpont sávok " + targetLaneDistance + " egységre vannak ---");
-    
+        outStream.println("--- A célpont sávok " + targetLaneDistance + " egységre vannak ---");
+
         /*Távoli sáv szimulálása:*/
-        System.out.println("other:Lane.receiveSnow(amount=" + (amount/2) + ") meghívva");
-        System.out.println("other:Lane.receiveSnow visszatért void értékkel");
+        outStream.println("other:Lane.receiveSnow(amount=" + (amount/2) + ") meghívva");
+        outStream.println("other:Lane.receiveSnow visszatért void értékkel");
 
         /*4. Tisztítás és állapotváltás*/
-        System.out.println("cl.clean(h=th) meghívva");
-        System.out.println("ss.onCleaned() meghívva");
-    
-        System.out.println("ClearState típusú objektum létrehozva cs névvel, ezekkel a konstruktor paraméterekkel [lane=cl]");
-        ClearState cs = new ClearState(cl);
-    
-        System.out.println("cl.replaceLaneState(oldState=ss, newState=cs) meghívva");
-        cl.replaceLaneState(ss, cs);
-        System.out.println("cl.replaceLaneState visszatért void értékkel");
-    
-        /*5. Visszatérések*/
-        System.out.println("ss.onCleaned visszatért void értékkel");
-        System.out.println("cl.clean visszatért void értékkel");
-        System.out.println("th.applyTo visszatért void értékkel");
-        System.out.println("sp.work visszatért void értékkel");
-        System.out.println("cp.performCleaning visszatért void értékkel");
+        outStream.println("cl.clean(h=th) meghívva");
+        outStream.println("ss.onCleaned() meghívva");
 
-        System.out.println("--- Teszt vége ---");
-}
-    
+        outStream.println("ClearState típusú objektum létrehozva cs névvel, ezekkel a konstruktor paraméterekkel [lane=cl]");
+        ClearState cs = new ClearState(cl);
+
+        outStream.println("cl.replaceLaneState(oldState=ss, newState=cs) meghívva");
+        cl.replaceLaneState(ss, cs);
+        outStream.println("cl.replaceLaneState visszatért void értékkel");
+
+        /*5. Visszatérések*/
+        outStream.println("ss.onCleaned visszatért void értékkel");
+        outStream.println("cl.clean visszatért void értékkel");
+        outStream.println("th.applyTo visszatért void értékkel");
+        outStream.println("sp.work visszatért void értékkel");
+        outStream.println("cp.performCleaning visszatért void értékkel");
+
+        outStream.println("--- Teszt vége ---");
+    }
+
     /*7. Teszteset:*/
     public void testUsingIceBreakerHead() {
-        
-        System.out.println("--- Teszteset: Jégtörő fej használata ---");
+
+        outStream.println("--- Teszteset: Jégtörő fej használata ---");
 
         /*1. Objektumok és bemenetek*/
         int iceAmount = getIntFromUser("aktuális jégmennyiség/iceAmount");
         int spSpeed = getIntFromUser("HókotróSebesség/SnowplowSpeed");
 
-        System.out.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
+        outStream.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
         );
         CleanerPlayer cp = new CleanerPlayer("CleanerPlayer", null, null, null);
-    
-        System.out.println("Lane típusú objektum létrehozva cl névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva cl névvel.");
         Lane cl = new Lane();
 
-        System.out.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=testID]"
+        outStream.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=testID]"
         );
         Intersection testDestination = new Intersection("testID");
 
-        System.out.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
+        outStream.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
         );
         Snowplow sp = new Snowplow(cl, cp, testDestination, spSpeed);
-    
-        System.out.println("IceBreakerHead típusú objektum létrehozva ih névve, ezekkel a konstruktor paraméterekkel:" +
-            "[plow=sp, targetLane=cl]"
+
+        outStream.println("IceBreakerHead típusú objektum létrehozva ih névve, ezekkel a konstruktor paraméterekkel:" +
+                "[plow=sp, targetLane=cl]"
         );
         IceBreakerHead ih = new IceBreakerHead(sp, cl);
-    
-        System.out.println("IceSheetState típusú objektum létrehozva is névvel, ezekkel a paraméterekkel:" +
-            "[lane=cl]"
+
+        outStream.println("IceSheetState típusú objektum létrehozva is névvel, ezekkel a paraméterekkel:" +
+                "[lane=cl]"
         );
         IceSheetState is = new IceSheetState(cl);
 
-        System.out.println("Road típusú objektum létrehozva r névvel, ezekkel a paraméterekkel:" +
-            "[first=null, second=null]"
+        outStream.println("Road típusú objektum létrehozva r névvel, ezekkel a paraméterekkel:" +
+                "[first=null, second=null]"
         );
         Road r = new Road(null, null);
 
         /*2. Folyamat:*/
-        System.out.println("cp.performCleaning(p=sp) meghívva");
-        System.out.println("sp.work() meghívva");
-    
+        outStream.println("cp.performCleaning(p=sp) meghívva");
+        outStream.println("sp.work() meghívva");
+
         // ih: IceBreakerHead kapja meg a vezérlést
-        System.out.println("ih.applyTo(p=sp, l=cl, r=r) meghívva");
-    
-        System.out.println("cl.getIceAmount() meghívva");
+        outStream.println("ih.applyTo(p=sp, l=cl, r=r) meghívva");
+
+        outStream.println("cl.getIceAmount() meghívva");
         int resIceAmount = cl.getIceAmount();
-        System.out.println("cl.getIceAmount visszatért " + iceAmount + " értékkel");
+        outStream.println("cl.getIceAmount visszatért " + iceAmount + " értékkel");
 
         /*A jégtörő fej a jeget hóvá alakítja*/
-        System.out.println("cl.receiveSnow(amount=" + iceAmount + ") meghívva");
+        outStream.println("cl.receiveSnow(amount=" + iceAmount + ") meghívva");
         cl.receiveSnow(resIceAmount);
-        System.out.println("cl.receiveSnow visszatért void értékkel");
+        outStream.println("cl.receiveSnow visszatért void értékkel");
 
         /*3. Tisztítás és állapotváltás: Jégpáncél -> Havas út*/
-        System.out.println("cl.clean(h=ih) meghívva");
-    
-        System.out.println("is.onCleaned() meghívva");
-    
-        System.out.println("SnowyState típusú objektum létrehozva ss névvel, ezekkel a konstruktor paraméterekkel [lane=cl]");
-        SnowyState ss = new SnowyState(cl);
-    
-        System.out.println("cl.replaceLaneState(oldState=is, newState=ss) meghívva");
-        cl.replaceLaneState(is, ss);
-        System.out.println("cl.replaceLaneState visszatért void értékkel");
-    
-        /*4. Visszatérések*/
-        System.out.println("is.onCleaned visszatért void értékkel");
-        System.out.println("cl.clean visszatért void értékkel");
-        System.out.println("ih.applyTo visszatért void értékkel");
-        System.out.println("sp.work visszatért void értékkel");
-        System.out.println("cp.performCleaning visszatért void értékkel");
+        outStream.println("cl.clean(h=ih) meghívva");
 
-        System.out.println("--- Teszt vége ---");
-}
-    
+        outStream.println("is.onCleaned() meghívva");
+
+        outStream.println("SnowyState típusú objektum létrehozva ss névvel, ezekkel a konstruktor paraméterekkel [lane=cl]");
+        SnowyState ss = new SnowyState(cl);
+
+        outStream.println("cl.replaceLaneState(oldState=is, newState=ss) meghívva");
+        cl.replaceLaneState(is, ss);
+        outStream.println("cl.replaceLaneState visszatért void értékkel");
+
+        /*4. Visszatérések*/
+        outStream.println("is.onCleaned visszatért void értékkel");
+        outStream.println("cl.clean visszatért void értékkel");
+        outStream.println("ih.applyTo visszatért void értékkel");
+        outStream.println("sp.work visszatért void értékkel");
+        outStream.println("cp.performCleaning visszatért void értékkel");
+
+        outStream.println("--- Teszt vége ---");
+    }
+
     /*8. Teszteset:*/
     public void testUsingSaltSpreaderHead() {
-        
-        System.out.println("--- Teszteset: Sószóró fej használata ---");
+
+        outStream.println("--- Teszteset: Sószóró fej használata ---");
 
         /*1. Paraméterek és objektumok előkészítése*/
         int iceAmount = getIntFromUser("iceAmount/Jégmennyiség");
@@ -698,151 +701,151 @@ public class Skeleton {
         int saltSupply = getIntFromUser("saltSupply/Sómennyiség");
         int spSpeed = getIntFromUser("SnowplowSpeed/HókotróSebesség");
 
-        System.out.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
+        outStream.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
         );
         CleanerPlayer cp = new CleanerPlayer("CleanerPlayer", null, null, null);
-    
-        System.out.println("Lane típusú objektum létrehozva cl névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva cl névvel.");
         Lane cl = new Lane();
 
-        System.out.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=testID]"
+        outStream.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=testID]"
         );
         Intersection testDestination = new Intersection("testID");
 
-        System.out.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
+        outStream.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
         );
         Snowplow sp = new Snowplow(cl, cp, testDestination, spSpeed);
-    
-        System.out.println("Salt típusú objektum létrehozva salt néven, ezekkel a konstruktor paraméterekkel:" +
-            "[owner=sp, amount= " + saltSupply + "]"
+
+        outStream.println("Salt típusú objektum létrehozva salt néven, ezekkel a konstruktor paraméterekkel:" +
+                "[owner=sp, amount= " + saltSupply + "]"
         );
         Salt salt = new Salt(sp, saltSupply);
 
-        System.out.println("SaltSpreaderHead típusú objektum létrehozva ssh névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[plow=sp, targetLane=cl, saltSupply=salt]"
+        outStream.println("SaltSpreaderHead típusú objektum létrehozva ssh névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[plow=sp, targetLane=cl, saltSupply=salt]"
         );
         SaltSpreaderHead ssh = new SaltSpreaderHead(sp, cl, salt);
-    
-        System.out.println("IceSheetState típusú objektum létrehozva is névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[lane=cl]"
+
+        outStream.println("IceSheetState típusú objektum létrehozva is névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[lane=cl]"
         );
         IceSheetState is = new IceSheetState(cl);
 
         /*2. Folyamat:*/
-        System.out.println("cp.performCleaning(p=sp) meghívva");
-        System.out.println("sp.work() meghívva");
-        System.out.println("ssh.applyTo(p=sp, l=cl, r=road) meghívva");
+        outStream.println("cp.performCleaning(p=sp) meghívva");
+        outStream.println("sp.work() meghívva");
+        outStream.println("ssh.applyTo(p=sp, l=cl, r=road) meghívva");
 
         /*3. OPT blokk - Csak ha van só*/
         if (saltSupply > 0) {
-            System.out.println("--- Opt: [saltSupply > 0] ---");
-        
-            System.out.println("cl.clean(h=ssh) meghívva");
-            System.out.println("is.onCleaned() meghívva");
+            outStream.println("--- Opt: [saltSupply > 0] ---");
+
+            outStream.println("cl.clean(h=ssh) meghívva");
+            outStream.println("is.onCleaned() meghívva");
             is.onCleaned();
-            System.out.println("is.onCleaned visszatért void értékkel");
-            System.out.println("cl.clean visszatért void értékkel");
-        
-            System.out.println("SaltedState típusú objektum létrehozva ss névvel, ezekkel a konstruktor paraméterekkel" +
-            "[lane=cl, remainingDuration=10]");
+            outStream.println("is.onCleaned visszatért void értékkel");
+            outStream.println("cl.clean visszatért void értékkel");
+
+            outStream.println("SaltedState típusú objektum létrehozva ss névvel, ezekkel a konstruktor paraméterekkel" +
+                    "[lane=cl, remainingDuration=10]");
             SaltedState ss = new SaltedState(cl, 10);
- 
-            System.out.println("cl.addLaneState(state=ss) meghívva");
+
+            outStream.println("cl.addLaneState(state=ss) meghívva");
             cl.addLaneState(ss);
-            System.out.println("cl.addLaneState visszatért void értékkel");
+            outStream.println("cl.addLaneState visszatért void értékkel");
         }
 
         /*4. Visszatérések:*/
-        System.out.println("ssh.applyTo visszatért void értékkel");
-        System.out.println("sp.work visszatért void értékkel");
-        System.out.println("cp.performCleaning visszatért void értékkel");
+        outStream.println("ssh.applyTo visszatért void értékkel");
+        outStream.println("sp.work visszatért void értékkel");
+        outStream.println("cp.performCleaning visszatért void értékkel");
 
-        System.out.println("--- Teszt vége ---");
+        outStream.println("--- Teszt vége ---");
     }
-    
+
     /*9. Teszteset:*/
     public void testUsingDragonHead() {
-    
-        System.out.println("--- Teszteset: Sárkány fej használata ---");
+
+        outStream.println("--- Teszteset: Sárkány fej használata ---");
 
         /*1. Objektumok és bemenet bekérése*/
         int fuelSupply = getIntFromUser("BioKerosine");
         int spSpeed = getIntFromUser("SnowplowSpeed/HókotróSebesség");
 
-        System.out.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
+        outStream.println("CleanerPlayer típusú objektum létrehozva cp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[name=CleanerPlayer, vehicle=null, wallet=null, snowplow=null]"
         );
         CleanerPlayer cp = new CleanerPlayer("CleanerPlayer", null, null, null);
-    
-        System.out.println("Lane típusú objektum létrehozva cl névvel.");
+
+        outStream.println("Lane típusú objektum létrehozva cl névvel.");
         Lane cl = new Lane();
 
-        System.out.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=testID]"
+        outStream.println("Intersection típusú objektum létrehozva testDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=testID]"
         );
         Intersection testDestination = new Intersection("testID");
 
-        System.out.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
+        outStream.println("SnowPlow típusú objektum létrehozva sp névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[currentLane=cl, owner=cp, destination=testDestination, speed=spSpeed]"
         );
         Snowplow sp = new Snowplow(cl, cp, testDestination, spSpeed);
-    
-        System.out.println("BioKerosene típusú objektum létrehozva biokerozin névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[owner=sp, amount=fuelSupply]"
+
+        outStream.println("BioKerosene típusú objektum létrehozva biokerozin névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[owner=sp, amount=fuelSupply]"
         );
         BioKerosene biokerozin = new BioKerosene(sp, fuelSupply);
 
-        System.out.println("DragonHead típusú objektum létrehozva dh névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[plow=sp, targetLane=cl, fuelSupply=biokerozin]"
+        outStream.println("DragonHead típusú objektum létrehozva dh névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[plow=sp, targetLane=cl, fuelSupply=biokerozin]"
         );
         DragonHead dh = new DragonHead(sp, cl, biokerozin);
-    
-        System.out.println("IceSheetState típusú objektum létrehozva is névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[lane=cl]"
+
+        outStream.println("IceSheetState típusú objektum létrehozva is névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[lane=cl]"
         );
         IceSheetState is = new IceSheetState(cl);
 
         /*2. Folyamat indítása*/
-        System.out.println("cp.performCleaning(p=sp) meghívva");
-        System.out.println("sp.work() meghívva");
-        System.out.println("dh.applyTo(p=sp, l=cl, r=road) meghívva");
+        outStream.println("cp.performCleaning(p=sp) meghívva");
+        outStream.println("sp.work() meghívva");
+        outStream.println("dh.applyTo(p=sp, l=cl, r=road) meghívva");
 
         /*3. OPT blokk - Üzemanyag-ellenőrzés*/
         if (fuelSupply > 0) {
-            System.out.println("--- Opt: [fuelSupply > 0] ---");
-            System.out.println("cl.clean(h=dh) meghívva");
-            System.out.println("is.onCleaned() meghívva");
-        
+            outStream.println("--- Opt: [fuelSupply > 0] ---");
+            outStream.println("cl.clean(h=dh) meghívva");
+            outStream.println("is.onCleaned() meghívva");
+
             /*Új tiszta állapot létrehozása és beállítása*/
-            System.out.println("ClearState típusú objektum létrehozva cs névvel, ezekkel a konstruktor paraméterekkel [lane=cl]");
+            outStream.println("ClearState típusú objektum létrehozva cs névvel, ezekkel a konstruktor paraméterekkel [lane=cl]");
             ClearState cs = new ClearState(cl);
-        
-            System.out.println("cl.replaceLaneState(oldState=is, newState=cs) meghívva");
+
+            outStream.println("cl.replaceLaneState(oldState=is, newState=cs) meghívva");
             cl.replaceLaneState(is, cs);
-            System.out.println("cl.replaceLaneState visszatért void értékkel");
-        
-            System.out.println("is.onCleaned visszatért void értékkel");
-            System.out.println("cl.clean visszatért void értékkel");
+            outStream.println("cl.replaceLaneState visszatért void értékkel");
+
+            outStream.println("is.onCleaned visszatért void értékkel");
+            outStream.println("cl.clean visszatért void értékkel");
 
         } else {
-            System.out.println("Sárkány fej: Nincs elég üzemanyag a takarításhoz.");
+            outStream.println("Sárkány fej: Nincs elég üzemanyag a takarításhoz.");
         }
 
         /*4. Visszatérések*/
-        System.out.println("dh.applyTo visszatért void értékkel");
-        System.out.println("sp.work visszatért void értékkel");
-        System.out.println("cp.performCleaning visszatért void értékkel");
+        outStream.println("dh.applyTo visszatért void értékkel");
+        outStream.println("sp.work visszatért void értékkel");
+        outStream.println("cp.performCleaning visszatért void értékkel");
 
-        System.out.println("--- Teszt vége ---");
+        outStream.println("--- Teszt vége ---");
     }
-    
+
     /*10. Teszteset:*/
     public void testCollisionHandling() {
-        
-        System.out.println("--- Teszteset: Ütközés kezelése ---");
+
+        outStream.println("--- Teszteset: Ütközés kezelése ---");
 
         /*1. Objektumok és bemenetek előkészítése*/
         boolean canMove = getBooleanFromUser("canMove: Tud mozogni az autó?)");
@@ -858,91 +861,91 @@ public class Skeleton {
             }
         }
 
-        System.out.println("Intersection típusú objektum létrehozva carDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=carID]"
+        outStream.println("Intersection típusú objektum létrehozva carDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=carID]"
         );
-        Intersection carDestination = new Intersection("carID");   
+        Intersection carDestination = new Intersection("carID");
 
-        System.out.println("Intersection típusú objektum létrehozva busDestination névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[id=busID]"
+        outStream.println("Intersection típusú objektum létrehozva busDestination névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[id=busID]"
         );
-        Intersection busDestination = new Intersection("busID"); 
+        Intersection busDestination = new Intersection("busID");
 
-        System.out.println("Lane típusú objektum létrehozva l névvel.");
+        outStream.println("Lane típusú objektum létrehozva l névvel.");
         Lane l = new Lane();
 
-        System.out.println("Car típusú objektum létrehozva c névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[currentLane=l owner=null destination=testDestination speed=" + carSpeed + "]"
+        outStream.println("Car típusú objektum létrehozva c névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[currentLane=l owner=null destination=testDestination speed=" + carSpeed + "]"
         );
         Car c = new Car(l, null, carDestination, carSpeed);
-      
-        System.out.println("IceSheetState típusú objektum létrehozva s névvel, ezekkel a konstruktor paraméterekkel:" 
-            + "[lane=l]"
+
+        outStream.println("IceSheetState típusú objektum létrehozva s névvel, ezekkel a konstruktor paraméterekkel:"
+                + "[lane=l]"
         );
         IceSheetState s = new IceSheetState(l);
 
-        System.out.println("BusDriverPlayer típusú objektum létrehozva testBusDriverPlayer névvel, ezekkel a konstruktor paraméterekkel: " +
-            "[name=BusDriverPlayer, vehicle=null, wallet=null, bus=null]"
+        outStream.println("BusDriverPlayer típusú objektum létrehozva testBusDriverPlayer névvel, ezekkel a konstruktor paraméterekkel: " +
+                "[name=BusDriverPlayer, vehicle=null, wallet=null, bus=null]"
         );
         BusDriverPlayer testBusDriverPlayer = new BusDriverPlayer("BusDriverPlayer", null, null, null);
-    
-        System.out.println("Bus típusú objektum létrehozva b névvel, ezekkel a konstruktor paraméterekkel:" +
-            "[currentLane=l owner=BusDriverPlayer destination=testDestination3 speed=busSpeed]"
+
+        outStream.println("Bus típusú objektum létrehozva b névvel, ezekkel a konstruktor paraméterekkel:" +
+                "[currentLane=l owner=BusDriverPlayer destination=testDestination3 speed=busSpeed]"
         );
         Bus b = new Bus(l, testBusDriverPlayer, busDestination, busSpeed);
 
         /*2. Folyamat indítása*/
-        System.out.println("c.tryMoveTo(target=l) meghívva");
+        outStream.println("c.tryMoveTo(target=l) meghívva");
 
         /*Első OPT: [canMove]*/
         if (canMove) {
-            System.out.println("--- Opt: [canMove] ---");
-            System.out.println("l.acceptVehicle(v=c) meghívva");
-            System.out.println("s.onVehicleEnter(v=c) meghívva");
+            outStream.println("--- Opt: [canMove] ---");
+            outStream.println("l.acceptVehicle(v=c) meghívva");
+            outStream.println("s.onVehicleEnter(v=c) meghívva");
 
             /*Második OPT: [vehicle slips]*/
             if (vehicleSlips) {
-                System.out.println("--- Opt: [vehicle slips] ---");
-                System.out.println("c.handleIcyLane(lane=l) meghívva");
+                outStream.println("--- Opt: [vehicle slips] ---");
+                outStream.println("c.handleIcyLane(lane=l) meghívva");
 
                 /*ALT: Ütközés vs Szabad sáv*/
                 if (busIsOnLane) {
-                    System.out.println("--- Alt: [bus is on lane] ---");
-                    System.out.println("c.onCollision() meghívva");
-                
-                    System.out.println("BlockedState típusú objektum létrehozva nextState névvel, ezekkel a konstruktor paraméterekkel [lane=l]");
-                    System.out.println("l.addLaneState(state=nextState) meghívva");
+                    outStream.println("--- Alt: [bus is on lane] ---");
+                    outStream.println("c.onCollision() meghívva");
+
+                    outStream.println("BlockedState típusú objektum létrehozva nextState névvel, ezekkel a konstruktor paraméterekkel [lane=l]");
+                    outStream.println("l.addLaneState(state=nextState) meghívva");
                     l.addLaneState(s);
-                    System.out.println("l.addLaneState visszatért void értékkel");
-                
-                    System.out.println("b.onCollision() meghívva");
-                    System.out.println("ImmobilizedStatus típusú objektum létrehozva status névvel, ezekkel a konstruktor paraméterekkel [vehicle=b]");
-                    System.out.println("b.onCollision visszatért void értékkel");
-                
-                    System.out.println("c.onCollision visszatért void értékkel");
+                    outStream.println("l.addLaneState visszatért void értékkel");
+
+                    outStream.println("b.onCollision() meghívva");
+                    outStream.println("ImmobilizedStatus típusú objektum létrehozva status névvel, ezekkel a konstruktor paraméterekkel [vehicle=b]");
+                    outStream.println("b.onCollision visszatért void értékkel");
+
+                    outStream.println("c.onCollision visszatért void értékkel");
 
                 } else {
-                    System.out.println("--- Alt: [lane is free] ---");
-                    System.out.println("c.onEnterLane(lane=l) meghívva");
-                    System.out.println("c.onEnterLane visszatért void értékkel");
+                    outStream.println("--- Alt: [lane is free] ---");
+                    outStream.println("c.onEnterLane(lane=l) meghívva");
+                    outStream.println("c.onEnterLane visszatért void értékkel");
                 }
-                System.out.println("c.handleIcyLane visszatért void értékkel");
+                outStream.println("c.handleIcyLane visszatért void értékkel");
             }
-        
-            System.out.println("s.onVehicleEnter visszatért void értékkel");
-            System.out.println("l.acceptVehicle visszatért void értékkel");
+
+            outStream.println("s.onVehicleEnter visszatért void értékkel");
+            outStream.println("l.acceptVehicle visszatért void értékkel");
         }
 
-        System.out.println("c.tryMoveTo visszatért void értékkel");
-        System.out.println("--- Teszt vége ---");
+        outStream.println("c.tryMoveTo visszatért void értékkel");
+        outStream.println("--- Teszt vége ---");
     }
 
     /*
-    * Akadály eltávolításának tesztelése a hókotróval, amikor a sáv blokkolva van.
-    * A megadott üzemanyag mennyiségtől függ a sikeressége. 
-    */
+     * Akadály eltávolításának tesztelése a hókotróval, amikor a sáv blokkolva van.
+     * A megadott üzemanyag mennyiségtől függ a sikeressége.
+     */
 
-    
+
     public void testObstacleRemoval(){
         Lane lane = new Lane();
         BlockedState blockedState = new BlockedState(lane);
@@ -956,9 +959,9 @@ public class Skeleton {
         cleanerPlayer.performCleaning(snowplow);
     }
 
-    /* 
-    * A kotrófej cseréjének tesztelése.
-    */
+    /*
+     * A kotrófej cseréjének tesztelése.
+     */
 
     public void testPlowHeadChange() {
         Snowplow snowplow = new Snowplow(null, null, null, 4);
@@ -968,13 +971,13 @@ public class Skeleton {
         CleanerPlayer cleanerPlayer = new CleanerPlayer("Takarító", snowplow, new Wallet(0), snowplow);
 
         cleanerPlayer.changePlowHead(snowplow, dragonHead);
-        System.out.println("A kotrófej lecserélve.");
+        outStream.println("A kotrófej lecserélve.");
     }
 
     /*
-    * Az autók útvonalválasztásának tesztelése, amikor több útvonal is rendelkezésre áll.
-    * Ha nem tud sávot váltani, akkor marad a másik sávon.
-    */
+     * Az autók útvonalválasztásának tesztelése, amikor több útvonal is rendelkezésre áll.
+     * Ha nem tud sávot váltani, akkor marad a másik sávon.
+     */
 
     public void testCarRouteSelection() {
         RoadNetwork roadNetwork = new RoadNetwork();
@@ -1010,16 +1013,16 @@ public class Skeleton {
         boolean canChange = getBooleanFromUser("másik sáv járható-e");
         if(canChange){
             car.tryMoveTo(new Lane());
-            System.out.println("A jármű sikeresen sávot váltott.");
+            outStream.println("A jármű sikeresen sávot váltott.");
         } else {
-            System.out.println("A jármű nem tudott sávot váltani, mert a másik sáv nem járható.");
+            outStream.println("A jármű nem tudott sávot váltani, mert a másik sáv nem járható.");
         }
     }
 
-    /* 
-    * A sávváltás tesztelése akadály esetén.
-    * Ha a másik sáv is blokkolva van, akkor a jármű megáll.
-    */
+    /*
+     * A sávváltás tesztelése akadály esetén.
+     * Ha a másik sáv is blokkolva van, akkor a jármű megáll.
+     */
 
     public void testLaneChangeOnObstacle() {
         Road road = new Road(null, null);
@@ -1036,9 +1039,9 @@ public class Skeleton {
         car.checkAndChangeLane();
         if(canChange){
             car.tryMoveTo(adjacent);
-            System.out.println("A jármű sikeresen sávot váltott.");
+            outStream.println("A jármű sikeresen sávot váltott.");
         } else {
-            System.out.println("A jármű nem tudott sávot váltani, mert a másik sáv nem járható.");
+            outStream.println("A jármű nem tudott sávot váltani, mert a másik sáv nem járható.");
         }
     }
 
@@ -1062,17 +1065,17 @@ public class Skeleton {
         busDriverPlayer.selectRoute(bus, route);
 
         // Mozgás szimulálása
-        for (Intersection i : List.of(start, stop_, end)){ 
+        for (Intersection i : List.of(start, stop_, end)){
             bus.checkStop(i);
             route.checkArrival(i);
         }
 
         busDriverPlayer.completeRoute(bus);
         int reward = route.getReward();
-        System.out.println("A járat teljesítése után a játékos " + reward + " jutalmat kapott.");
+        outStream.println("A járat teljesítése után a játékos " + reward + " jutalmat kapott.");
     }
 
-    /* 
+    /*
      * A megálló látogatásának tesztelése.
      */
 
@@ -1093,10 +1096,10 @@ public class Skeleton {
         busDriverPlayer.completeRoute(bus);
 
         int reward = route.getReward();
-        System.out.println("A megálló érintése után a játékos " + reward + " jutalmat kapott.");
+        outStream.println("A megálló érintése után a játékos " + reward + " jutalmat kapott.");
     }
 
-    /* 
+    /*
      * A hókotróval végzett takarítás tesztelése.
      * A tesztben söprőfejjel van felszerelve, és a sáv havas állapotban van.
      */
@@ -1112,14 +1115,14 @@ public class Skeleton {
 
         cleanerPlayer.performCleaning(snowplow);
         lane.replaceLaneState(snowyState, new ClearState(lane));
-        System.out.println("A sáv tisztítása megtörtént.");
+        outStream.println("A sáv tisztítása megtörtént.");
     }
 
     /*
-    * Jármű beakadásának tesztelése, amikor mindkét sáv blokkolva van.
-    * A jármű megpróbál sávot váltani, de mivel a másik sáv is blokkolva van, így megáll.
-    * A tesztben egy busz van, de más járművel is működik a logika.
-    */
+     * Jármű beakadásának tesztelése, amikor mindkét sáv blokkolva van.
+     * A jármű megpróbál sávot váltani, de mivel a másik sáv is blokkolva van, így megáll.
+     * A tesztben egy busz van, de más járművel is működik a logika.
+     */
 
     public void testVehicleStuckInLane() {
         Road road = new Road(null, null);
@@ -1133,7 +1136,7 @@ public class Skeleton {
         lane.acceptVehicle(bus);
 
         bus.checkAndChangeLane();
-        System.out.println("A busz megpróbált sávot váltani, de a másik sáv is blokkolva van, így megállt.");
+        outStream.println("A busz megpróbált sávot váltani, de a másik sáv is blokkolva van, így megállt.");
     }
 
     /*
@@ -1160,17 +1163,17 @@ public class Skeleton {
             wallet.deductFunds(price_);
             garage.processTransaction(cleanerPlayer, plowPurchase);
             // cleanerPlayer.addVehicle(plowTemplate);
-            System.out.println("Hókotró vásárlása sikeres. Jelenlegi egyenleg: " + wallet.getFunds());
+            outStream.println("Hókotró vásárlása sikeres. Jelenlegi egyenleg: " + wallet.getFunds());
         } else {
-            System.out.println("Nincs elég pénz a hókotró megvásárlásához. Jelenlegi egyenleg: " + wallet.getFunds());
+            outStream.println("Nincs elég pénz a hókotró megvásárlásához. Jelenlegi egyenleg: " + wallet.getFunds());
         }
     }
 
     /*
-    * A jármű kiszabadításának tesztelése, amikor egy sáv blokkolva van.
-    * A tesztben egy autó van, amelyik egy blokkolt sávban ragadt, és egy hókotró szabadítja ki a sáv tisztításával.
-    */
-        
+     * A jármű kiszabadításának tesztelése, amikor egy sáv blokkolva van.
+     * A tesztben egy autó van, amelyik egy blokkolt sávban ragadt, és egy hókotró szabadítja ki a sáv tisztításával.
+     */
+
     public void testFreeVehicle() {
         Road road = new Road(null, null);
         Lane targetLane = new Lane();
@@ -1188,14 +1191,14 @@ public class Skeleton {
             targetLane.removeLaneState(blockedState);
         }
         if (car.tryMoveTo(otherLane)){
-            System.out.println("A jármű sikeresen kiszabadult a blokkolt sávból.");
+            outStream.println("A jármű sikeresen kiszabadult a blokkolt sávból.");
         }
     }
 
     /*
-    * A takarítási pontok tesztelése.
-    * A tesztben egy hókotró tisztítja a sávot, és a játékos pontokat kap, ha sikerül.
-    */
+     * A takarítási pontok tesztelése.
+     * A tesztben egy hókotró tisztítja a sávot, és a játékos pontokat kap, ha sikerül.
+     */
 
     public void testCleanerPoints() {
         Road road = new Road(null, null);
@@ -1222,6 +1225,6 @@ public class Skeleton {
         }
         int pointsAfterCleaning = wallet.getFunds();
         // A pontok helyes jóváírása a takarítás sikerességétől függ. 0, ha nem sikerült.
-        System.out.println("Takarítás után a játékosnak " + pointsAfterCleaning + " pontja van.");
+        outStream.println("Takarítás után a játékosnak " + pointsAfterCleaning + " pontja van.");
     }
 }
