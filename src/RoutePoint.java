@@ -22,8 +22,6 @@ public abstract class RoutePoint {
     public RoutePoint(Intersection location) {
         this.location = location;
         this.isVisited = false;
-        Skeleton.instance.createObject(this,
-                "location", location);
     }
 
     /**

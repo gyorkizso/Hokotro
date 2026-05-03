@@ -45,10 +45,6 @@ public abstract class Vehicle {
         this.speed = speed;
         this.movementRemaining = speed;
         this.active = true;
-        Skeleton.instance.createObject(this,
-                "currentLane", currentLane,
-                "destination", destination,
-                "speed", speed);
     }
 
     /**

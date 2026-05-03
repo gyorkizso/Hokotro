@@ -21,8 +21,9 @@ public class Car extends Vehicle {
      */
     public Car(Lane currentLane, RoadNetwork network, Object destination, int speed) {
         super(currentLane, null, speed);
-        Skeleton.instance.createObject(this, "currentLane", currentLane, "network", network, "speed", speed);
         this.network = network;
+        this.destination = destination;
+        Skeleton.instance.createObject(this, "currentLane", currentLane, "network", network, "speed", speed);
     }
 
     /**
@@ -30,7 +31,12 @@ public class Car extends Vehicle {
      */
     public void executeTurn() {
         Skeleton.instance.methodCall(this, "executeTurn");
-        List<Road> shortestPath = network.findShortestPath(currentIntersection, getDestination());
+        List<Road> shortestPath = network.findShortestPath(currentLane, getDestination());
+        if (shortestPath.size() == 0){
+            active = false;
+            Skeleton.instance.methodReturn(this, "executeTurn");
+            return;
+        }
         Road nextRoad = shortestPath.get(0);
         for (Lane lane : nextRoad.getLanes()) {
             if (tryMoveTo(lane)) {
