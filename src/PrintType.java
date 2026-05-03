@@ -5,5 +5,5 @@ public enum PrintType {
     Road,
     Intersection,
     Wallet,
-    Inventory
+    Result
 }
