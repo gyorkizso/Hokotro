@@ -1,0 +1,3 @@
+move_vehicle Bus1 Lane1
+move_vehicle Bus1 Lane2
+complete_bus_route Bus1

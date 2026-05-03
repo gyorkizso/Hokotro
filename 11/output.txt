@@ -1,0 +1,41 @@
+Intersection típusú objektum létrehozva Intersection1 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection2 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection3 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Road típusú objektum létrehozva Road1 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane1 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane1, ) meghívva
+Road1.addLane visszatért
+Road típusú objektum létrehozva Road2 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection2, second=Intersection3, 
+Lane típusú objektum létrehozva Lane2 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road2.addLane(lane=Lane2, ) meghívva
+Road2.addLane visszatért
+Car típusú objektum létrehozva Car1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, network=null, speed=1, 
+Snowplow típusú objektum létrehozva Snowplow1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, speed=10, 
+BlockedState típusú objektum létrehozva BlockedState1 névvel, ezekkel a konstruktor paraméterekkel: lane=Lane1, 
+Lane1.addLaneState(newState=BlockedState1, ) meghívva
+Lane1.addLaneState visszatért
+Snowplow1.tryMoveTo(Lane@30b8a058=Lane1, ) meghívva
+Lane1.isBlocked() meghívva
+Lane1.isBlocked visszatért true értékkel
+Snowplow1.tryMoveTo visszatért false értékkel
+Snowplow1.getCurrentLane() meghívva
+Snowplow1.getCurrentLane visszatért Lane1 értékkel
+BroomHead típusú objektum létrehozva BroomHead1 névvel, ezekkel a konstruktor paraméterekkel: plow=Snowplow1, targetLane=Lane1, 
+Snowplow1.equipHead(BroomHead@3fd7a715=BroomHead1, ) meghívva
+Snowplow1.equipHead visszatért
+Snowplow1.work() meghívva
+Lane1.getRoad() meghívva
+Lane1.getRoad visszatért
+Snowplow1.work visszatért
+Car1.tryMoveTo(Lane@4bbfb90a=Lane2, ) meghívva
+Lane2.isBlocked() meghívva
+Lane2.isBlocked visszatért false értékkel
+Car1.consumeMovement(1=1, ) meghívva
+Car1.consumeMovement visszatért
+Lane1.removeVehicle(vehicle=Car1, ) meghívva
+Lane1.removeVehicle visszatért
+Car1.onEnterLane(Lane@4bbfb90a=Lane2, ) meghívva
+Lane2.acceptVehicle(vehicle=Car1, ) meghívva
+Lane2.acceptVehicle visszatért
+Car1.onEnterLane visszatért
+Car1.tryMoveTo visszatért true értékkel

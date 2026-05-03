@@ -1,0 +1,4 @@
+move_vehicle Snowplow1 Lane1
+use_head Snowplow1 Broom
+score_cleaner CleanerPlayer1
+print Result Result1

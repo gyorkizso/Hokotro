@@ -1,0 +1,32 @@
+Intersection típusú objektum létrehozva Intersection1 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection2 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection3 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Road típusú objektum létrehozva Road1 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane1 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane1, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane2 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane2, ) meghívva
+Road1.addLane visszatért
+Intersection1.connectRoad(road=Road1, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road1, ) meghívva
+Intersection2.connectRoad visszatért
+Road típusú objektum létrehozva Road2 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane3 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road2.addLane(lane=Lane3, ) meghívva
+Road2.addLane visszatért
+Intersection1.connectRoad(road=Road2, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road2, ) meghívva
+Intersection2.connectRoad visszatért
+Car típusú objektum létrehozva Car1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, network=null, speed=1, 
+BlockedState típusú objektum létrehozva BlockedState1 névvel, ezekkel a konstruktor paraméterekkel: lane=Lane1, 
+Lane1.addLaneState(newState=BlockedState1, ) meghívva
+Lane1.addLaneState visszatért
+Car1.checkAndChangeLane() meghívva
+Lane1.isBlocked() meghívva
+Lane1.isBlocked visszatért true értékkel
+Lane1.getNeighborLanes(distance=1, ) meghívva
+Lane1.getNeighborLanes visszatért [] értékkel
+Car1.checkAndChangeLane visszatért

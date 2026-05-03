@@ -1,0 +1,6 @@
+Snowplow típusú objektum létrehozva Snowplow1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=null, speed=10, 
+Snowplow1.getCurrentLane() meghívva
+Snowplow1.getCurrentLane visszatért
+ThrowerHead típusú objektum létrehozva ThrowerHead1 névvel, ezekkel a konstruktor paraméterekkel: plow=Snowplow1, targetLane=null, 
+Snowplow1.equipHead(ThrowerHead@5e853265=ThrowerHead1, ) meghívva
+Snowplow1.equipHead visszatért

@@ -1,0 +1,45 @@
+Intersection típusú objektum létrehozva Intersection1 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection2 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection3 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Road típusú objektum létrehozva Road1 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane1 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane1, ) meghívva
+Road1.addLane visszatért
+Intersection1.connectRoad(road=Road1, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road1, ) meghívva
+Intersection2.connectRoad visszatért
+Road típusú objektum létrehozva Road2 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane2 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road2.addLane(lane=Lane2, ) meghívva
+Road2.addLane visszatért
+Intersection1.connectRoad(road=Road2, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road2, ) meghívva
+Intersection2.connectRoad visszatért
+Wallet típusú objektum létrehozva Wallet1 névvel, ezekkel a konstruktor paraméterekkel: balance=0, 
+Bus típusú objektum létrehozva Bus1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, speed=10, 
+BusDriverPlayer típusú objektum létrehozva BusDriverPlayer1 névvel, ezekkel a konstruktor paraméterekkel: name=, wallet=Wallet1, bus=Bus1, 
+Terminal típusú objektum létrehozva Terminal1 névvel, ezekkel a konstruktor paraméterekkel: location=Intersection1, 
+Terminal típusú objektum létrehozva Terminal2 névvel, ezekkel a konstruktor paraméterekkel: location=Intersection3, 
+Stop típusú objektum létrehozva Stop1 névvel, ezekkel a konstruktor paraméterekkel: location=Intersection2, 
+BusRoute típusú objektum létrehozva BusRoute1 névvel, ezekkel a konstruktor paraméterekkel: routePoints=[Terminal@27fa135a, Terminal@46f7f36a, Stop@2b71fc7e], baseReward=1, bonusPerStop=1, wallet=Wallet1, 
+Unknown command
+Bus1.tryMoveTo(Lane@6433a2=Lane1, ) meghívva
+Lane1.isBlocked() meghívva
+Lane1.isBlocked visszatért false értékkel
+Bus1.tryMoveTo visszatért true értékkel
+Bus1.tryMoveTo(Lane@6267c3bb=Lane2, ) meghívva
+Lane2.isBlocked() meghívva
+Lane2.isBlocked visszatért false értékkel
+Bus1.consumeMovement(1=1, ) meghívva
+Bus1.consumeMovement visszatért
+Lane1.removeVehicle(vehicle=Bus1, ) meghívva
+Lane1.removeVehicle visszatért
+Bus1.onEnterLane(Lane@6267c3bb=Lane2, ) meghívva
+Lane2.acceptVehicle(vehicle=Bus1, ) meghívva
+Lane2.acceptVehicle visszatért
+Bus1.onEnterLane visszatért
+Bus1.tryMoveTo visszatért true értékkel
+Bus1.clearRoute() meghívva
+Bus1.clearRoute visszatért

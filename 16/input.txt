@@ -1,0 +1,4 @@
+load bus_route.txt
+move_vehicle Bus1 Lane1
+move_vehicle Bus1 Lane2
+print Wallet Wallet1

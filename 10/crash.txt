@@ -1,0 +1,9 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 1
+save road
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 1
+create_car Lane1 Intersection2
+create_car Lane1 Intersection2

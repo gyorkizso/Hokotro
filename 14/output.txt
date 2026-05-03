@@ -1,0 +1,55 @@
+Intersection típusú objektum létrehozva Intersection1 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection2 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection3 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Road típusú objektum létrehozva Road1 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane1 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane1, ) meghívva
+Road1.addLane visszatért
+Intersection1.connectRoad(road=Road1, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road1, ) meghívva
+Intersection2.connectRoad visszatért
+Road típusú objektum létrehozva Road2 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane2 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road2.addLane(lane=Lane2, ) meghívva
+Road2.addLane visszatért
+Intersection1.connectRoad(road=Road2, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road2, ) meghívva
+Intersection2.connectRoad visszatért
+RoadNetwork típusú objektum létrehozva RoadNetwork1 névvel
+RoadNetwork1.addRoad(road=Road1, ) meghívva
+RoadNetwork1.addRoad visszatért
+RoadNetwork1.addRoad(road=Road2, ) meghívva
+RoadNetwork1.addRoad visszatért
+RoadNetwork1.addIntersection(intersection=Intersection2, ) meghívva
+RoadNetwork1.addIntersection visszatért
+RoadNetwork1.addIntersection(intersection=Intersection1, ) meghívva
+RoadNetwork1.addIntersection visszatért
+RoadNetwork1.addIntersection(intersection=Intersection3, ) meghívva
+RoadNetwork1.addIntersection visszatért
+Match típusú objektum létrehozva Match1 névvel, ezekkel a konstruktor paraméterekkel: players=[], vehicles=[], network=RoadNetwork1, 
+WeatherSystem típusú objektum létrehozva WeatherSystem1 névvel, ezekkel a konstruktor paraméterekkel: network=RoadNetwork1, snowfallRate=1, 
+Car típusú objektum létrehozva Car1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, network=RoadNetwork1, speed=1, 
+Car1.executeTurn() meghívva
+Car1.getDestination() meghívva
+Car1.getDestination visszatért Intersection3 értékkel
+RoadNetwork1.findShortestPath(from=Intersection2, to=Intersection3, ) meghívva
+Lane1.isBlocked() meghívva
+Lane1.isBlocked visszatért false értékkel
+Road1.getNextIntersection(from=Intersection2, ) meghívva
+Road1.getNextIntersection visszatért Intersection1 értékkel
+Lane2.isBlocked() meghívva
+Lane2.isBlocked visszatért false értékkel
+Road2.getNextIntersection(from=Intersection2, ) meghívva
+Road2.getNextIntersection visszatért Intersection1 értékkel
+Lane1.isBlocked() meghívva
+Lane1.isBlocked visszatért false értékkel
+Road1.getNextIntersection(from=Intersection1, ) meghívva
+Road1.getNextIntersection visszatért Intersection2 értékkel
+Lane2.isBlocked() meghívva
+Lane2.isBlocked visszatért false értékkel
+Road2.getNextIntersection(from=Intersection1, ) meghívva
+Road2.getNextIntersection visszatért Intersection2 értékkel
+RoadNetwork1.findShortestPath visszatért [] értékkel
+Car1.executeTurn visszatért

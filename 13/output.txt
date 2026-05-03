@@ -1,0 +1,33 @@
+Road típusú objektum létrehozva Road1 névvel, ezekkel a konstruktor paraméterekkel: first=null, second=null, 
+Lane típusú objektum létrehozva Lane1 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane1, ) meghívva
+Road1.addLane visszatért
+Wallet típusú objektum létrehozva Wallet1 névvel, ezekkel a konstruktor paraméterekkel: balance=0, 
+Snowplow típusú objektum létrehozva Snowplow1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, speed=10, 
+CleanerPlayer típusú objektum létrehozva CleanerPlayer1 névvel, ezekkel a konstruktor paraméterekkel: name=, wallet=Wallet1, snowplow=Snowplow1, 
+RoadNetwork típusú objektum létrehozva RoadNetwork1 névvel
+RoadNetwork1.addRoad(road=Road1, ) meghívva
+RoadNetwork1.addRoad visszatért
+Match típusú objektum létrehozva Match1 névvel, ezekkel a konstruktor paraméterekkel: players=[CleanerPlayer@5910e440], vehicles=[Snowplow@6433a2], network=RoadNetwork1, 
+WeatherSystem típusú objektum létrehozva WeatherSystem1 névvel, ezekkel a konstruktor paraméterekkel: network=RoadNetwork1, snowfallRate=1, 
+Snowplow1.tryMoveTo(Lane@7daf6ecc=Lane1, ) meghívva
+Lane1.isBlocked() meghívva
+Lane1.isBlocked visszatért false értékkel
+Snowplow1.tryMoveTo visszatért true értékkel
+Snowplow1.getCurrentLane() meghívva
+Snowplow1.getCurrentLane visszatért Lane1 értékkel
+BroomHead típusú objektum létrehozva BroomHead1 névvel, ezekkel a konstruktor paraméterekkel: plow=Snowplow1, targetLane=Lane1, 
+Snowplow1.equipHead(BroomHead@69d0a921=BroomHead1, ) meghívva
+Snowplow1.equipHead visszatért
+Snowplow1.work() meghívva
+Lane1.getRoad() meghívva
+Lane1.getRoad visszatért
+Snowplow1.work visszatért
+Match1.getResultFor(player=CleanerPlayer1, ) meghívva
+CleanerPlayer1.getScore() meghívva
+CleanerPlayer1.getScore visszatért 0 értékkel
+Result típusú objektum létrehozva Result1 névvel, ezekkel a konstruktor paraméterekkel: player=CleanerPlayer1, score=0, 
+Match1.getResultFor visszatért Result1 értékkel
+Result1.getScore() meghívva
+Result1.getScore visszatért 0 értékkel
+STATE Result1: eredménye=0

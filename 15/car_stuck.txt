@@ -1,0 +1,7 @@
+create_intersection
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 2
+create_road Intersection1 Intersection2 1
+create_car Lane1 Intersection3
+set Blocked Lane1 1

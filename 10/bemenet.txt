@@ -1,0 +1,8 @@
+load road.txt
+set_random Slip off
+create_car Lane1 Intersection2
+move_vehicle Car1 Lane1
+create_car Lane1 Intersection2
+set_random Slip on
+move_vehicle Car2 Lane1
+handle_collision Car1 Car2

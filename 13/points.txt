@@ -1,0 +1,3 @@
+create_road . . 1
+create_player 1 0 Lane1
+create_match

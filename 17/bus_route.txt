@@ -1,0 +1,7 @@
+create_intersection
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 1
+create_road Intersection2 Intersection3 1
+create_player 0 1 Lane1
+create_route Intersection1 Intersection3 Intersection2

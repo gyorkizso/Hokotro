@@ -1,0 +1,3 @@
+move_vehicle Snowplow1 Lane1
+use_head Snowplow1 Broom
+move_vehicle Car1 Lane2
