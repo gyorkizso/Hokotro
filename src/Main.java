@@ -72,7 +72,7 @@ public class Main {
         execute(start);
     }
 
-    static void execute (InputStream stream){
+    static void execute(InputStream stream){
         Scanner scanner = new Scanner(stream);
         while(scanner.hasNext()) {
             String line = scanner.nextLine();
@@ -114,7 +114,6 @@ public class Main {
                 case "save":
                     save(words[1]);
                     break;
-
                 case "reset":
                     reset();
                     break;
