@@ -19,6 +19,7 @@ public class Road {
      */
     public Road(Intersection first, Intersection second) {
         Skeleton.instance.createObject(this, "first",first,"second",second);
+
         endpoints = new Intersection[2];
         endpoints[0] = first;
         endpoints[1] = second;

@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Prototype {
@@ -14,12 +11,13 @@ public class Prototype {
     }
 
     <T> T get(String name) {
-        Object obj = Skeleton.instance.names.get(name);
-        return (T) obj;
+        Optional<Object> result = Skeleton.instance.names.keySet().stream().filter((obj) -> Skeleton.instance.names.get(obj).equals(name)).findFirst();
+        return (T) (result.isPresent() ? result.get() : null);
     }
 
     <T> T get(Class<T> clas) {
-        return (T) Skeleton.instance.names.keySet().stream().filter((obj) -> clas.isAssignableFrom(obj.getClass())).findFirst().get();
+        Optional<Object> result = Skeleton.instance.names.keySet().stream().filter((obj) -> clas.isAssignableFrom(obj.getClass())).findFirst();
+        return (T) (result.isPresent() ? result.get() : null);
     }
 
     <T> List<T> getAll(Class<T> clas){
@@ -37,7 +35,7 @@ public class Prototype {
 
     public void createCar(String startName, String destinationName) {
         Lane start = get(startName);
-        Lane destination = get(destinationName);
+        Object destination = get(destinationName);
         RoadNetwork roadNetwork = get(RoadNetwork.class);
 
         new Car(start, roadNetwork, destination, 1);
@@ -77,11 +75,18 @@ public class Prototype {
         for (int i = 0; i < lanes; i++) {
             road.addLane(new Lane());
         }
+
+        i1.connectRoad(road);
+        i2.connectRoad(road);
     }
 
     public void createGarage(String name){
         Intersection intersection = get(name);
         Garage garage = new Garage(intersection);
+    }
+
+    public void createRoute(String terminal1Name, String terminal2Name, String stopName){
+        new BusRoute(List.of(new Terminal(get(terminal1Name)), new Terminal(get(terminal2Name)), new Stop(get(stopName))),1,1, get(Wallet.class));
     }
 
     public void nextTurn(){
@@ -186,10 +191,10 @@ public class Prototype {
             case Intersection -> {
             }
             case Wallet -> {
-                Skeleton.instance.outStream.printf("STATE %s: balance=%i \n",name, ((Wallet) obj).getFunds());
+                Skeleton.instance.outStream.printf("STATE %s: balance=%d\n",name, ((Wallet) obj).getFunds());
             }
             case Result -> {
-                Skeleton.instance.outStream.printf("STATE %s: eredménye=%i",name, ((Result) obj).getScore());
+                Skeleton.instance.outStream.printf("STATE %s: eredménye=%d\n",name, ((Result) obj).getScore());
             }
         }
     }
@@ -215,7 +220,7 @@ public class Prototype {
 
     public void handleCollision(String name1, String name2){
         Vehicle vehicle1 = get(name1);
-        Vehicle vehicle2 = get(name1);
+        Vehicle vehicle2 = get(name2);
 
         vehicle1.onCollision();
         vehicle2.onCollision();

@@ -86,11 +86,12 @@ public class RoadNetwork {
     /**
      * Megkeresi és visszaadja a két csomópont közötti legrövidebb, járható utat.
      *
-     * @param from a kiinduló csomópont
+     * @param start a kiinduló sáv
      * @param to a cél csomópont
      * @return az útvonalat alkotó utak listája
      */
-    public List<Road> findShortestPath(Intersection from, Intersection to) {
+    public List<Road> findShortestPath(Lane start, Intersection to) {
+        Intersection from = intersections.stream().filter(i -> i.getConnectedRoads().stream().anyMatch(r -> r.getLanes().contains(start))).findFirst().get();
         Skeleton.instance.methodCall(this,"findShortestPath", "from",from,"to",to);
 
         List<Road> result = new ArrayList<Road>();
@@ -113,13 +114,15 @@ public class RoadNetwork {
                     result.add(prev.getConnectedRoads().stream().filter(road -> road.getNextIntersection(currentPrev).equals(previous.get(currentPrev))).findFirst().get()) ;
                     prev = previous.get(prev);
                 }
+
+                return result;
             }
 
             for (Road road : current.getConnectedRoads()){
                 //Az út járható ha legalább egy sávja járható
                 if (road.getLanes().stream().anyMatch(lane -> !lane.isBlocked())){
                     Intersection next = road.getNextIntersection(current);
-                    if (visited.contains(next)){
+                    if (!visited.contains(next)){
                         visited.add(next);
                         previous.put(next, current);
                         queue.add(next);

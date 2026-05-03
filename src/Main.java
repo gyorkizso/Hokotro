@@ -108,6 +108,9 @@ public class Main {
                 case "create_garage":
                     prototype.createGarage(words[1]);
                     break;
+                case "create_route":
+                    prototype.createRoute(words[1], words[2], words[3]);
+                    break;
                 case "load":
                     execute(load(words[1]));
                     break;
@@ -143,7 +146,12 @@ public class Main {
                     break;
 
                 case "print":
-                    prototype.print(PrintType.valueOf(words[1]), words[2]);
+                    if (words.length > 2){
+                        prototype.print(PrintType.valueOf(words[1]), words[2]);
+                    }
+                    else {
+                        prototype.print(PrintType.valueOf(words[1]));
+                    }
                     break;
 
                 case "snowfall":
