@@ -1,0 +1,3 @@
+load test_map.txt
+start_match
+snowfall 10

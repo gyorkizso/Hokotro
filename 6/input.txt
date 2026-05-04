@@ -1,0 +1,7 @@
+load test_map.txt
+start_match
+snowfall 10
+create_snowplow test_sp
+move_vehicle test_sp test_icy_lane
+use_head test_sp ICEBREAKER
+

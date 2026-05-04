@@ -1,0 +1,6 @@
+load test_map.txt
+snowfall 10
+create_bus test_bus
+start_match
+move_vehicle test_bus test_intersection1
+move_vehicle test_bus test_intersection2

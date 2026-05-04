@@ -71,7 +71,6 @@ public class Main {
 
         execute(start);
     }
-
     static void execute(InputStream stream){
         Scanner scanner = new Scanner(stream);
         while(scanner.hasNext()) {
