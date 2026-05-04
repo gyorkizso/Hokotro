@@ -17,7 +17,7 @@ public class Main {
     }
 
     public static void help(){
-
+        System.out.println("Használható parancsokért lásd a dokumentáció 7.1.2 fejezetét.");
     }
 
     public static void save(String fileName){

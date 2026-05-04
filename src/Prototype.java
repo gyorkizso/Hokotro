@@ -123,44 +123,45 @@ public class Prototype {
     public void set(SetType type, String name, Object value){
         Object obj = get(name);
         switch (type){
-            case Snow -> {
+            case Snow:
                 ((Lane) obj).setSnowAmount((Integer) value);
-            }
-            case Ice -> {
+                break;
+            case Ice:
                 ((Lane) obj).setIceAmount((Integer) value);
-            }
-            case Blocked -> {
+                break;
+            case Blocked:
                 ((Lane) obj).addLaneState(new BlockedState((Lane) obj));
-            }
-            case Salted -> {
+                break;
+            case Salted:
                 ((Lane) obj).addLaneState(new SaltedState((Lane) obj, 1));
-            }
+                break;
         }
     }
 
     public void print(PrintType type){
         List<?> objects = new ArrayList<>();
         switch (type){
-            case Players -> {
+            case Players:
                 objects = getAll(Player.class);
-            }
-            case Vehicles -> {
+                break;
+            case Vehicles:
                 objects = getAll(Vehicle.class);
-            }
-            case Lanes -> {
-                objects = getAll(Lane.class);}
-            case Road -> {
+                break;
+            case Lanes:
+                objects = getAll(Lane.class);
+                break;
+            case Road:
                 objects = getAll(Road.class);
-            }
-            case Intersection -> {
+                break;
+            case Intersection:
                 objects = getAll(Intersection.class);
-            }
-            case Wallet -> {
+                break;
+            case Wallet:
                 objects = getAll(Wallet.class);
-            }
-            case Result -> {
+                break;
+            case Result:
                 objects = getAll(Result.class);
-            }
+                break;
         }
         for (Object obj : objects){
             print(type, Skeleton.instance.names.get(obj));
@@ -170,12 +171,12 @@ public class Prototype {
     public void print(PrintType type, String name){
         Object obj = get(name);
         switch (type){
-            case Players -> {
+            case Players:
                 Player player = ((Player) obj);
-            }
-            case Vehicles -> {
-            }
-            case Lanes -> {
+                break;
+            case Vehicles:
+                break;
+            case Lanes:
                 Skeleton.instance.outStream.printf("STATE %s: laneState={ ", name);
                 for (LaneState state : ((Lane) obj).getLaneStates()){
                     Skeleton.instance.outStream.printf("%s ",state.getClass().getName());
@@ -185,17 +186,17 @@ public class Prototype {
                     Skeleton.instance.outStream.printf("%s ",Skeleton.instance.names.get(vehicle));
                 }
                 Skeleton.instance.outStream.printf("}, road=%s\n", ((Lane) obj).getRoad());
-            }
-            case Road -> {
-            }
-            case Intersection -> {
-            }
-            case Wallet -> {
+                break;
+            case Road:
+                break;
+            case Intersection:
+                break;
+            case Wallet:
                 Skeleton.instance.outStream.printf("STATE %s: balance=%d\n",name, ((Wallet) obj).getFunds());
-            }
-            case Result -> {
+                break;
+            case Result:
                 Skeleton.instance.outStream.printf("STATE %s: eredménye=%d\n",name, ((Result) obj).getScore());
-            }
+                break;
         }
     }
 
@@ -236,24 +237,25 @@ public class Prototype {
 
         PlowHead newHead = null;
         switch (head){
-            case Broom -> {
+            case Broom:
                 newHead = new BroomHead(vehicle, vehicle.getCurrentLane());
-            }
-            case Thrower -> {
+                break;
+            case Thrower:
                 newHead = new ThrowerHead(vehicle, vehicle.getCurrentLane());
-            }
-            case IceBreaker -> {
+                break;
+            case IceBreaker:
                 newHead = new IceBreakerHead(vehicle, vehicle.getCurrentLane());
-            }
-            case SaltSpreader -> {
+                break;
+            case SaltSpreader:
                 newHead = new SaltSpreaderHead(vehicle, vehicle.getCurrentLane(), new Salt(1,vehicle));
-            }
-            case Dragon -> {
+                break;
+            case Dragon:
                 newHead = new DragonHead(vehicle, vehicle.getCurrentLane(), new BioKerosene(1,vehicle));
-            }
-            case GravelSpreader -> {
+                break;
+            case GravelSpreader:
                 newHead = new GravelSpreaderHead(vehicle, vehicle.getCurrentLane(), new Gravel(1,vehicle));
-            }}
+                break;
+            }
 
         vehicle.equipHead(newHead);
     }
@@ -289,39 +291,39 @@ public class Prototype {
 
         Purchasable purchasable = null;
         switch (type){
-            case BROOM_HEAD -> {
+            case BROOM_HEAD:
                purchasable = new HeadPurchase(100, new BroomHead(null, null));
-            }
-            case THROWER_HEAD -> {
+                break;
+            case THROWER_HEAD:
                 purchasable = new HeadPurchase(100, new ThrowerHead(null, null));
-            }
-            case IceBreaker_HEAD -> {
+                break;
+            case IceBreaker_HEAD:
                 purchasable = new HeadPurchase(100, new IceBreakerHead(null, null));
-            }
-            case SaltSpreader_HEAD -> {
+                break;
+            case SaltSpreader_HEAD:
                 purchasable = new HeadPurchase(100, new SaltSpreaderHead((Snowplow) player.vehicle, null, null));
-            }
-            case Dragon_HEAD -> {
+                break;
+            case Dragon_HEAD:
                 purchasable = new HeadPurchase(100, new DragonHead((Snowplow) player.vehicle, null, null));
-            }
-            case GravelSpreader_HEAD -> {
+                break;
+            case GravelSpreader_HEAD:
                 purchasable = new HeadPurchase(100, new GravelSpreaderHead((Snowplow) player.vehicle, null, null));
-            }
-            case Salt -> {
+                break;
+            case Salt:
                 purchasable = new ConsumablePurchase(10, 1,new Salt(1, player.vehicle));
-            }
-            case Kerosene -> {
+                break;
+            case Kerosene:
                 purchasable = new ConsumablePurchase(10, 1,new BioKerosene(1, player.vehicle));
-            }
-            case Gravel -> {
+                break;
+            case Gravel:
                 purchasable = new ConsumablePurchase(10, 1, new Gravel(1, player.vehicle));
-            }
-            case Snowplow -> {
+                break;
+            case Snowplow:
                 purchasable = new PlowPurchase(500, new Snowplow(null, 20));
-            }
-            case Bus -> {
+                break;
+            case Bus:
                 purchasable = new BusPurchase(500, new Bus(null, 20));
-            }
+                break;
         }
         purchasable.applyPurchase(player);
     }
