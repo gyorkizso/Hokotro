@@ -1,4 +1,4 @@
-load test_map.txt
+create_match
 create_bus test_bus
 start_match
 move_vehicle test_bus test_lane

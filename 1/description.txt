@@ -1,0 +1,10 @@
+1. Teszteset: Havazás helyes működésének ellenőrzése
+
+Az input.txt fájlban található parancsok létrehoznak egy kezdetleges játékteret. A játéktér az egyszerűség kedvéért egyetlen "road" objektumból
+áll, amely 4 "lane" objektumot tartalmaz. A hóesés mértéke 10.
+Az elvárt működés az, hogy a "lane" objektumokon minden körben növekedjen a hó mennyisége. A teszteset összesen 3 kört bonyolít le.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
