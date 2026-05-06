@@ -1,15 +1,17 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
 create_match
-
-load gravel_depletion.txt
-set_random global off
+set Snow Lane1 10
+create_snowplow Lane1
 start_match
-print lane l1
-print inventory gravel1
-change_plow_head snowplow1 GRAVEL
-use_head snowplow1 GRAVEL
-print lane l1
-print inventory gravel1
-use_head snowplow1 GRAVEL
-print lane l1
-print inventory gravel1
+print Lanes Lane1
+print Vehicles
+change_plow_head Snowplow1 GravelSpreader
+use_head Snowplow1 GravelSpreader
+print Lanes Lane1
+print Vehicles
+use_head Snowplow1 GravelSpreader
+print Lanes Lane1
+print Vehicles
 exit

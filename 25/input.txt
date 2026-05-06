@@ -1,11 +1,13 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
 create_match
-
-load salted_road.txt
-set_random global off
+set Snow Lane1 10
+create_snowplow Lane1
 start_match
-change_plow_head snowplow1 SALT
-use_head snowplow1 SALT
-print lane l1
+change_plow_head Snowplow1 SaltSpreader
+use_head Snowplow1 SaltSpreader
+print Lanes Lane1
 snowfall 1
-print lane l1
+print Lanes Lane1
 exit

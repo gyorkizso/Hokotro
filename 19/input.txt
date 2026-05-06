@@ -1,9 +1,11 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
+create_garage Intersection1
+create_player 0 1 Lane1
 create_match
-
-load garage_purchase.txt
-set_random global off
 start_match
-print wallet wallet
+print Wallet Wallet1
 purchase player1 BROOM_HEAD 1
-print wallet wallet
+print Wallet Wallet1
 exit

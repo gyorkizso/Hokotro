@@ -1,9 +1,10 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
 create_match
-
-load gravel_snow_cover.txt
-set_random global off
+set Gravel Lane1 0
 start_match
-print lane l1
+print Lanes Lane1
 snowfall 2
-print lane l1
+print Lanes Lane1
 exit

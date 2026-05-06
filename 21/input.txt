@@ -1,9 +1,11 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
+create_garage Intersection1
+create_player 0 1 Lane1
 create_match
-
-load failed_purchase.txt
-set_random global off
 start_match
-print wallet wallet
-purchase player1 SNOWPLOW 1
-print wallet wallet
+print Wallet Wallet1
+purchase Player1 Snowplow 1
+print Wallet Wallet1
 exit

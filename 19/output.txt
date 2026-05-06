@@ -1,0 +1,50 @@
+Intersection típusú objektum létrehozva Intersection1 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection2 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Road típusú objektum létrehozva Road1 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane1 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane1, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane2 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane2, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane3 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane3, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane4 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane4, ) meghívva
+Road1.addLane visszatért
+Intersection1.connectRoad(road=Road1, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road1, ) meghívva
+Intersection2.connectRoad visszatért
+Garage típusú objektum létrehozva Garage1 névvel, ezekkel a konstruktor paraméterekkel: location=Intersection1, 
+Wallet típusú objektum létrehozva Wallet1 névvel, ezekkel a konstruktor paraméterekkel: balance=0, 
+Bus típusú objektum létrehozva Bus1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, speed=10, 
+BusDriverPlayer típusú objektum létrehozva BusDriverPlayer1 névvel, ezekkel a konstruktor paraméterekkel: name=, wallet=Wallet1, bus=Bus1, 
+RoadNetwork típusú objektum létrehozva RoadNetwork1 névvel
+RoadNetwork1.addRoad(road=Road1, ) meghívva
+RoadNetwork1.addRoad visszatért
+RoadNetwork1.addIntersection(intersection=Intersection2, ) meghívva
+RoadNetwork1.addIntersection visszatért
+RoadNetwork1.addIntersection(intersection=Intersection1, ) meghívva
+RoadNetwork1.addIntersection visszatért
+Match típusú objektum létrehozva Match1 névvel, ezekkel a konstruktor paraméterekkel: players=[BusDriverPlayer@2b193f2d], vehicles=[Bus@63947c6b], network=RoadNetwork1, 
+WeatherSystem típusú objektum létrehozva WeatherSystem1 névvel, ezekkel a konstruktor paraméterekkel: network=RoadNetwork1, snowfallRate=1, 
+Match1.start() meghívva
+BusDriverPlayer1.beginTurn() meghívva
+Bus1.getSpeed() meghívva
+Bus1.getSpeed visszatért 10 értékkel
+Bus1.setMovementRemaining(10=10, ) meghívva
+Bus1.setMovementRemaining visszatért
+BusDriverPlayer1.beginTurn visszatért
+Match1.start visszatért
+Wallet1.getFunds() meghívva
+Wallet1.getFunds visszatért 0 értékkel
+STATE Wallet1: balance=0
+BroomHead típusú objektum létrehozva BroomHead1 névvel, ezekkel a konstruktor paraméterekkel: plow=null, targetLane=null, 
+HeadPurchase típusú objektum létrehozva HeadPurchase1 névvel, ezekkel a konstruktor paraméterekkel: price=100, headToGive=BroomHead1, 
+HeadPurchase1.applyPurchase(buyer=null, ) meghívva
+HeadPurchase1.applyPurchase visszatért
+Wallet1.getFunds() meghívva
+Wallet1.getFunds visszatért 0 értékkel
+STATE Wallet1: balance=0

@@ -1,9 +1,10 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
 create_match
-
-load vehicle_stuck.txt
-set_random global off
+create_car Lane1 Intersection2
 start_match
-print lane l1
-vehicle_stuck car1
-print vehicle car1
+print Lanes Lane1
+vehicle_stuck Car1
+print Vehicles Car1
 exit
