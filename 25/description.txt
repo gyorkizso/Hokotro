@@ -1,0 +1,10 @@
+25. Teszteset: Út sós állapota
+
+A teszt azt vizsgálja, hogy a sószóró fej használata után a sáv sózott állapotot kap, és az újabb havazás nem hagy tartós havat a sávon.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../25/input.txt ../25/output.txt

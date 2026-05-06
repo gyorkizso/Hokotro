@@ -1,0 +1,9 @@
+create_match
+
+load vehicle_stuck.txt
+set_random global off
+start_match
+print lane l1
+vehicle_stuck car1
+print vehicle car1
+exit

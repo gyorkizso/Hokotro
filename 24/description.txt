@@ -1,0 +1,10 @@
+24. Teszteset: Hó oldalra tolása (Söprő fej esetén)
+
+A teszt azt ellenőrzi, hogy a söprő fej a hó eltávolításakor a havat a közvetlenül szomszédos sávba tolja át.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../24/input.txt ../24/output.txt

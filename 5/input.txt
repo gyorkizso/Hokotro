@@ -1,6 +1,10 @@
-load test_map.txt
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
+create_match
+set Snow Lane1 10
+create_snowplow Lane1
 start_match
-snowfall 10
-create_snowplow test_sp
-move_vehicle test_sp test_snowy_lane
-use_head test_sp THROWER
+use_head Snowplow1 Thrower
+print Lanes
+exit

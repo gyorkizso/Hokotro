@@ -1,0 +1,12 @@
+create_match
+
+load broom_side_push.txt
+set_random global off
+start_match
+print lane lcenter
+print lane lside
+change_plow_head snowplow1 BROOM
+use_head snowplow1 BROOM
+print lane lcenter
+print lane lside
+exit

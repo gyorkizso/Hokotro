@@ -1,0 +1,69 @@
+Intersection típusú objektum létrehozva Intersection1 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection2 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Road típusú objektum létrehozva Road1 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane1 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane1, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane2 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane2, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane3 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane3, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane4 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane4, ) meghívva
+Road1.addLane visszatért
+Intersection1.connectRoad(road=Road1, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road1, ) meghívva
+Intersection2.connectRoad visszatért
+RoadNetwork típusú objektum létrehozva RoadNetwork1 névvel
+RoadNetwork1.addRoad(road=Road1, ) meghívva
+RoadNetwork1.addRoad visszatért
+RoadNetwork1.addIntersection(intersection=Intersection2, ) meghívva
+RoadNetwork1.addIntersection visszatért
+RoadNetwork1.addIntersection(intersection=Intersection1, ) meghívva
+RoadNetwork1.addIntersection visszatért
+Match típusú objektum létrehozva Match1 névvel, ezekkel a konstruktor paraméterekkel: players=[], vehicles=[], network=RoadNetwork1, 
+WeatherSystem típusú objektum létrehozva WeatherSystem1 névvel, ezekkel a konstruktor paraméterekkel: network=RoadNetwork1, snowfallRate=1, 
+Lane1.setSnowAmount(amount=10, ) meghívva
+Lane1.setSnowAmount visszatért
+Lane2.setSnowAmount(amount=10, ) meghívva
+Lane2.setSnowAmount visszatért
+Bus típusú objektum létrehozva Bus1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, speed=10, 
+Match1.start() meghívva
+Match1.start visszatért
+Bus1.tryMoveTo(Lane@6e0be858=Lane2, ) meghívva
+Lane2.isBlocked() meghívva
+Lane2.isBlocked visszatért false értékkel
+Bus1.consumeMovement(1=1, ) meghívva
+Bus1.consumeMovement visszatért
+Lane1.removeVehicle(vehicle=Bus1, ) meghívva
+Lane1.removeVehicle visszatért
+Bus1.onEnterLane(Lane@6e0be858=Lane2, ) meghívva
+Lane2.acceptVehicle(vehicle=Bus1, ) meghívva
+Lane2.acceptVehicle visszatért
+Bus1.onEnterLane visszatért
+Bus1.tryMoveTo visszatért true értékkel
+Match1.getPlayers() meghívva
+Match1.getPlayers visszatért [] értékkel
+STATE Lane3: laneState={ }, vehicles={ Lane3.getVehicles() meghívva
+Lane3.getVehicles visszatért [] értékkel
+Lane3.getRoad() meghívva
+Lane3.getRoad visszatért
+}, road=null
+STATE Lane4: laneState={ }, vehicles={ Lane4.getVehicles() meghívva
+Lane4.getVehicles visszatért [] értékkel
+Lane4.getRoad() meghívva
+Lane4.getRoad visszatért
+}, road=null
+STATE Lane2: laneState={ }, vehicles={ Lane2.getVehicles() meghívva
+Lane2.getVehicles visszatért [Bus@49476842] értékkel
+Bus1 Lane2.getRoad() meghívva
+Lane2.getRoad visszatért
+}, road=null
+STATE Lane1: laneState={ }, vehicles={ Lane1.getVehicles() meghívva
+Lane1.getVehicles visszatért [] értékkel
+Lane1.getRoad() meghívva
+Lane1.getRoad visszatért
+}, road=null

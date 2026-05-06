@@ -1,0 +1,9 @@
+create_match
+
+load gravel_snow_cover.txt
+set_random global off
+start_match
+print lane l1
+snowfall 2
+print lane l1
+exit

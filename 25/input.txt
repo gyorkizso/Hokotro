@@ -1,0 +1,11 @@
+create_match
+
+load salted_road.txt
+set_random global off
+start_match
+change_plow_head snowplow1 SALT
+use_head snowplow1 SALT
+print lane l1
+snowfall 1
+print lane l1
+exit

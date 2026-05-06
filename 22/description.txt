@@ -1,0 +1,10 @@
+22. Teszteset: Zúzalék elfedése hóval
+
+A teszt azt vizsgálja, hogy a zúzalékos út havazás esetén havas állapotot is kaphat, miközben a zúzalékos hatás megmarad.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../22/input.txt ../22/output.txt

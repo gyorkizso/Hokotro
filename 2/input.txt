@@ -1,6 +1,12 @@
-load test_map.txt
-snowfall 10
-create_bus test_bus
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
+create_match
+set Snow Lane1 10
+set Snow Lane2 10
+create_bus Lane1
 start_match
-move_vehicle test_bus test_intersection1
-move_vehicle test_bus test_intersection2
+move_vehicle Bus1 Lane2
+next_turn
+print Lanes
+exit

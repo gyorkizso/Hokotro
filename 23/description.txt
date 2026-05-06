@@ -1,0 +1,10 @@
+23. Teszteset: Havazás alagútban
+
+A teszt azt ellenőrzi, hogy alagútszakasz esetén a havazás nem növeli a sáv hómennyiségét
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../23/input.txt ../23/output.txt
