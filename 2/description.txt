@@ -1,0 +1,12 @@
+2. Teszteset: Jegesedés helyes működésének ellenőrzése
+
+Ebben a tesztesetben az input.txt fájlban található parancsok létrehoznak egy "Road"
+objektumot, benne 4 "Lane"-el. Szintén létrehoz egy "Bus" objektumot, amely ezt
+követően áthalad a havas sávon. Az elvárt működés szerint a sáv jégmennyiségének növekednie kell.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../2/input.txt ../2/output.txt

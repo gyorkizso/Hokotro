@@ -1,0 +1,17 @@
+8. Teszteset: Sószóró fej használata
+
+Ebben a tesztesetben egy sószóró fejjel és elég sóval felszerelt hókotró egy havas sávba lép. 
+A sószóró fej használva lesz, mely hatására az út sózott állapotú lesz. 
+A hókotró só tartaléka csökken.
+
+Ennek az esetnek a teszteléséhez létrehozunk egy egyszerű térképet mindössze egyetlen "Road" objektummal, benne 4 db "Lane"-el.
+Ezek közül a "Lane1"-ben lesz a hókotró, ahol a "Lane1" állapota "Snowy", azaz havas.
+A kotrófej használata előtt a "Lane1" hómennyisége 10.
+A kotrófej használata után azt várjuk, hogy a "Lane1" sózott állapotú legyen, illetve, hogy a hókotró só tartaléka csökkenjen.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../8/input.txt ../8/output.txt

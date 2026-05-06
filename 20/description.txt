@@ -1,0 +1,10 @@
+20. Teszteset: Alapanyag-kezelés, kifogyás
+
+A teszt azt vizsgálja, hogy a fogyóanyaggal működő fej csak addig fejtse ki a hatását, amíg a hozzá tartozó készlet rendelkezésre áll.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../20/input.txt ../20/output.txt

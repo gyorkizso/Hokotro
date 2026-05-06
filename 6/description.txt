@@ -1,0 +1,17 @@
+6. Teszteset: Jégtörő fej használata
+
+Ebben a tesztesetben egy jégtörő fejjel felszerelt hókotró egy jeges sávba lép. 
+A jégtörő fej használva lesz, mely hatására a sáv hómennyisége a jég mennyiségével növekszik. 
+A sáv jég mennyisége lenullázódik.
+
+Ennek az esetnek a teszteléséhez létrehozunk egy egyszerű térképet mindössze egyetlen "Road" objektummal, benne 4 db "Lane"-el.
+Ezek közül a "Lane1"-ben lesz a hókotró. A "Lane1" állapota "Icy", azaz jeges lesz. 
+A kotrófej használata előtt a "Lane1" hómennyisége 10, a jég mennyisége pedig 5.
+A kotrófej használata után azt várjuk, hogy a "Lane1" hómennyisége 15 legyen, a jég mennyisége pedig 0.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../6/input.txt ../6/output.txt

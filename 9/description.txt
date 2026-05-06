@@ -1,0 +1,17 @@
+9. Teszteset: Zúzott követ szóró fej használata
+
+Ebben a tesztesetben egy zúzottkő szóró fejjel és elég zúzalékkal felszerelt hókotró egy havas sávba lép. 
+A zúzott követ szóró fej használva lesz, mely hatására az út zúzalékos állapotú lesz. 
+A hókotró zúzalék tartaléka csökken.
+
+Ennek az esetnek a teszteléséhez létrehozunk egy egyszerű térképet mindössze egyetlen "Road" objektummal, benne 4 db "Lane"-el.
+Ezek közül a "Lane1"-ben lesz a hókotró, ahol a "Lane1" állapota "Snowy", azaz havas.
+A kotrófej használata előtt a "Lane1" hómennyisége 10.
+A kotrófej használata után azt várjuk, hogy a "Lane1" zúzalékos állapotú legyen, illetve, hogy a hókotró zúzalék tartaléka csökkenjen.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../9/input.txt ../9/output.txt

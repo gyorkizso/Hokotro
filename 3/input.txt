@@ -1,4 +1,8 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
 create_match
-create_bus test_bus
+create_bus Lane1
 start_match
-move_vehicle test_bus test_lane
+move_vehicle Bus1 Lane2
+exit

@@ -1,0 +1,15 @@
+4. Teszteset: Söprő fej használata
+
+Ebben a tesztesetben egy söprő fejjel felszerelt hókotró egy havas sávba lép. 
+A söprő fej használva lesz, mely hatására a sáv hómennyisége lenullázódik.
+Az út tiszta állapotú lesz.
+
+Ennek az esetnek a teszteléséhez létrehozunk egy egyszerű térképet mindössze egyetlen "Road" objektummal, benne 4 db "Lane"-el.
+Ezek közül a "Lane1"-ben lesz a hókotró, ahol a "Lane1" állapota "Snowy", azaz havas.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../4/input.txt ../4/output.txt

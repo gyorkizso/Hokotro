@@ -1,0 +1,17 @@
+7. Teszteset: Sárkány fej használata
+
+Ebben a tesztesetben egy sárkány fejjel és elég biokerozinnal felszerelt hókotró egy jeges és havas sávba lép. 
+A sárkány fej használva lesz, mely hatására a sáv hómennyisége és jég mennyisége lenullázódik. 
+Az út tiszta állapotú lesz. A hókotró biokerozin mennyisége csökken.
+
+Ennek az esetnek a teszteléséhez létrehozunk egy egyszerű térképet mindössze egyetlen "Road" objektummal, benne 4 db "Lane"-el.
+Ezek közül a "Lane1"-ben lesz a hókotró, ahol a "Lane1" állapota "Icy", azaz jeges.
+A kotrófej használata előtt a "Lane1" hómennyisége 10, a jég mennyisége pedig 5.
+A kotrófej használata után azt várjuk, hogy a "Lane1" hó- és jég mennyisége 0 legyen, illetve, hogy a hókotró biokerozin tartaléka csökkenjen.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../7/input.txt ../7/output.txt

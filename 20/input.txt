@@ -1,1 +1,15 @@
 create_match
+
+load gravel_depletion.txt
+set_random global off
+start_match
+print lane l1
+print inventory gravel1
+change_plow_head snowplow1 GRAVEL
+use_head snowplow1 GRAVEL
+print lane l1
+print inventory gravel1
+use_head snowplow1 GRAVEL
+print lane l1
+print inventory gravel1
+exit

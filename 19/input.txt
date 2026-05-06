@@ -1,1 +1,9 @@
 create_match
+
+load garage_purchase.txt
+set_random global off
+start_match
+print wallet wallet
+purchase player1 BROOM_HEAD 1
+print wallet wallet
+exit

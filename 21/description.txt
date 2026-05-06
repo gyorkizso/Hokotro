@@ -1,0 +1,10 @@
+21. Teszteset: Sikertelen vásárlás pénz hiányában
+
+A teszt azt ellenőrzi, hogy a rendszer nem hajt végre vásárlást, ha a játékos pénztárcájában nincs elegendő fedezet.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../21/input.txt ../21/output.txt

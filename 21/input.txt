@@ -1,1 +1,9 @@
 create_match
+
+load failed_purchase.txt
+set_random global off
+start_match
+print wallet wallet
+purchase player1 SNOWPLOW 1
+print wallet wallet
+exit

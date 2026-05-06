@@ -1,3 +1,10 @@
-create_road is1 is2 4
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
 create_match
 snowfall 10
+start_match
+next_turn
+next_turn
+next_turn
+exit

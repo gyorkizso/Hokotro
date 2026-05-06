@@ -1,1 +1,9 @@
 create_match
+
+load tunnel_snowfall.txt
+set_random global off
+start_match
+print lane lt
+snowfall 3
+print lane lt
+exit

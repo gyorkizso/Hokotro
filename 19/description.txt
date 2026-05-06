@@ -1,0 +1,11 @@
+19. Teszteset: Garázsban történő vásárlás
+
+A teszt célja annak ellenőrzése, hogy a garázsban végzett vásárlás során a rendszer levonja a megfelelő összeget, 
+majd átadja a megvásárolt tételt a vásárlónak.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../19/input.txt ../19/output.txt

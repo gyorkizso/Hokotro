@@ -1,0 +1,11 @@
+18. Teszteset: Jármű elakadása
+
+A teszt célja annak ellenőrzése, hogy a rendszer helyesen ismeri fel, ha egy jármű a sáv állapota miatt nem tud továbbhaladni.
+Ebben a tesztesetben a jármű elakadásának kiváltó oka a túl sok hó. Azaz, a jármű egy olyan sávban van, melynek állapota "SnowDriftState".
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../18/input.txt ../18/output.txt

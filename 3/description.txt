@@ -1,0 +1,12 @@
+3. Teszteset: Jármű mozgatása
+
+Ez a teszteset azt hivatott ellenőrizni, hogy egy adott busz képes-e a kiválasztott sávba átmenni. Először létrehozunk egy egyszerű úthálózatot,
+mely mindössze csak egy "Road" objektumból áll, illetve 4 sávból. A létrehozott busznak (Bus1) sikeresen sávot kellene váltania úgy, hogy
+a "Lane1"-ből a "Lane2"-be megy át.
+
+A teszteset fájljai a következők:
+- input.txt: A teszteset kezdeti konfigurációja.
+- output.txt: A teszteset várható kimenete.
+- act.txt: A teszteset végrehajtásához szükséges parancsok.
+
+A teszteset futtatása a /src mappából: java Main ../3/input.txt ../3/output.txt
