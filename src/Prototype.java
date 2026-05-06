@@ -122,12 +122,19 @@ public class Prototype {
 
     public void set(SetType type, String name, Object value){
         Object obj = get(name);
+        if (obj == null) return; // Biztonsági ellenőrzés
+
         switch (type){
             case Snow:
-                ((Lane) obj).setSnowAmount((Integer) value);
+                // String-ként kezeljük a value-t és parsoljuk
+                int snow = Integer.parseInt(value.toString());
+                //((Lane) obj).setSnowAmount((Integer) value);
+                ((Lane) obj).setSnowAmount(snow);
                 break;
             case Ice:
-                ((Lane) obj).setIceAmount((Integer) value);
+                int ice = Integer.parseInt(value.toString());
+                ((Lane) obj).setIceAmount(ice);
+                //((Lane) obj).setIceAmount((Integer) value);
                 break;
             case Blocked:
                 ((Lane) obj).addLaneState(new BlockedState((Lane) obj));
