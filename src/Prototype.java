@@ -142,6 +142,9 @@ public class Prototype {
             case Salted:
                 ((Lane) obj).addLaneState(new SaltedState((Lane) obj, 1));
                 break;
+            case Gravel:
+                ((Lane) obj).addLaneState(new GravelState((Lane) obj));
+                break;
         }
     }
 

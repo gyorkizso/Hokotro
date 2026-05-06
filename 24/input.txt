@@ -1,12 +1,14 @@
+create_intersection
+create_intersection
+create_road Intersection1 Intersection2 4
 create_match
-
-load broom_side_push.txt
-set_random global off
+set Snow Lane1 10
+create_snowplow Lane1
 start_match
-print lane lcenter
-print lane lside
-change_plow_head snowplow1 BROOM
-use_head snowplow1 BROOM
-print lane lcenter
-print lane lside
+print Lanes Lane1
+print Lanes Lane2
+change_plow_head Snowplow1 Broom
+use_head Snowplow1 Broom
+print Lanes Lane1
+print Lanes Lane2
 exit

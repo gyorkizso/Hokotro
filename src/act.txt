@@ -1,6 +1,0 @@
-load input.txt
-start_match
-next_turn
-next_turn
-next_turn
-exit

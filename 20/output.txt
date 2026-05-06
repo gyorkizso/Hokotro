@@ -1,0 +1,77 @@
+Intersection típusú objektum létrehozva Intersection1 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Intersection típusú objektum létrehozva Intersection2 névvel, ezekkel a konstruktor paraméterekkel: id=, 
+Road típusú objektum létrehozva Road1 névvel, ezekkel a konstruktor paraméterekkel: first=Intersection1, second=Intersection2, 
+Lane típusú objektum létrehozva Lane1 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane1, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane2 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane2, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane3 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane3, ) meghívva
+Road1.addLane visszatért
+Lane típusú objektum létrehozva Lane4 névvel, ezekkel a konstruktor paraméterekkel: road=null, isTunnel=false, 
+Road1.addLane(lane=Lane4, ) meghívva
+Road1.addLane visszatért
+Intersection1.connectRoad(road=Road1, ) meghívva
+Intersection1.connectRoad visszatért
+Intersection2.connectRoad(road=Road1, ) meghívva
+Intersection2.connectRoad visszatért
+RoadNetwork típusú objektum létrehozva RoadNetwork1 névvel
+RoadNetwork1.addRoad(road=Road1, ) meghívva
+RoadNetwork1.addRoad visszatért
+RoadNetwork1.addIntersection(intersection=Intersection2, ) meghívva
+RoadNetwork1.addIntersection visszatért
+RoadNetwork1.addIntersection(intersection=Intersection1, ) meghívva
+RoadNetwork1.addIntersection visszatért
+Match típusú objektum létrehozva Match1 névvel, ezekkel a konstruktor paraméterekkel: players=[], vehicles=[], network=RoadNetwork1, 
+WeatherSystem típusú objektum létrehozva WeatherSystem1 névvel, ezekkel a konstruktor paraméterekkel: network=RoadNetwork1, snowfallRate=1, 
+Lane1.setSnowAmount(amount=10, ) meghívva
+Lane1.setSnowAmount visszatért
+Snowplow típusú objektum létrehozva Snowplow1 névvel, ezekkel a konstruktor paraméterekkel: currentLane=Lane1, speed=10, 
+Match1.start() meghívva
+Match1.start visszatért
+STATE Lane1: laneState={ }, vehicles={ Lane1.getVehicles() meghívva
+Lane1.getVehicles visszatért [] értékkel
+Lane1.getRoad() meghívva
+Lane1.getRoad visszatért
+}, road=null
+Snowplow1.getCurrentLane() meghívva
+Snowplow1.getCurrentLane visszatért Lane1 értékkel
+Gravel típusú objektum létrehozva Gravel1 névvel, ezekkel a konstruktor paraméterekkel: amount=1, unitName=kg, owner=Snowplow1, 
+Gravel típusú objektum létrehozva Gravel2 névvel, ezekkel a konstruktor paraméterekkel: amount=1, unitName=kg, owner=Snowplow1, 
+GravelSpreaderHead típusú objektum létrehozva GravelSpreaderHead1 névvel, ezekkel a konstruktor paraméterekkel: plow=Snowplow1, targetLane=Lane1, gravelSupply=Gravel2, 
+Snowplow1.equipHead(GravelSpreaderHead@5acf9800=GravelSpreaderHead1, ) meghívva
+Snowplow1.equipHead visszatért
+Snowplow1.getCurrentLane() meghívva
+Snowplow1.getCurrentLane visszatért Lane1 értékkel
+Gravel típusú objektum létrehozva Gravel1 névvel, ezekkel a konstruktor paraméterekkel: amount=1, unitName=kg, owner=Snowplow1, 
+Gravel típusú objektum létrehozva Gravel3 névvel, ezekkel a konstruktor paraméterekkel: amount=1, unitName=kg, owner=Snowplow1, 
+GravelSpreaderHead típusú objektum létrehozva GravelSpreaderHead2 névvel, ezekkel a konstruktor paraméterekkel: plow=Snowplow1, targetLane=Lane1, gravelSupply=Gravel3, 
+Snowplow1.equipHead(GravelSpreaderHead@36baf30c=GravelSpreaderHead2, ) meghívva
+Snowplow1.equipHead visszatért
+Snowplow1.work() meghívva
+Lane1.getRoad() meghívva
+Lane1.getRoad visszatért
+Snowplow1.work visszatért
+STATE Lane1: laneState={ }, vehicles={ Lane1.getVehicles() meghívva
+Lane1.getVehicles visszatért [] értékkel
+Lane1.getRoad() meghívva
+Lane1.getRoad visszatért
+}, road=null
+Snowplow1.getCurrentLane() meghívva
+Snowplow1.getCurrentLane visszatért Lane1 értékkel
+Gravel típusú objektum létrehozva Gravel1 névvel, ezekkel a konstruktor paraméterekkel: amount=1, unitName=kg, owner=Snowplow1, 
+Gravel típusú objektum létrehozva Gravel4 névvel, ezekkel a konstruktor paraméterekkel: amount=1, unitName=kg, owner=Snowplow1, 
+GravelSpreaderHead típusú objektum létrehozva GravelSpreaderHead3 névvel, ezekkel a konstruktor paraméterekkel: plow=Snowplow1, targetLane=Lane1, gravelSupply=Gravel4, 
+Snowplow1.equipHead(GravelSpreaderHead@5ca881b5=GravelSpreaderHead3, ) meghívva
+Snowplow1.equipHead visszatért
+Snowplow1.work() meghívva
+Lane1.getRoad() meghívva
+Lane1.getRoad visszatért
+Snowplow1.work visszatért
+STATE Lane1: laneState={ }, vehicles={ Lane1.getVehicles() meghívva
+Lane1.getVehicles visszatért [] értékkel
+Lane1.getRoad() meghívva
+Lane1.getRoad visszatért
+}, road=null
