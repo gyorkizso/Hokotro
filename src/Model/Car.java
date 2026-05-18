@@ -1,0 +1,66 @@
+package Model;
+
+import java.util.List;
+
+/**
+ * A Model.Car számítógép által vezérelt normál jármű.
+ *
+ * Felelőssége, hogy a legrövidebb járható úton haladjon a célja felé.
+ * Jégpáncélon csúszásra hajlamos, ütközés esetén pedig akadályt képezhet.
+ *
+ * Asszociáció:
+ * - destination: az a célállomás, ami felé halad
+ */
+public class Car extends Vehicle {
+    RoadNetwork network;
+
+    /**
+     * Létrehoz egy új autót.
+     *
+     * @param currentLane az aktuális sáv
+     * @param destination a célállomás
+     * @param speed a jármű sebessége
+     */
+    public Car(Lane currentLane, RoadNetwork network, Object destination, int speed) {
+        super(currentLane, null, speed);
+        this.network = network;
+        this.destination = destination;
+        Skeleton.instance.createObject(this, "currentLane", currentLane, "network", network, "speed", speed);
+    }
+
+    /**
+     * Végrehajtja az autó körét.
+     */
+    public void executeTurn() {
+        Skeleton.instance.methodCall(this, "executeTurn");
+        List<Road> shortestPath = network.findShortestPath(currentLane, getDestination());
+        if (shortestPath.size() == 0){
+            active = false;
+            Skeleton.instance.methodReturn(this, "executeTurn");
+            return;
+        }
+        Road nextRoad = shortestPath.get(0);
+        for (Lane lane : nextRoad.getLanes()) {
+            if (tryMoveTo(lane)) {
+                Skeleton.instance.methodReturn(this, "executeTurn");
+                return;
+            }
+        }
+        Skeleton.instance.methodReturn(this, "executeTurn");
+    }
+
+    /**
+     * Kezeli az ütközés eseményét.
+     */
+    @Override
+    public void onCollision() {
+        Skeleton.instance.methodCall(this, "onCollision");
+        currentLane.addLaneState(new BlockedState(currentLane));
+        Skeleton.instance.methodReturn(this, "onCollision");
+    }
+
+    @Override
+    public void accept(VehicleVisitor visitor) {
+        visitor.visit(this);
+    }
+}
