@@ -15,20 +15,20 @@ public class Main {
 
     static List<String> state;
 
-    public static void reset(){
+    public static void reset() {
         new Skeleton();
         prototype = new Prototype();
         state = new ArrayList<>();
     }
 
-    public static void help(){
+    public static void help() {
         System.out.println("Használható parancsokért lásd a dokumentáció 7.1.2 fejezetét.");
     }
 
-    public static void save(String fileName){
+    public static void save(String fileName) {
         try {
             PrintStream file = new PrintStream(new FileOutputStream(fileName));
-            for (String line : state){
+            for (String line : state) {
                 file.println(line);
             }
         } catch (FileNotFoundException e) {
@@ -36,7 +36,7 @@ public class Main {
         }
     }
 
-    public static InputStream load(String fileName){
+    public static InputStream load(String fileName) {
         try {
             return new FileInputStream(fileName);
         } catch (FileNotFoundException e) {
@@ -45,7 +45,7 @@ public class Main {
         return null;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         reset();
         InputStream start = System.in;
 
@@ -53,17 +53,18 @@ public class Main {
 
         window.add(new Map());
 
-        window.setSize(600,600);
+        window.setSize(1000, 1000);
         window.setVisible(true);
     }
-    static void execute(InputStream stream){
+
+    static void execute(InputStream stream) {
         Scanner scanner = new Scanner(stream);
-        while(scanner.hasNext()) {
+        while (scanner.hasNext()) {
             String line = scanner.nextLine();
             String[] words = line.split(" ");
             String command = words[0].toLowerCase();
 
-            if (command.equals("exit")){
+            if (command.equals("exit")) {
                 break;
             }
 
@@ -130,10 +131,9 @@ public class Main {
                     break;
 
                 case "print":
-                    if (words.length > 2){
+                    if (words.length > 2) {
                         prototype.print(PrintType.valueOf(words[1]), words[2]);
-                    }
-                    else {
+                    } else {
                         prototype.print(PrintType.valueOf(words[1]));
                     }
                     break;

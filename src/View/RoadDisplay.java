@@ -1,9 +1,6 @@
 package View;
 
-import Model.Intersection;
-import Model.Lane;
-import Model.Road;
-import Model.RoadNetwork;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +22,26 @@ public class RoadDisplay extends JComponent {
 
         road = new Road(i1.getIntersection(), i2.getIntersection());
         for (int i = 0; i < Integer.parseInt(words[3]); i++) {
-            road.addLane(new Lane());
+            Lane lane = new Lane();
+            switch (i){
+                case 1:
+                    lane.addLaneState(new BlockedState(lane));
+                    break;
+                case 2:
+                    lane.addLaneState(new IceSheetState(lane));
+                    break;
+                case 3:
+                    lane.addLaneState(new SnowyState(lane));
+                    break;
+                case 4:
+                    lane.addLaneState(new SnowdriftState(lane));
+                    break;
+                default:
+                    lane.addLaneState(new ClearState(lane));
+                    break;
+            }
+            road.addLane(lane);
+
         }
 
         i1.getIntersection().connectRoad(road);
@@ -61,24 +77,44 @@ public class RoadDisplay extends JComponent {
         double spacing = (double) i1.getWidth() / Math.max(4, lanes);
         double offset = -spacing/2;
         if (lanes % 2 == 1){
+            drawLane(g, road.getLanes().get(lanes-1), n1,n2,center1.x,center1.y,center2.x,center2.y);
             lanes--;
             offset = 0;
-            drawLane(g, n1,n2,center1.x,center1.y,center2.x,center2.y);
         }
 
         for (int i = 1; i <= lanes/2; i++) {
             double posX = n1 * ((i) * spacing + offset);
             double posY = n2 * ((i) * spacing + offset);
-            drawLane(g, n1,n2,center1.x + (int) posX, center1.y + (int) posY, center2.x + (int) posX, center2.y + (int) posY);
+            drawLane(g, road.getLanes().get(2*i-1),n1,n2,center1.x + (int) posX, center1.y + (int) posY, center2.x + (int) posX, center2.y + (int) posY);
             posX *= -1;
             posY *= -1;
-            drawLane(g, n1,n2,center1.x + (int) posX, center1.y + (int) posY, center2.x + (int) posX, center2.y + (int) posY);
+            drawLane(g, road.getLanes().get(2*i-2), n1,n2,center1.x + (int) posX, center1.y + (int) posY, center2.x + (int) posX, center2.y + (int) posY);
         }
     }
 
-    void drawLane(Graphics g, double n1, double n2, int x1, int y1, int x2, int y2){
-        Polygon lane = new Polygon();
+    void drawLane(Graphics g, Lane l, double n1, double n2, int x1, int y1, int x2, int y2){
+        Color color = null;
+        switch (l.getLaneStates().getFirst().getClass().getSimpleName()){
+            case "SnowyState":
+                color = Color.gray;
+                break;
+            case "SnowdriftState":
+                color = Color.WHITE;
+                break;
+            case "IceSheetState":
+                color = Color.BLUE;
+                break;
+            default:
+                color = Color.BLACK;
+                break;
+        }
+        if (l.getLaneStates().stream().anyMatch((state) -> state instanceof BlockedState)){
+            color = Color.RED;
+        }
+        g.setColor(color);
         double thickness = 2.0;
+
+        Polygon lane = new Polygon();
         lane.addPoint(x1 + (int) (n1 * thickness), y1 + (int) (n2 * thickness));
         lane.addPoint(x2 + (int) (n1 * thickness), y2 + (int) (n2 * thickness));
         lane.addPoint(x2 - (int) (n1 * thickness), y2 - (int) (n2 * thickness));
