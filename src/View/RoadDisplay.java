@@ -20,26 +20,17 @@ public class RoadDisplay extends JComponent {
          i2 =
          intersections.stream().filter((i) -> i.getIntersection().getId().equals(words[2])).findFirst().get();
 
+         boolean isTunnel = false;
+        if (words.length > 4) {
+            if (words[4].equals("t")) {
+                isTunnel = true;
+            }
+        }
+
         road = new Road(i1.getIntersection(), i2.getIntersection());
         for (int i = 0; i < Integer.parseInt(words[3]); i++) {
-            Lane lane = new Lane();
-            switch (i){
-                case 1:
-                    lane.addLaneState(new BlockedState(lane));
-                    break;
-                case 2:
-                    lane.addLaneState(new IceSheetState(lane));
-                    break;
-                case 3:
-                    lane.addLaneState(new SnowyState(lane));
-                    break;
-                case 4:
-                    lane.addLaneState(new SnowdriftState(lane));
-                    break;
-                default:
-                    lane.addLaneState(new ClearState(lane));
-                    break;
-            }
+            Lane lane = new Lane(road, isTunnel);
+            lane.addLaneState(new ClearState(lane));
             road.addLane(lane);
 
         }
@@ -72,6 +63,16 @@ public class RoadDisplay extends JComponent {
         //kereszteződések középpontjainak meghatározása az út kordinátájához relatívan
         Point center1 = new Point(i1.getX() - getX() + i1.getWidth()/2,  i1.getY()- getY() + i1.getHeight()/2);
         Point center2 = new Point( i2.getX() - getX() + i2.getWidth()/2,  i2.getY() - getY() + i2.getHeight()/2);
+
+        if (road.getLanes().getFirst().isTunnel()){
+            Polygon tunnel = new Polygon();
+            tunnel.addPoint((int) (center1.x + i1.getWidth()/2 * n1), (int) (center1.y + i1.getHeight()/2 * n2));
+            tunnel.addPoint((int) (center2.x + i1.getWidth()/2 * n1), (int) (center2.y + i1.getHeight()/2 * n2));
+            tunnel.addPoint((int) (center2.x - i1.getWidth()/2 * n1), (int) (center2.y - i1.getHeight()/2 * n2));
+            tunnel.addPoint((int) (center1.x - i1.getWidth()/2 * n1), (int) (center1.y - i1.getHeight()/2* n2));
+            g.setColor(Color.darkGray);
+            g.fillPolygon(tunnel);
+        }
 
         int lanes = road.getLanes().size();
         double spacing = (double) i1.getWidth() / Math.max(4, lanes);
