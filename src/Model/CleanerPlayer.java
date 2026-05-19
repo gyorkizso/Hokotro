@@ -135,4 +135,9 @@ public class CleanerPlayer extends Player {
 
         return score;
     }
+
+    @Override
+    public void accept(PlayerVisitor visitor) {
+        visitor.visit(this);
+    }
 }

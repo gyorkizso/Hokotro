@@ -121,4 +121,9 @@ public class RoadDisplay extends JComponent {
         lane.addPoint(x1 - (int) (n1 * thickness), y1 - (int) (n2 * thickness));
         g.fillPolygon(lane);
     }
+
+    public void addVehicle(VehicleDisplay vehicleDisplay, int lane) {
+        add(vehicleDisplay);
+        //TODO: vehicleDisplay elhelyezése a megfelelő sávba
+    }
 }

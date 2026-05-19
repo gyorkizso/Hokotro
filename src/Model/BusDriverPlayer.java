@@ -99,4 +99,9 @@ public class BusDriverPlayer extends Player {
         Skeleton.instance.methodReturn(this, "getScore", score);
         return score;
     }
+
+    @Override
+    public void accept(PlayerVisitor visitor) {
+        visitor.visit(this);
+    }
 }

@@ -119,4 +119,8 @@ public class BusRoute {
         }
         Skeleton.instance.methodReturn(this, "completeIfTerminalsReached");
     }
+
+    public List<RoutePoint> getRoutePoints(){
+        return routePoints;
+    }
 }

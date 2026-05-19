@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Map extends JPanel implements VehicleVisitor {
+public class Map extends JPanel implements PlayerVisitor {
     Player perspectivePlayer;
 
     List<IntersectionDisplay> intersections = new ArrayList<>();
@@ -41,18 +41,27 @@ public class Map extends JPanel implements VehicleVisitor {
         }
     }
 
-    public void visit(Car vehicle) {
-        VehicleDisplay display = new CarDisplay();
-        add(display);
+    public void setPerspective(Player player){
+        perspectivePlayer = player;
+
+        player.accept(this);
     }
 
-    public void visit(Bus vehicle) {
-        VehicleDisplay display = new BusDisplay();
-        add(display);
+    public void addVehicle(Vehicle vehicle, RoadDisplay location){
+        VehicleDisplayFactory factory = new VehicleDisplayFactory(location);
+        add(factory.getDisplay(vehicle));
     }
 
-    public void visit(Snowplow vehicle) {
-        VehicleDisplay display = new SnowplowDisplay();
-        add(display);
+    @Override
+    public void visit(BusDriverPlayer player) {
+        BusRoute route = ((Bus)player.getVehicle()).getActiveRoute();
+        for (IntersectionDisplay i : intersections){
+             i.setHasStop(route.getRoutePoints().stream().anyMatch(point -> point.getLocation().equals(i.getIntersection())));
+        }
+    }
+
+    @Override
+    public void visit(CleanerPlayer player) {
+
     }
 }

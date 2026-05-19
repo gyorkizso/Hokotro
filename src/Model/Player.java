@@ -137,4 +137,6 @@ public abstract class Player {
 
         Skeleton.instance.methodReturn(this, "setWallet");
     }
+
+    public abstract void accept(PlayerVisitor visitor);
 }

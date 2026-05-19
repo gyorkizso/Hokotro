@@ -60,7 +60,7 @@ public abstract class RoutePoint {
      * Visszaadja a pont fizikai helyét reprezentáló csomópontot.
      * @return a pont helye
      */
-    Intersection getLocation() {
+    public Intersection getLocation() {
         Skeleton.instance.methodCall(this, "getLocation");
         Skeleton.instance.methodReturn(this, "getLocation", location);
         return location;
